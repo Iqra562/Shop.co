@@ -5,7 +5,46 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+        keyframes: {
+        slideInLeftTechStack: {
+          '0%': { transform: 'translateX(50.5rem)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+        slideDown: {
+          '0%': { maxHeight: '0', opacity: '0' },
+          '100%': { maxHeight: '500px', opacity: '1' },
+        },
+        slideUp: {
+          '0%': { maxHeight: '500px', opacity: '1' },
+          '100%': { maxHeight: '0', opacity: '0' },
+        },
+        slideInLeft: {
+          '0%': { transform: 'translateX(50.5rem)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+        slideOutLeft: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(50rem)' },
+        },
+        fadeInOut: {
+          '0%': { opacity: '0', transform: 'scale(0.8)' },
+          '50%': { opacity: '1', transform: 'scale(1)' },
+          '100%': { opacity: '0', transform: 'scale(0.8)' },
+        },
+
+      },
+      animation: {
+        slideDown: 'slideDown 0.4s ease forwards',
+        slideUp: 'slideUp 0.4s ease forwards',
+        slideInLeftTechStack: 'slideInLeftTechStack 0.5s ease-out forwards',
+        slideInLeft: 'slideInLeft 0.2s ease-out forwards',
+        slideOutLeft: 'slideOutLeft 0.2s ease-in forwards',
+        fadeInOut: 'fadeInOut 3s ease-in-out infinite',
+        fadeInOutDelay: 'fadeInOut 3s ease-in-out infinite ',
+
+      },
+    },
   },
   plugins: [],
 }
