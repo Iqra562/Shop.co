@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens:{
+       hd:'2560px'
+      },
         keyframes: {
         slideInLeftTechStack: {
           '0%': { transform: 'translateX(50.5rem)' },

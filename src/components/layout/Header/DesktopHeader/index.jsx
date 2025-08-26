@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaChevronDown, FaPhoneAlt } from "react-icons/fa";
-import logo from "../../../assets/images/logo.png";
+import logo from "../../../../assets/images/logo.png";
 import { MdMenu } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
@@ -55,7 +55,7 @@ const handleSubMenuToggle=()=>{
             : "-translate-y-full    bg-white"
         }`}
       >
-        <div className="container flex items-center justify-between ">
+        <div className="hd:container flex items-center justify-between ">
           {/* Logo */}
           <div className="flex items-center space-x-2">
                          <img src={logo} alt="" className="w-10" />
@@ -91,10 +91,12 @@ const handleSubMenuToggle=()=>{
            <div className="flex items-center space-x-1   ">
                  <span><HiOutlineShoppingBag />
          </span>
-         <span>
+         <Link to='/login'>
+         <span className="" >
          
                  Login
          </span>
+         </Link>
          
               </div>
 

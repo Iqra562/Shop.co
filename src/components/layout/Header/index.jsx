@@ -9,7 +9,7 @@ const navItems = [
   { label: "Contact Us", link: '/' },
 ];
 
-function Header({ gradient = false,glassEffect=false }) { 
+export function Header({ gradient = false,glassEffect=false }) { 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [shouldRender, setShouldRender] = useState(false);
   const [openSubmenuIndex, setOpenSubmenuIndex] = useState(null);
@@ -60,4 +60,3 @@ function Header({ gradient = false,glassEffect=false }) {
   );
 }
 
-export default Header;
