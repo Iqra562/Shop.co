@@ -4,7 +4,7 @@ import  {Home} from './features/public'
 import { WebLayout,DashboardLayout } from "./layouts";
 import { Sidebar } from "./components/layout/Sidebar";
 import { Dashboard } from "./features/admin/dashoard";
-
+import './App.css'
 export default function App() {
   return (
     <>

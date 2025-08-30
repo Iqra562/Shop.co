@@ -1,5 +1,0 @@
-.ul-list::before{
-  content: '';
-  width: 2px;
-  background-color: red;
-}

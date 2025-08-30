@@ -88,3 +88,39 @@
   transform: translateY(-50%); 
   max-width: 0;
 }
+
+
+
+  /* scrollbar  */
+  ::-webkit-scrollbar {
+  width: 6px;
+}
+
+  ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #c1c0c2 !important;
+      /* Thumb color */
+      border-radius: 10px;
+      /* Sharp edges, no rounded corners */
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: transparent;
+      /* Track color */
+      border-radius: 0;
+      /* Sharp edges for the track */
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #e9e5e7;
+      /* Thumb color on hover */
+    }
+
+  
+
+
+
+

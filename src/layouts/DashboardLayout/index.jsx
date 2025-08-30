@@ -7,7 +7,7 @@ export const DashboardLayout=()=>{
         <div className="flex">
 <div className="">
 
-        <Sidebar/>
+        <Sidebar />
 </div>
 <div className="w-full">
 
