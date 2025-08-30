@@ -1,13 +1,19 @@
-// import { Outlet } from "react-router-dom";
-// import Header from "../../components/Header";
-// import Footer from "../../components/Footer";
+import { Outlet } from "react-router-dom";
+import { Sidebar } from "../../components/layout/Sidebar";
+import { Navbar } from "../../components/layout/Navbar";
 
-// export const DashboardLayout=()=>{
-//     return(
-//         <>
-//       <Header/>
-//       <Outlet/>
-//       <Footer/>
-//         </>
-//     )
-// }
+export const DashboardLayout=()=>{
+    return(
+        <div className="flex">
+<div className="">
+
+        <Sidebar/>
+</div>
+<div className="w-full">
+
+        <Navbar/>
+      <Outlet/>
+</div>
+        </div>
+    )
+}

@@ -47,7 +47,7 @@ const handleSubMenuToggle=()=>{
       {/* Header for desktop */}
 
       <header
-        className={` w-full   z-50 py-6 transition-all duration-300 transform px-4 ${
+        className={` w-full   z-50 py-6 transition-all duration-300 transform px-4  ${
           atTop
             ? ` translate-y-0 bgtransparent duration-100 text-black bg-white `
             : showHeader

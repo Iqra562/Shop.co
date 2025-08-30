@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 @layer utilities {
   .container {
     max-width: 1536px;
@@ -54,4 +56,35 @@
       max-width: 1340px;
     }
   }
+}
+.ul-list {
+  position: relative; /* needed so ::before positions relative to ul */
+  list-style: none;   /* remove default bullets */
+  margin: 0;
+}
+ 
+.ul-list::before {
+  content: '';
+  position: absolute;
+  left: 18px;          
+  top: 0;           
+  width: 2px;       
+  height:calc(100% - 23px);     
+  background-color: rgb(230, 237, 229);
+}
+
+.li-list {
+  position: relative;
+  padding-left: 20px; 
+}
+
+.li-list::before {
+  content: url("./assets/images/icon.svg");
+  background-color: antiquewhite;
+  position: absolute;
+  left: 6px;
+  top: 40%;
+  right: 10px;
+  transform: translateY(-50%); 
+  max-width: 0;
 }

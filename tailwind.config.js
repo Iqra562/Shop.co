@@ -35,6 +35,11 @@ export default {
           '50%': { opacity: '1', transform: 'scale(1)' },
           '100%': { opacity: '0', transform: 'scale(0.8)' },
         },
+       borderGradient: {
+          '0%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' },
+        },
 
       },
       animation: {
@@ -45,6 +50,8 @@ export default {
         slideOutLeft: 'slideOutLeft 0.2s ease-in forwards',
         fadeInOut: 'fadeInOut 3s ease-in-out infinite',
         fadeInOutDelay: 'fadeInOut 3s ease-in-out infinite ',
+                borderGradient: 'borderGradient 10s linear infinite',
+
 
       },
     },

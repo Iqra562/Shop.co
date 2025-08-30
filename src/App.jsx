@@ -1,7 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import { Signup,Login } from "./features/auth";
 import  {Home} from './features/public'
-import { WebLayout } from "./layouts";
+import { WebLayout,DashboardLayout } from "./layouts";
+import { Sidebar } from "./components/layout/Sidebar";
+import { Dashboard } from "./features/admin/dashoard";
 
 export default function App() {
   return (
@@ -12,13 +14,14 @@ export default function App() {
 
         <Route path="/" element={<Home/>} />
         </Route>
-        {/* <Route element={<DashboardLayout/>}>
+        <Route element={<DashboardLayout/>}>
 
-        <Route path="/" element={<Home/>} />
-        </Route> */}
+        <Route path="/dashboard" element={<Dashboard/>} />
+        </Route>
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<Signup/>} />
       </Routes>
+      
     </>
   )
 }
