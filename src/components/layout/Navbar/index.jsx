@@ -8,12 +8,12 @@ export function Navbar() {
       const [position, setPosition] = useState('end');
 
     return (
-        <div className="w-full py-7 px-10 bgwhite/5 flex justify-between items-center  h-20 sticky top-0 ">
+        <div className="w-full py-7 px-10 bg-white/5 flex justify-between items-center  h-20 sticky top-0 ">
             <div className=" ">Team1 </div>
             <div className='flex items-center space-x-4'>
        
           
-          <Button icon={<SearchOutlined />} iconPosition={position} defaultHoverBorderColor='black' defaultColor='red'  className="!hover:border-black !hover:text-black border-gray-300"
+          <Button icon={<SearchOutlined />} iconPosition={position}   className="!hover:border-black !hover:text-black border-gray-300"
 >
             Search
           </Button>
