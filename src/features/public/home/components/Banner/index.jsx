@@ -9,9 +9,16 @@ import product1 from '@assets/images/product1.jpg'
 import product2 from '@assets/images/product2.jpg'
 import { RiHeartFill } from "react-icons/ri";
 import Card from '@components/common/Card'
-
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { productServices } from '../../../../../services/product.service'
+import axios from 'axios'
 
 function Banner(){
+   const { data: productsData, isLoading, error } = useQuery({
+    queryKey: ["products"],
+    queryFn: productServices.getProduct,
+  });
+  console.log(productsData)
     return(
   <>
   <div className="px-4 md:px-10 rounded-sm overflo-hidden ">
@@ -74,9 +81,13 @@ function Banner(){
       <div className='container mt-12'>
         <h2 className='text-2xl font-semibold capitalize mb-4'>Top products</h2>
         <div className='flex  flex-col md:flex-row justify-between md:space-x-5'>
-         <Card/>
-         <Card/>
-         <Card/>
+          { productsData?.data?.data?.map((data)=>(
+            <Card productName = {data.name}   description={data.description} price={data.price} img={data.thumbnail.url}/>
+
+          ))
+
+          }
+       
         </div>
       </div>
               
