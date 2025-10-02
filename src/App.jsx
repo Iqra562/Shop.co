@@ -6,26 +6,18 @@ import { Sidebar } from "./components/layout/Sidebar";
 import { Dashboard } from "./features/admin/dashoard";
 import './App.css'
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-const queryClient = new QueryClient({
-defaultOptions : {
-  queries : {
-    refetchOnwindowFocus : false,
-    refetchOnmount:false,
-    refetchOnReconnect : false,
-    retry: 0,
-    staleTime : 5 * 1000,
-  },
-},
-});
+import AuthContextProvider, { AuthContext } from "./context/AuthContext";
+import { useContext } from "react";
+
 export default function App() {
-  
+  const {isAuthenticated} = useContext(AuthContext)
   return (
     <>
-     <QueryClientProvider client={queryClient}>
-      
-        <BrowserRouter>
+    
+  
       
        <Routes>
+        
         <Route element={<WebLayout/>}>
         <Route path="/" element={<Home/>} />
         </Route>
@@ -33,12 +25,19 @@ export default function App() {
 
         <Route path="/dashboard" element={<Dashboard/>} />
         </Route>
-        <Route path="/login" element={<Login/>} />
-        <Route path="/signup" element={<Signup/>} />
+        {!isAuthenticated  &&(
+
+        <Route >
+          
+          <Route path="/signup" element={<Signup/>} />
+          <Route path="/login" element={<Login/>} />
+                  </Route>
+
+        )
+      }     
       </Routes>
-           </BrowserRouter>
        
-     </QueryClientProvider>
+  
     </>
   )
 }

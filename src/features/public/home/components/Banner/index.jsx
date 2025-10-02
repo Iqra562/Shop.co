@@ -16,7 +16,7 @@ import axios from 'axios'
 function Banner(){
    const { data: productsData, isLoading, error } = useQuery({
     queryKey: ["products"],
-    queryFn: productServices.getProduct,
+    queryFn: productServices.getProducts,
   });
   console.log(productsData)
     return(

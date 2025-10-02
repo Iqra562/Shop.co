@@ -2,15 +2,15 @@ import { ApiService } from "../utils/Api.service";
 
 
 const productServiceUrl = {
-    product : "/products",
+    products : "/products",
 }
 
-const getProduct = ()=>{
-    const response = ApiService.get(`${productServiceUrl.product}/get-product`);
+const getProducts = ()=>{
+    const response = ApiService.get(`${productServiceUrl.products}/get-product`);
     return response;
 }
 
 
 export const productServices = {
-    getProduct,
+    getProducts,
 }

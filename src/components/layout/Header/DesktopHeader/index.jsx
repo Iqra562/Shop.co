@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use, useContext } from "react";
 import { FaChevronDown, FaPhoneAlt } from "react-icons/fa";
 import logo from "../../../../assets/images/logo.png";
 import { MdMenu } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
+import { useMutation } from "@tanstack/react-query";
+import { AuthContext } from "../../../../context/AuthContext";
+import { userServices } from "../../../../services/user.service";
 // import { routes } from "../../../config/utilities/utils.constant";
 
 function DesktopHeader({glassEffect = false, gradient = false, navItems, toggleMenuOpen }) {
@@ -11,8 +14,17 @@ function DesktopHeader({glassEffect = false, gradient = false, navItems, toggleM
   const [lastScrollY, setLastScrollY] = useState(0);
   const [atTop, setAtTop] = useState(true);
   const [openSubMenuIndex, setOpenSubMenuIndex] = useState(null);
-
-
+  const logoutMutation = useMutation({
+    mutationFn: userServices.logoutUser,
+    onSuccess: (data) => {
+      console.log("Logout success:", data);
+      // clear state, redirect, etc.
+    },
+    onError: (error) => {
+      console.error("Logout failed:", error);
+    },
+  });
+  const {isAuthenticated}= useContext(AuthContext)
   useEffect(() => {
     if (typeof window === "undefined") return;
     const handleScroll = () => {
@@ -91,12 +103,17 @@ const handleSubMenuToggle=()=>{
            <div className="flex items-center space-x-1   ">
                  <span><HiOutlineShoppingBag />
          </span>
-         <Link to='/login'>
+         {isAuthenticated ?( <span onClick={() => logoutMutation.mutate()}>
+      {logoutMutation.isLoading ? "Logging out..." : "Logout"}
+    </span>):( <Link to='/login'>
          <span className="" >
          
                  Login
          </span>
-         </Link>
+         </Link>)
+
+          
+         }
          
               </div>
 
