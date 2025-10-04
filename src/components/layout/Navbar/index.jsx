@@ -26,7 +26,7 @@ export function Navbar() {
       />
     </Badge>
 
-    
+     
                 
                 <div className='relative w-10 h-10 rounded-full p-[2px] 
                 bg-[linear-gradient(270deg,#32CD32,#ffffff,#274690)] 

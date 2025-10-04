@@ -17,7 +17,7 @@ const navigate = useNavigate();
         const [user,setUser] = useState(null);
         const isAdmin = user?.role === "admin";
     
-useEffect(() => {
+useEffect(() => { 
     if (userData) {
       setUser(userData);
       setIsAuthenticated(true);

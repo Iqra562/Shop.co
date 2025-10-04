@@ -5,7 +5,7 @@ import React, { Children, useEffect, useState } from "react";
  function StarfieldBackground({children}) {
   const [dots, setDots] = useState([]);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-  const count = 20;
+  const count = 10;
   const size = 3 ;
   const seed = null
 
@@ -17,27 +17,27 @@ import React, { Children, useEffect, useState } from "react";
     };
   }
 
-  useEffect(() => {
-    // update container size so dots can be positioned correctly
-    function updateSize() {
-      setDimensions({ width: window.innerWidth, height: window.innerHeight });
-    }
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  }, []);
+//   useEffect(() => {
+//     // update container size so dots can be positioned correctly
+//     function updateSize() {
+//       setDimensions({ width: window.innerWidth, height: window.innerHeight });
+//     }
+//     updateSize();
+//     window.addEventListener("resize", updateSize);
+//     return () => window.removeEventListener("resize", updateSize);
+//   }, []);
 
   useEffect(() => {
     const rng = createRng(seed == null ? null : seed);
     const newDots = Array.from({ length: count }).map(() => {
       const margin = Math.max(size, 8);
-      const left = Math.floor(margin + rng() * Math.max(0, (window.innerWidth || dimensions.width) - margin * 2));
-      const top = Math.floor(margin + rng() * Math.max(0, (window.innerHeight || dimensions.height) - margin * 2));
+      const left = Math.floor(margin + rng() * Math.max(0, (window.innerWidth ) - margin * 2));
+      const top = Math.floor(margin + rng() * Math.max(0, (window.innerHeight ) - margin * 2));
       const opacity = 0.75 + rng() * 0.25;
       return { left, top, opacity };
     });
     setDots(newDots);
-  }, [count, size, seed, dimensions.width, dimensions.height]);
+  }, [count, size, seed]);
 
   
 
