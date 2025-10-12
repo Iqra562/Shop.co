@@ -1,16 +1,14 @@
 import React, { useState, useEffect, use, useContext } from "react";
-import { FaChevronDown, FaPhoneAlt } from "react-icons/fa";
 import logo from "../../../../assets/images/logo.png";
 import userIcon from "@assets/images/user.png";
 import { MdMenu } from "react-icons/md";
-import { Link, useLocation } from "react-router-dom";
-import { HiOutlineShoppingBag } from "react-icons/hi2";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { BsCart3 } from "react-icons/bs";
+import { IoCartOutline } from "react-icons/io5";
 import { useMutation } from "@tanstack/react-query";
 import { AuthContext } from "../../../../context/AuthContext";
 import { userServices } from "../../../../services/user.service";
-// import { routes } from "../../../config/utilities/utils.constant";
 import { Button, Dropdown, Space } from 'antd';
-
 function DesktopHeader({
   glassEffect = false,
   gradient = false,
@@ -21,18 +19,20 @@ function DesktopHeader({
   const [lastScrollY, setLastScrollY] = useState(0);
   const [atTop, setAtTop] = useState(true);
   const [openSubMenuIndex, setOpenSubMenuIndex] = useState(null);
+  const navigate = useNavigate();
   const logoutMutation = useMutation({
     mutationFn: userServices.logoutUser,
     onSuccess: (data) => {
-      console.log("Logout success:", data);
-      // clear state, redirect, etc.
+      // console.log("Logout success:", data);
+       navigate("/login");
+       logout();
     },
     onError: (error) => {
       console.error("Logout failed:", error);
     },
   });
-  const { isAuthenticated, user } = useContext(AuthContext);
-  console.log('user',user)
+  const { isAuthenticated, user,logout } = useContext(AuthContext);
+  // console.log('user',user)
   useEffect(() => {
     if (typeof window === "undefined") return;
     const handleScroll = () => {
@@ -127,10 +127,12 @@ const items = [
             </ul>
           </nav>
 
-          <div className="flex items-center space-x-1   ">
+          <div className="flex items-center space-x-3   ">
+            <Link to="/cart">
             <span>
-              <HiOutlineShoppingBag />
+              <BsCart3 className="text-2xl" />
             </span>
+            </Link>
             {isAuthenticated ? (
               <div className="flex">
              
@@ -140,9 +142,9 @@ const items = [
       dropdownRender={() => (
         <div className="p-4 w-64 bg-white shadow-lg rounded-lg">
           <h3 className="text-lg font-bold mb-2">Profile</h3>
-          <p className="text-sm text-gray-600">Hello,{user.data.data.name}</p>
+          <p className="text-sm text-gray-600">Hello,{user.data.data.name || user.data.data.user.name}</p>
           <button className="mt-2 w-full bg-blue-500 text-white py-1 rounded" onClick={() => logoutMutation.mutate()}>
-            Logout
+            Logout 
           </button>
         </div>
       )}

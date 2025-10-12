@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
@@ -10,15 +10,23 @@ import { Input } from "antd";
 import { Alert } from "antd";
 import { useForm, Controller, useController } from "react-hook-form";
 import { LoadingOutlined } from '@ant-design/icons';
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const { login } = useContext(AuthContext);
+  const { isAuthenticated,login } = useContext(AuthContext);
   const [errorMessage,setErrorMessage]=useState('')
   const {
     handleSubmit,
     control,
   } = useForm();
+const navigate = useNavigate();
 
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated]);
   // const { mutateAsync: loginRequest, isPending: loginRequestLoader } =
   //   useMutation({ mutationFn: userServices.loginUser });
  

@@ -13,30 +13,36 @@ const navigate = useNavigate();
   retry: false,
   staleTime: Infinity,
 });
-         const [isAuthenticated,setIsAuthenticated]   = useState(null);
+         const [isAuthenticated,setIsAuthenticated]   = useState(() => !!localStorage.getItem("isAuthenticated"));
         const [user,setUser] = useState(null);
         const isAdmin = user?.role === "admin";
     
 useEffect(() => { 
     if (userData) {
       setUser(userData);
-      setIsAuthenticated(true);
+    localStorage.setItem("isAuthenticated", JSON.stringify(userData));
+    const data = localStorage.getItem("isAuthenticated");
+    setIsAuthenticated(!!data);
 
     } else if (isError) {
       setUser(null);
       setIsAuthenticated(false);
+          localStorage.removeItem("isAuthenticated");  
+
     }
   }, [userData, isError]);
      const login = (userData) => {
-    setUser(userData);
-    setIsAuthenticated(true);
-    console.log(userData)
+   localStorage.setItem("isAuthenticated", JSON.stringify(userData));
+    const data = localStorage.getItem("isAuthenticated");
+    setIsAuthenticated(!!data);
         navigate("/");
 
   };
   const logout = () => {
     setUser(null);
     setIsAuthenticated(false);
+              localStorage.removeItem("isAuthenticated");  
+
   };    
 return(
 

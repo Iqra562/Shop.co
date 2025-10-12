@@ -12,13 +12,14 @@ import Card from '@components/common/Card'
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { productServices } from '../../../../../services/product.service'
 import axios from 'axios'
-
+import { Link } from 'react-router-dom'
+ 
 function Banner(){
    const { data: productsData, isLoading, error } = useQuery({
     queryKey: ["products"],
     queryFn: productServices.getProducts,
   });
-  console.log(productsData)
+  // console.log(productsData)
     return(
   <>
   <div className="px-4 md:px-10 rounded-sm overflo-hidden ">
@@ -51,21 +52,19 @@ function Banner(){
     Free Shipping Over $50 | Easy 7-Day Returns | 24/7 Customer Support
    </p>
            </div>
- <button className="bg-black text-white lg:px-20 py-2 xl:py-4 rounded  lg:w-max">Explore the Collection</button>
+ <button className="bg-black text-white lg:px-20 py-2 xl:py-4 rounded  lg:w-max   bg-gradient-to-r from-[#3a4e66] to-[#537090] ">Explore the Collection</button>
 </div>
             
 
           </div>
         </div>
       </div>
-      <div className='bg-black w-full mt-6 py-4 flex  justify-between overflow-hidden'>
-        <span className='text-white  md:text-2xl font-bold'>Crafted Fashion</span>
-        <span className='text-white  md:text-2xl font-bold'>Crafted Fashion</span>
-        <span className='text-white  md:text-2xl font-bold'>Crafted Fashion</span>
-        <span className='text-white  md:text-2xl font-bold'>Crafted Fashion</span>
-      </div>
-      <div className='container mt-12'>
-        <h2 className='text-2xl font-semibold capitalize mb-4'>Shop by category</h2>
+      {/* <div className='bg-gray-100 w-full mt-6 py-1 flex  justify-center overflow-hidden '>
+        <span className='text-gray-300  md:text-2xl font-bold'>Crafted Fashion</span>
+      
+      </div> */}
+      {/* <div className='container mt-12'>
+        <h2 className='text-2xl font-semibold capitalize mb-4'>Shop by category</h2> 
         <div className='flex flex-col md:flex-row justify-between space-y-5 md:space-x-5'>
             <div className='w-full bg-gray-100 rounded-2xl overflow-hidden'>
                  <img src={product1} alt="" />
@@ -77,12 +76,19 @@ function Banner(){
                  <img src={product1} alt="" />
             </div>
         </div>
-      </div>
+      </div> */}
       <div className='container mt-12'>
+        <div className='flex justify-between'>
+
         <h2 className='text-2xl font-semibold capitalize mb-4'>Top products</h2>
-        <div className='flex  flex-col md:flex-row justify-between md:space-x-5'>
-          { productsData?.data?.data?.map((data)=>(
-            <Card productName = {data.name}   description={data.description} price={data.price} img={data.thumbnail.url}/>
+      <Link to='/products'>
+      
+       <span className='text-sm underline'>View all </span>
+      </Link> 
+        </div>
+        <div className='grid grid-cols-4 gap-4'>
+          { productsData?.data?.data?.slice(0,4).map((data)=>(
+            <Card  id = {data._id} productName = {data.name}   description={data.description} price={data.price} img={data.thumbnail.url}/>
 
           ))
 
