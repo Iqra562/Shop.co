@@ -14,8 +14,11 @@ function Cart() {
   const { data: cartData, isPending, error } = useGetCart();
   const [productQuantity, setProductQuantity] = useState(1);
     const [quantities, setQuantities] = useState({});
-  const {isAuthenticated} = useContext(AuthContext)
-
+  const {isAuthenticated} = useContext(AuthContext);
+  const [itemsSummary,setItemsSummary] = useState([])
+  const [subTotal,setSubTotal] = useState(0);
+  const [shippingFee , setShippingFee] = useState(0);
+  const [total,setTotal]  = useState(0)
   const { id: productId } = useParams();
   // const { data: getProductDataById } = useGetProductById(productId);
   const {mutate: removeCartItem, isPending: removeCartFromLoader }=useMutation({
@@ -49,8 +52,26 @@ const removeCartItemHandler=(id)=>{
         initialQuantities[item._id] = item.quantity; 
       });
       setQuantities(initialQuantities);
+
+}
+// update the item summary when quantity changes
+setItemsSummary((prevSummary) => {
+  const updatedSummary = [...prevSummary];
+    
+  cart.forEach((item) => {
+    const existingIndex = updatedSummary.findIndex(
+      (summaryItem) => summaryItem._id === item._id
+    );
+  // console.log('existing index' , existingIndex)
+    if (existingIndex !== -1) {
+      updatedSummary[existingIndex] = item;
     }
-  }, [cart]);
+  });
+
+  return updatedSummary;
+});
+
+}, [cart]);
 
 const { mutate: cartRequest, isPending: addToCartLoader } = useMutation({
     mutationFn: cartServices.addToCart,
@@ -89,6 +110,34 @@ const { mutate: cartRequest, isPending: addToCartLoader } = useMutation({
   };
  
 
+
+  const totalProductSummaryHandler = (id)=>{
+//  console.log(id)
+ const items = cart.find(item => item._id === id);
+ const isItemInSummaryArray = itemsSummary.find(item=> item._id === id);
+ if(isItemInSummaryArray){
+    setItemsSummary((prev) => prev.filter((summaryItem) => summaryItem._id !== id));
+ }else{
+  setItemsSummary((pre)=>[...pre,items])
+ }
+//  console.log(itemsSummary)
+}
+
+
+console.log(itemsSummary)
+ const orderSummaryCalculation = ()=>{
+   if (itemsSummary.length > 0) {
+    setSubTotal(
+      itemsSummary.reduce((total, item) => {
+        return total + item.product.price * item.quantity;
+      }, 0)
+    );
+    console.log("sjdaslkj");
+  }
+ }
+ useEffect(() => {
+  orderSummaryCalculation();
+}, [itemsSummary]);
   return (
     <section className="container    ">
 
@@ -110,10 +159,12 @@ const { mutate: cartRequest, isPending: addToCartLoader } = useMutation({
       </div>
 ):(
   <div className="flex pt-10">
-        <div className="w-8/12 border-r-2 pr-20 space-y-4 overflow-y-auto min-h-80">
+        <div className="w-8/12 border-r-2 pr-20 space-y-4 overflow-y- min-h-80">
           {cart.map((item, i) => (
-            <div key={i} className="h-36  flex border-slate-100 border shadow-sm shadow-slate-200 rounded-lg px-4 py-4">
-              
+            <div key={i} className="h-36  flex items-start space-x-3 border-slate-100 border shadow-sm shadow-slate-200 rounded-lg px-4 py-4">
+              <input type="checkbox" className="cursor-pointer" onClick={()=>totalProductSummaryHandler(item._id)} />
+              <div className="flex  w-full h-full">
+
               <div className="w-3/12 h-full rounded-md overflow-hidden">
                               <Link to={`/product-details/${item.product._id}`}>
                 <img
@@ -124,7 +175,7 @@ const { mutate: cartRequest, isPending: addToCartLoader } = useMutation({
                   </Link>
               </div>
               
-              <div className="pl-8 w-full flex flex-col justify-between">
+              <div className="pl-8 w-full flex flex-col justify-between ">
                 <div className="flex justify-between  w-full items-center">
                   <h2 className="text-2xl font-bold">{item.product.name}</h2>
                   <span onClick={()=>removeCartItemHandler(item._id)} className="cursor-pointer">
@@ -155,6 +206,8 @@ const { mutate: cartRequest, isPending: addToCartLoader } = useMutation({
                 </div>
               </div>
             </div>
+              </div>
+
           ))}
         </div>
 
@@ -164,8 +217,8 @@ const { mutate: cartRequest, isPending: addToCartLoader } = useMutation({
             <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <h5 className="text-lg text-gray-500">Subtotal:</h5>
-                  <span>$0</span>
+                  <h5 className="text-lg text-gray-500">Subtotal (0 items):</h5>
+                  <span>${subTotal}</span>
                 </div>
                 <div className="flex justify-between">
                   <h5 className="text-lg text-gray-500">Shipping fee:</h5>

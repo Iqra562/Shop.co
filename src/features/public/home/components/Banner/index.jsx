@@ -86,7 +86,7 @@ function Banner(){
        <span className='text-sm underline'>View all </span>
       </Link> 
         </div>
-        <div className='grid grid-cols-4 gap-4'>
+        <div className='grid grid-cols-4 gap-0'>
           { productsData?.data?.data?.slice(0,4).map((data)=>(
             <Card  id = {data._id} productName = {data.name}   description={data.description} price={data.price} img={data.thumbnail.url}/>
 
