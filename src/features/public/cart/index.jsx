@@ -133,11 +133,23 @@ console.log(itemsSummary)
       }, 0)
     );
     console.log("sjdaslkj");
+  }else{
+    setSubTotal(0);
+    setShippingFee(0)
   }
  }
  useEffect(() => {
   orderSummaryCalculation();
+    
 }, [itemsSummary]);
+
+useEffect(()=>{
+
+  if(subTotal !== 0 && shippingFee === 0){
+    setShippingFee(Math.floor(Math.random() * 20)+5)
+  }
+  setTotal(shippingFee + subTotal);
+},[subTotal,shippingFee])
   return (
     <section className="container    ">
 
@@ -222,14 +234,14 @@ console.log(itemsSummary)
                 </div>
                 <div className="flex justify-between">
                   <h5 className="text-lg text-gray-500">Shipping fee:</h5>
-                  <span>$0</span>
+                  <span>${shippingFee}</span>
                 </div>
               </div>
             </div>
             <div className="space-y-3">
               <div className="flex justify-between border-t pt-5">
               <h6 className="text-xl font-bold">Total:</h6>
-              <span className="">$0</span>
+              <span className="">${total}</span>
               </div>
                 
               <button className="bg-black  bg-gradient-to-r from-[#3a4e66] to-[#537090] w-full text-white py-2 rounded-md place-self-end  ">
