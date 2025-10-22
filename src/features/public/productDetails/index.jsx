@@ -86,8 +86,8 @@ function ProductDetails() {
     <section className="container    ">
       {contextHolder}
 
-      <div className="flex pt-10">
-        <div className="w-8/12 border-r-2 pr-20">
+      <div className="flex flex-col  md:flex-row pt-10">
+        <div className="w-full md:w-8/12 md:border-r-2 md:pr-2 lg:pr-20">
           <div className=" h-[  ]  rounded-md overflow-hidden">
             <img
               src={product.thumbnail?.url}
@@ -96,7 +96,7 @@ function ProductDetails() {
             />
           </div>
         </div>
-        <div className="pl-8 space-y-14 w-5/12">
+        <div className="md:pl-8 pt-2 md:pt-0 space-y-4 md:space-y-14 w-full md:w-5/12">
           <div className="flex justify-between items-center ">
             <h2 className="text-3xl font-bold capitalize">{product.name}</h2>
             <span className="block text-[#537090] font-bold text-lg">

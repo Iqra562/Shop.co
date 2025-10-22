@@ -21,7 +21,7 @@ function Signup() {
     useMutation({
       mutationFn: userServices.registerUser,
        onMutate: () => {
-    setErrorMessage(""); // clear previous errors when request starts
+    setErrorMessage(""); 
   },
       onSuccess: (res) => {
         // console.log("logIn success:", res);

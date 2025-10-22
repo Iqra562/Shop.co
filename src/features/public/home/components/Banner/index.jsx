@@ -1,8 +1,9 @@
 // import img1 from '../../assets/images/img2.webp'
-import img1 from '@assets/images/img3.jpg'
+import img2 from '@assets/images/banner3.jpg'
+import img1 from '@assets/images/banner.jpg'
 import img4 from '@assets/images/img4.jpg'
 import img5 from '@assets/images/img5.jpg'
-import img6 from '@assets/images/img7.jpg'
+import img6 from '@assets/images/banner2.jpg'
 import img0 from '@assets/images/img0.jpg'
 import product from '@assets/images/product.jpg'
 import product1 from '@assets/images/product1.jpg'
@@ -28,29 +29,29 @@ function Banner(){
             <img src={img1} alt="" className="w-full md:w-full h-full object-cover object-top " />
           
           </div>
-          <div className="md:w-[60%] flex flex-col   space-x-3 h-full ">
+          <div className="md:w-[60%] flex flex-col   md:space-x-3 h-full ">
            <div className="w-full  flex h-[100px] md:h-[120px] lg:h-[180px]  xl:h-1/2  space-x-2 ">
  
-  <div className="w-[60%] xl:w-[65%] rounded-lg overflow-hidden ">
+  <div className="w-[60%] xl:w-[50%] rounded-lg overflow-hidden ">
 
     <img src={img6} alt="" className="w-full h-full object-cover object-top" />
   </div>
-  <div className=" w-[40%] xl:w-[35%] rounded-lg overflow-hidden ">
-    <img src={img0} alt="" className="w-full h-full object-cover object-bottom" />
+  <div className=" w-[40%] xl:w-[50%] rounded-lg overflow-hidden ">
+    <img src={img2} alt="" className="w-full h-full object-cover object-top" />
   </div>
 
 </div >
-           <div className="h-full space-y-3 flex flex-col justify-between ">
+           <div className="h-full space-y-3 flex flex-col justify-center ">
            <div className="space-y-2">
-   <h1 className="text-black text-3xl md:text-3xl xl:text-5xl font-bold ">Discover the Latest in Fashion & Lifestyle</h1>
+   <h1 className="text-black text-3xl md:text-3xl xl:text-5xl font-bold">Discover the Latest in Fashion & Lifestyle</h1>
 <div className='flex items-center'>
-  <RiHeartFill color='red'/> 
+  {/* <RiHeartFill color='red'/>  */}
 
    <p> Loved by fashion lovers worldwide.</p>
 </div>
-   <p className="text-gray-600">
+   {/* <p className="text-gray-600">
     Free Shipping Over $50 | Easy 7-Day Returns | 24/7 Customer Support
-   </p>
+   </p> */}
            </div>
  <button className="bg-black text-white lg:px-20 py-2 xl:py-4 rounded  lg:w-max   bg-gradient-to-r from-[#3a4e66] to-[#537090] ">Explore the Collection</button>
 </div>
@@ -86,7 +87,7 @@ function Banner(){
        <span className='text-sm underline'>View all </span>
       </Link> 
         </div>
-        <div className='grid grid-cols-4 gap-0'>
+        <div className='grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0'>
           { productsData?.data?.data?.slice(0,4).map((data)=>(
             <Card  id = {data._id} productName = {data.name}   description={data.description} price={data.price} img={data.thumbnail.url}/>
 

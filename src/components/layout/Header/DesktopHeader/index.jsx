@@ -8,7 +8,11 @@ import { IoCartOutline } from "react-icons/io5";
 import { useMutation } from "@tanstack/react-query";
 import { AuthContext } from "../../../../context/AuthContext";
 import { userServices } from "../../../../services/user.service";
-import { Button, Dropdown, Space } from 'antd';
+import { Button, Dropdown, Space } from "antd";
+import { FaUser } from "react-icons/fa6";
+import { HiOutlineShoppingBag } from "react-icons/hi";
+import { FiHeart } from "react-icons/fi";
+
 function DesktopHeader({
   glassEffect = false,
   gradient = false,
@@ -24,14 +28,14 @@ function DesktopHeader({
     mutationFn: userServices.logoutUser,
     onSuccess: (data) => {
       // console.log("Logout success:", data);
-       navigate("/login");
-       logout();
+      navigate("/login");
+      logout();
     },
     onError: (error) => {
       console.error("Logout failed:", error);
     },
   });
-  const { isAuthenticated, user,logout } = useContext(AuthContext);
+  const { isAuthenticated, user, logout } = useContext(AuthContext);
   // console.log('user',user)
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -60,38 +64,50 @@ function DesktopHeader({
   const handleSubMenuToggle = () => {
     setIsSubMenuOpen(false);
   };
-const items = [
-  {
-    key: '1',
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-        1st menu item
-      </a>
-    ),
-  },
-  {
-    key: '2',
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
-        2nd menu item
-      </a>
-    ),
-  },
-  {
-    key: '3',
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
-        3rd menu item
-      </a>
-    ),
-  },
-];
+  const items = [
+    {
+      key: "1",
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.antgroup.com"
+        >
+          1st menu item
+        </a>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.aliyun.com"
+        >
+          2nd menu item
+        </a>
+      ),
+    },
+    {
+      key: "3",
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.luohanacademy.com"
+        >
+          3rd menu item
+        </a>
+      ),
+    },
+  ];
   return (
     <>
       {/* Header for desktop */}
 
       <header
-        className={` w-full   z-50 py-6 transition-all duration-300 transform px-4  ${
+        className={`z-50 py-4 transition-all duration-300 transform md:px-4  border-b mb-2  ${
           atTop
             ? ` translate-y-0 bgtransparent duration-100 text-black bg-white `
             : showHeader
@@ -99,15 +115,24 @@ const items = [
               : "-translate-y-full    bg-white"
         }`}
       >
-        <div className="hd:container flex items-center justify-between ">
+        <div className="container flex items-center justify-between">
+            {/* Mobile Menu Button */}
+          <div className=" lg:hidden md:pr-3 flex justify-end items-end">
+            <button
+              onClick={toggleMenuOpen}
+              className="text-3xl focus:outline-none "
+            >
+              <MdMenu />
+            </button>
+          </div>
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <img src={logo} alt="" className="w-10" />
+            <img src={logo} alt="" className="w-10 hidden md:block" />
             <span className="text-3xl font-bold">Shop.co</span>
           </div>
 
           {/*  Nav Links */}
-          <nav className="hidden lg:flex  text-black ">
+          {/* <nav className="hidden lg:flex  text-black ">
             <ul className="flex space-x-4 xl:space-x-6">
               {navItems.map((item, index) => (
                 <li
@@ -125,47 +150,39 @@ const items = [
                 </li>
               ))}
             </ul>
-          </nav>
+          </nav> */}
 
           <div className="flex items-center space-x-3   ">
+              <span>
+                <FiHeart  className="text-lg" />
+              </span>
             <Link to="/cart">
-            <span>
-              <BsCart3 className="text-2xl" />
-            </span>
+              <span>
+                <HiOutlineShoppingBag className="text-lg" />
+              </span>
             </Link>
             {isAuthenticated ? (
               <div className="flex">
-             
-              
-                      <Dropdown
-      trigger={["click"]}
-      dropdownRender={() => (
-        <div className="p-4 w-64 bg-white shadow-lg rounded-lg">
-          <h3 className="text-lg font-bold mb-2">Profile</h3>
-          <p className="text-sm text-gray-600">Hello,{user.data.data.name || user.data.data.user.name}</p>
-          <button className="mt-2 w-full bg-blue-500 text-white py-1 rounded" onClick={() => logoutMutation.mutate()}>
-            Logout 
-          </button>
-        </div>
-      )}
-    >
-     <div
-                  className="relative w-8 h-8 rounded-full p-[2px] 
-                       bg-[linear-gradient(270deg,#32CD32,#ffffff,#274690)] 
-                       bg-[length:400%_400%] animate-borderGradient cursor-pointer"
+                <Dropdown
+                  trigger={["click"]}
+                  dropdownRender={() => (
+                    <div className="p-4 w-64 bg-white shadow-lg rounded-lg">
+                      <h3 className="text-lg font-bold mb-2">Profile</h3>
+                      <p className="text-sm text-gray-600">
+                        Hello,{user.data.data.name || user.data.data.user.name}
+                      </p>
+                      <button
+                        className="mt-2 w-full bg-blue-500 text-white py-1 rounded"
+                        onClick={() => logoutMutation.mutate()}
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
                 >
-                  <div className="p-1 rounded-full bg-white">
-                    <img
-                      src={userIcon}
-                      alt=""
-                      className="w-full h-full object-cover object-top rounded-full"
-                    />{" "}
-                  </div>
-                </div>
-             
-    </Dropdown>
-                 
-                </div>
+                    <FaUser className="cursor-pointer text-lg"  />
+                </Dropdown>
+              </div>
             ) : (
               <Link to="/login">
                 <span className="">Login</span>
@@ -173,15 +190,7 @@ const items = [
             )}
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className=" lg:hidden pr-3">
-            <button
-              onClick={toggleMenuOpen}
-              className="text-3xl focus:outline-none "
-            >
-              <MdMenu />
-            </button>
-          </div>
+        
         </div>
       </header>
     </>
