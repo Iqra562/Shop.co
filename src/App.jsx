@@ -12,6 +12,7 @@ import { Products } from "./features/public/products";
 import { ProductDetails } from "./features/public/productDetails";
 import { Cart } from "./features/public/cart";
 import { OrderSummary } from "./features/public/orderSummary";
+import { Orders } from "./features/public/orders";
 
 export default function App() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -24,6 +25,7 @@ export default function App() {
           <Route path="/product-details/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/order-summary" element={<OrderSummary />} />
+          <Route path="/orders" element={<Orders />} />
         </Route>
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />

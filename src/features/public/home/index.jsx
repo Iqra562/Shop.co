@@ -1,10 +1,9 @@
-import Banner from "./components/Banner";
+import {Banner} from "./components";
 
 function Home(){
 return(
     <>
      <Banner/>
-      
     </>
 )
 }
