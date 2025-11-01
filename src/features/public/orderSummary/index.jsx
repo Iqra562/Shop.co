@@ -4,6 +4,8 @@ import { Link, useParams } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
 import { AuthContext } from "../../../context/AuthContext";
 import { OrderContext } from "../../../context/OrderContext";
+import { useMutation } from "@tanstack/react-query";
+import { orderServices } from "../../../services/order.service";
 function OrderSummary() {
   const { isAuthenticated } = useContext(AuthContext);
   const { products, setProducts } = useContext(OrderContext);
@@ -21,8 +23,21 @@ function OrderSummary() {
     );
     setTotal(subTotal)
   }, [products,subTotal]);
+  const {mutate:createOrderReequest,isPending:createOrderLoader}= useMutation({
+    mutationFn:orderServices.createOrder,
+    onError:(err)=>{
+console.log(err)
+    }
+
+  });
+  const createOrderHandler = ( )=>{
+    console.log(products)
+    createOrderReequest({itemDetails : 
+   products
+})
+  }
   return (
-    <section className="container    ">
+    <section className="container">
       {isAuthenticated ? (
         <div>
           <div className="border-b pb-4 ">
@@ -112,7 +127,7 @@ function OrderSummary() {
                       <span className="">${total}</span>
                     </div>
 
-                    <button className="bg-black  bg-gradient-to-r from-[#3a4e66] to-[#537090] w-full text-white py-2 rounded-md place-self-end  ">
+                    <button className="bg-black  bg-gradient-to-r from-[#3a4e66] to-[#537090] w-full text-white py-2 rounded-md place-self-end  " onClick={createOrderHandler}>
                       Proceed To Pay
                     </button>
                   </div>

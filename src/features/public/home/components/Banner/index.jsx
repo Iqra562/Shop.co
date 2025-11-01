@@ -40,12 +40,17 @@ function Banner() {
                   </div>
                 </div>
                 <div className=" md:w-4/12 ">
-                  <div className="overflow-hidden rounded-2xl h-[15rem] md:h-[30rem]  ">
+                  <div className="overflow-hidden rounded-2xl h-[15rem] md:h-[30rem]  relative">
                     <img
                       src={img6}
                       alt=""
                       className="w-full h-full object-cover object-top "
                     />
+   <button className="bg-white z-10 absolute h-10  bottom-0 px-10 rounded-full text-center bg-opacity-70 mx-auto left-0 right-0 w-6/12 mb-5 font-bold">
+
+Explore More
+   </button>
+  
                   </div>
                 </div>
                 <div className=" md:w-4/12  flex  flex-col-reverse  md:flex-col space-y-3">

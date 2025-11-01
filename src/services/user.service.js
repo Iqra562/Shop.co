@@ -16,7 +16,8 @@ const loginUser = (payload)=>{
 }
 
 const logoutUser  = ()=>{
-    const response = ApiService.post(`${userServiceUrl.users}/logout`)
+    const response = ApiService.post(`${userServiceUrl.users}/logout`);
+    
 }
 
 const checkAuth = ()=>{

@@ -39,7 +39,7 @@ function ProductDetails() {
     setProductQuantity((prev) => (prev >= 15 ? prev : prev + 1));
   };
   const decreaseQuantity = () => {
-    setProductQuantity((prev) => (prev <= 0 ? prev : prev - 1));
+    setProductQuantity((prev) => (prev <= 1 ? prev : prev - 1));
   };
   const { mutate: cartRequest, isPending: addToCartLoader } = useMutation({
     mutationFn: cartServices.addToCart,
@@ -74,11 +74,7 @@ function ProductDetails() {
           openNotificationWithIcon("success", "Item added to cart");
         },
       },
-      {
-        onError: (err) => {
-          const code = err.response?.data?.code;
-        },
-      }
+     
     );
   };
 
