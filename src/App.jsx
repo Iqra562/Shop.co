@@ -13,6 +13,7 @@ import { ProductDetails } from "./features/public/productDetails";
 import { Cart } from "./features/public/cart";
 import { OrderSummary } from "./features/public/orderSummary";
 import { Orders } from "./features/public/orders";
+import { AuthenticatedRoutesName } from "./utils/util.constant";
 
 export default function App() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -28,7 +29,7 @@ export default function App() {
           <Route path="/orders" element={<Orders />} />
         </Route>
         <Route element={<DashboardLayout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path={AuthenticatedRoutesName.DASHBOARD} element={<Dashboard />} />
         </Route>
         {!isAuthenticated && (
           <Route>

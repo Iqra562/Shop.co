@@ -22,7 +22,7 @@ function ProductDetails() {
   const [showMaxQuantityError, setShowMaxQuantityError] = useState(false);
   const { isAuthenticated } = useContext(AuthContext);
   const openNotificationWithIcon = (type, message) => {
-    api[type]({
+    api[type]({ 
       description: message,
       icon: false,
     });

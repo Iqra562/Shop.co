@@ -12,7 +12,7 @@ import { Button, Dropdown, Space } from "antd";
 import { FaUser } from "react-icons/fa6";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { FiHeart } from "react-icons/fi";
-
+import {AuthenticatedRoutesName} from '@utils/util.constant.js' 
 function DesktopHeader({
   glassEffect = false,
   gradient = false,
@@ -156,7 +156,7 @@ function DesktopHeader({
               <span>
                 <FiHeart  className="text-lg" />
               </span>
-            <Link to="/cart">
+            <Link to={AuthenticatedRoutesName.CART}>
               <span>
                 <HiOutlineShoppingBag className="text-lg" />
               </span>

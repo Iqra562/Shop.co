@@ -1,8 +1,8 @@
 import Card from "@components/common/Card";
 import { useGetProducts, useGetProductById } from "../../../hooks/useProducts";
 import img from "@assets/images/img3.jpg";
-import { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useContext, useEffect, useMemo, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
 import { useGetCart } from "../../../hooks/useCart";
 import {
@@ -10,27 +10,36 @@ import {
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
+import { Button, notification, Space } from "antd";
 import { cartServices } from "../../../services/cart.service";
 import { AuthContext } from "../../../context/AuthContext";
 import { BsCart3 } from "react-icons/bs";
 import { OrderContext } from "../../../context/OrderContext";
 function Cart() {
   const queryClient = useQueryClient();
-  const { data: cartData, isPending, error } = useGetCart();
+  const { data: cartData,dataUpdatedAt, isFetched,isPending, error } = useGetCart();
   const [quantities, setQuantities] = useState({});
   const { isAuthenticated } = useContext(AuthContext);
   const [itemsSummary, setItemsSummary] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
   const [shippingFee, setShippingFee] = useState(0);
   const [total, setTotal] = useState(0);
-    const { setProducts } = useContext(OrderContext); 
+  const { setProducts } = useContext(OrderContext);
+  const navigation = useNavigate()
+    const [api, contextHolder] = notification.useNotification();
+      const openNotificationWithIcon = (type, message) => {
+    api[type]({
+      description: message,
+      icon: false,
+    });
+  };
   const { mutate: removeCartItem, isPending: removeCartFromLoader } =
     useMutation({
       mutationFn: cartServices.removeFromCart,
     });
 
-  const cart = cartData?.data?.data.items ?? [];
-  console.log("cart", cart);
+  const cart =useMemo(()=> cartData?.data?.data.items || [],[cartData?.data?.data.items]);
+  // console.log("cart", cart);
 
   const removeCartItemHandler = (id) => {
     removeCartItem(
@@ -39,8 +48,9 @@ function Cart() {
       },
       {
         onSuccess: (response) => {
-          console.log(" Inline success for this item:", response);
+          // console.log(" Inline success for this item:", response);
           queryClient.invalidateQueries(["cart"]);
+
         },
         onError: (error) => {
           console.error(" Inline error:", error);
@@ -49,6 +59,8 @@ function Cart() {
     );
   };
   useEffect(() => {
+      // if (!cart.length) return;
+
     if (cart.length) {
       const initialQuantities = {};
       cart.forEach((item) => {
@@ -56,23 +68,31 @@ function Cart() {
       });
       setQuantities(initialQuantities);
     }
+
+    
     // update the item summary when quantity changes
     setItemsSummary((prevSummary) => {
-      const updatedSummary = [...prevSummary];
-
+      let updatedSummary = [...prevSummary];
+ // Update or remove items
+    updatedSummary = updatedSummary.filter((summaryItem) =>
+      cart.some((cartItem) => cartItem._id === summaryItem._id)
+    );
       cart.forEach((item) => {
+        
         const existingIndex = updatedSummary.findIndex(
           (summaryItem) => summaryItem._id === item._id
         );
-        // console.log('existing index' , existingIndex)
+        console.log('existing index' , existingIndex)
         if (existingIndex !== -1) {
           updatedSummary[existingIndex] = item;
+        }else{
+          updatedSummary.filter(eachItem=>eachItem._id === item._id)
         }
       });
 
       return updatedSummary;
     });
-
+    console.log('dkjfslhfkj')
   }, [cart]);
 
   const { mutate: cartRequest, isPending: addToCartLoader } = useMutation({
@@ -126,10 +146,10 @@ function Cart() {
     } else {
       setItemsSummary((pre) => [...pre, items]);
     }
-    //  console.log(itemsSummary)
+     console.log(itemsSummary,'items summary')
   };
 
-  console.log(itemsSummary);
+  // console.log(itemsSummary);
   const orderSummaryCalculation = () => {
     if (itemsSummary.length > 0) {
       setSubTotal(
@@ -144,17 +164,26 @@ function Cart() {
   };
   useEffect(() => {
     orderSummaryCalculation();
-      if (subTotal !== 0 && shippingFee === 0) {
-      setShippingFee(Math.floor(Math.random() * 20) + 5);
-    }
+    // if (subTotal !== 0 && shippingFee === 0) {
+    //   setShippingFee(Math.floor(Math.random() * 20) + 5);
+    // }
     setTotal(shippingFee + subTotal);
-         setProducts(itemsSummary)
+    setProducts(itemsSummary);
+  }, [itemsSummary, shippingFee, subTotal,cart]);
 
-  }, [itemsSummary,shippingFee,subTotal]);
 
- 
+   const proceedToCheckout = ()=>{
+if(!itemsSummary.length){
+
+  openNotificationWithIcon('warning','Please select items');
+  return;
+}
+navigation('/order-summary')
+
+   }
   return (
     <section className="container    ">
+      {contextHolder}
       {isAuthenticated ? (
         <div>
           <div className="border-b pb-4 ">
@@ -177,16 +206,19 @@ function Cart() {
           ) : (
             <div className="flex flex-col md:flex-row pt-3">
               <div className="w-full md:w-8/12 border-b-2 pb-10 mb-10 md:border-b-0 md:border-r-2 md:pr-4 lg:pr-5 xl:pr-20  space-y-4 md:min-h-80 ">
-                {cart.map((item, i) => (
+                {cart.map((item, i) => {
+    
+                  const isItemAdded = itemsSummary.some(summary =>summary.product._id === item.product._id);
+                  // console.log(isItemAdded,'djfs')
+                  return(
+
                   <div
                     key={i}
-                    className="md:h-36  flex items-start space-x-2 md:space-x-3 border-slate-100 border shadow-sm shadow-slate-200 rounded-lg px-4 py-4 w-full"
+                    className={`md:h-36  flex items-start space-x-2 md:space-x-3 border-slate-100 border shadow-sm shadow-slate-200 rounded-lg px-4 py-4 w-full cursor-pointer ${isItemAdded ? "bg-gray-100" :"bg-white" }` }
+                                          onClick={() => totalProductSummaryHandler(item._id)}
+
                   >
-                    <input
-                      type="checkbox"
-                      className="cursor-pointer"
-                      onClick={() => totalProductSummaryHandler(item._id)}
-                    />
+                    
                     <div className="flex  w-full h-full">
                       <div className="w-6/12 md:w-3/12 h-full rounded-md overflow-hidden">
                         <Link to={`/product-details/${item.product._id}`}>
@@ -204,8 +236,10 @@ function Cart() {
                             {item.product.name}
                           </h2>
                           <span
-                            onClick={() => removeCartItemHandler(item._id)}
-                            className="cursor-pointer"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              removeCartItemHandler(item._id)}}
+                            className="cursor-pointer z-10"
                           >
                             <RxCross2 className="text-black text-sm" />
                           </span>
@@ -218,8 +252,11 @@ function Cart() {
                             <div className="space-x-1 flex items-center">
                               <button
                                 className="border-black border flex items-center justify-center  bg-white text-black  rounded-full h-8 w-8 text-center  text-2xl  "
-                                onClick={() =>
+                                onClick={(e) =>{
+                                  e.stopPropagation();
+
                                   decreaseQuantity(item.product._id, item._id)
+                                }
                                 }
                               >
                                 <span className="mb-1">-</span>{" "}
@@ -230,8 +267,12 @@ function Cart() {
                               </span>
                               <button
                                 className="bg-black text-white   flex items-center justify-center  rounded-full h-8 w-8 text-center  text-xl"
-                                onClick={() =>
-                                  increaseQuantity(item.product._id, item._id)
+                                onClick={(e) =>{
+
+                                  e.stopPropagation();
+                                  increaseQuantity(item.product._id, item._id);
+                                  
+                                }
                                 }
                               >
                                 <span className="mb-1">+</span>{" "}
@@ -242,7 +283,9 @@ function Cart() {
                       </div>
                     </div>
                   </div>
-                ))}
+                  )
+
+})}
               </div>
 
               <div className="md:pl-2 lg:pl-8 space-y-14 w-full md:w-5/12 sticky top-36  self-start">
@@ -258,7 +301,8 @@ function Cart() {
                       </div>
                       <div className="flex justify-between">
                         <h5 className="text-lg text-gray-500">Shipping fee:</h5>
-                        <span>${shippingFee}</span>
+                        {/* <span>${shippingFee}</span> */}
+                        <span>Free</span>
                       </div>
                     </div>
                   </div>
@@ -267,11 +311,12 @@ function Cart() {
                       <h6 className="text-xl font-bold">Total:</h6>
                       <span className="">${total}</span>
                     </div>
-<Link to='/order-summary'>
-                    <button className="bg-black  bg-gradient-to-r from-[#3a4e66] to-[#537090] w-full text-white py-2 rounded-md place-self-end  ">
-                      Proceed To Checkout
-                    </button>
-</Link>
+                    {/* <Link to="/order-summary"> */}
+                      <button className="bg-black  bg-gradient-to-r from-[#3a4e66] to-[#537090] w-full text-white py-2 rounded-md   " onClick={proceedToCheckout}>
+                        Proceed To Checkout
+                      </button>
+                    {/* </Link>
+                     */}
                   </div>
                 </div>
               </div>

@@ -1,16 +1,28 @@
 
 import { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useNavigation, useParams } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
 import { AuthContext } from "../../../context/AuthContext";
 import { OrderContext } from "../../../context/OrderContext";
 import { useMutation } from "@tanstack/react-query";
 import { orderServices } from "../../../services/order.service";
+import { Spin,notification } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+
 function OrderSummary() {
   const { isAuthenticated } = useContext(AuthContext);
   const { products, setProducts } = useContext(OrderContext);
   const [subTotal, setSubTotal] = useState(0);
   const [total, setTotal] = useState(0);
+    const [api, contextHolder] = notification.useNotification();
+const navigate = useNavigate()
+    const openNotificationWithIcon = (type, message) => {
+    api[type]({ 
+      description: message,
+      icon: false,
+    });
+  };
+
   const removeCartItemHandler = (id) => {
     setProducts((prev) => prev.filter((item) => item._id !== id));
   };
@@ -23,21 +35,31 @@ function OrderSummary() {
     );
     setTotal(subTotal)
   }, [products,subTotal]);
-  const {mutate:createOrderReequest,isPending:createOrderLoader}= useMutation({
+  const {mutate:createOrderRequest,isPending:createOrderLoader}= useMutation({
     mutationFn:orderServices.createOrder,
+    onSuccess:(res)=>{
+            
+           openNotificationWithIcon("success", "Order placed successfully!");
+    setTimeout(() => {
+      navigate('/orders');
+    }, 2000);
+
+    },
+
     onError:(err)=>{
-console.log(err)
     }
 
   });
   const createOrderHandler = ( )=>{
     console.log(products)
-    createOrderReequest({itemDetails : 
+    createOrderRequest({itemDetails : 
    products
 })
   }
   return (
     <section className="container">
+            {contextHolder}
+
       {isAuthenticated ? (
         <div>
           <div className="border-b pb-4 ">
@@ -128,7 +150,27 @@ console.log(err)
                     </div>
 
                     <button className="bg-black  bg-gradient-to-r from-[#3a4e66] to-[#537090] w-full text-white py-2 rounded-md place-self-end  " onClick={createOrderHandler}>
-                      Proceed To Pay
+                      
+                        {createOrderLoader ? (
+              <Spin
+                indicator={
+                  <LoadingOutlined
+                    style={{
+                      fontSize: 15,
+                      color: "white",
+                      marginRight: "10px",
+                    }}
+                    spin
+                  />
+                }
+                size="small  "
+                colorPrimary="#000"
+                dotSizeSM={50}
+                spinning={createOrderLoader}
+              />
+            ) : (
+              "Proceed To Pay"
+            )}
                     </button>
                   </div>
                 </div>
