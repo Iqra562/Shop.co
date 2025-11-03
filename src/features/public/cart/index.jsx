@@ -23,6 +23,7 @@ function Cart() {
   const [itemsSummary, setItemsSummary] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
   const [shippingFee, setShippingFee] = useState(0);
+  const [totalItems,setTotalItems] = useState(0)
   const [total, setTotal] = useState(0);
   const { setProducts } = useContext(OrderContext);
   const navigation = useNavigate()
@@ -157,6 +158,11 @@ function Cart() {
           return total + item.product.price * item.quantity;
         }, 0)
       );
+      setTotalItems(
+        itemsSummary.reduce((total, item) => {
+          return total +  item.quantity;
+        }, 0)
+      )
     } else {
       setSubTotal(0);
       setShippingFee(0);
@@ -295,7 +301,7 @@ navigation('/order-summary')
                     <div className="space-y-2">
                       <div className="flex justify-between">
                         <h5 className="text-lg text-gray-500">
-                          Subtotal (0 items):
+                          Subtotal ({totalItems} items):
                         </h5>
                         <span>${subTotal}</span>
                       </div>

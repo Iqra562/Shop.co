@@ -11,12 +11,7 @@ function Orders(){
       }); 
       console.log(userOrder?.data?.data)
       const userOrderData = userOrder?.data?.data || [];
-       const openNotificationWithIcon = (type, message) => {
-    api[type]({
-      description: message,
-      icon: false,
-    });
-  };
+     
  return(
     <section className="container space-y-10">
               {contextHolder}
@@ -63,7 +58,7 @@ function Orders(){
            
         </div>
             
-        ))
+        )).reverse()
        }
      </section>
  )

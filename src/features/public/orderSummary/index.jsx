@@ -13,6 +13,7 @@ function OrderSummary() {
   const { isAuthenticated } = useContext(AuthContext);
   const { products, setProducts } = useContext(OrderContext);
   const [subTotal, setSubTotal] = useState(0);
+  const [totalItems,setTotalItems] = useState(0);
   const [total, setTotal] = useState(0);
     const [api, contextHolder] = notification.useNotification();
 const navigate = useNavigate()
@@ -33,6 +34,11 @@ const navigate = useNavigate()
         return total + item.product.price * item.quantity;
       },0)
     );
+    setTotalItems(
+       products.reduce((total, item) => {
+        return total +  item.quantity;
+      },0)
+    )
     setTotal(subTotal)
   }, [products,subTotal]);
   const {mutate:createOrderRequest,isPending:createOrderLoader}= useMutation({
@@ -42,7 +48,7 @@ const navigate = useNavigate()
            openNotificationWithIcon("success", "Order placed successfully!");
     setTimeout(() => {
       navigate('/orders');
-    }, 2000);
+    }, 1000);
 
     },
 
@@ -132,7 +138,7 @@ const navigate = useNavigate()
                     <div className="space-y-2">
                       <div className="flex justify-between">
                         <h5 className="text-lg text-gray-500">
-                          Subtotal (0 items):
+                          Subtotal ({totalItems} items):
                         </h5>
                         <span>${subTotal}</span>
                       </div>
