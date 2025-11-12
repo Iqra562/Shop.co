@@ -17,8 +17,8 @@ const AuthContextProvider = ({ children }) => {
     () => !!localStorage.getItem("isAuthenticated")
   );
   const [user, setUser] = useState(null);
-  const isAdmin = user?.role === "admin";
-
+  const isAdmin = user?.data?.data?.role === "admin";
+  
   useEffect(() => {
     if (userData) {
       setUser(userData);

@@ -40,7 +40,7 @@ function ProductDetails() {
   };
   const decreaseQuantity = () => {
     setProductQuantity((prev) => (prev <= 1 ? prev : prev - 1));
-  };
+  }; 
   const { mutate: cartRequest, isPending: addToCartLoader } = useMutation({
     mutationFn: cartServices.addToCart,
     onMutate: async () => {
@@ -64,9 +64,9 @@ function ProductDetails() {
     const newQuantity = existingItem
       ? existingItem.quantity + productQuantity
       : productQuantity;
-    console.log("existing item", newQuantity);
+    console.log("existing item", productQuantity);
     cartRequest(
-      { productId: String(id), quantity: newQuantity },
+      { productId: String(id), quantity: productQuantity },
       {
         onSuccess: () => {
           //  When mutation succeeds, refetch the cart data
@@ -108,7 +108,7 @@ function ProductDetails() {
               <h3 className="text-base font-bold">Quantity:</h3>
               <div className="space-x-4">
                 <button
-                  className="bg-slate-100 px-4 py-2 rounded-md text-lg"
+                  className="bg-slate-100 px-4 py-1 rounded-md text-lg"
                   onClick={decreaseQuantity}
                 >
                   -
@@ -116,7 +116,7 @@ function ProductDetails() {
                 <span>{productQuantity}</span>
 
                 <button
-                  className="bg-slate-100 px-4 py-2 rounded-md text-lg"
+                  className="bg-slate-100  px-4 py-1 rounded-md text-lg"
                   onClick={increaseQuantity}
                 >
                   +

@@ -16,6 +16,10 @@ const put = (url,data)=>{
     const response = api.put(url,data);
     return response;
 }
+const patch = (url,data)=>{
+    const response = api.patch(url,data);
+    return response;
+}
 const deleteRequest = (url,queryParams)=>{
      const response =  api.delete(url ,queryParams);
      return response;
@@ -25,5 +29,6 @@ export const ApiService= {
     get,
     post,
     put,
+    patch,
     delete:deleteRequest,
 }

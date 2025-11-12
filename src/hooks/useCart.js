@@ -8,8 +8,23 @@ export const useGetCart = ()=> useQuery({
 
 
 export const useAddToCart  = ()=> {
-  return useMutation({
-        mutationFn: cartServices.addToCart,
+    const { mutate: addToCart, isPending: addToCartLoader } = useMutation({
+      mutationFn: cartServices.addToCart,
+    });
+  return {addToCart,addToCartLoader}
+}
 
-  })
+export const useDecreaseCartQuantity = ()=>{
+   const { mutate: decreaseCartQuantity, isPending :decreaseCartQuantityLoader} = useMutation({
+      mutationFn: cartServices.decreaseCartQuantity,
+    });
+    return {decreaseCartQuantity,decreaseCartQuantityLoader};
+}
+
+export const useRemoveCart = ()=>{
+   const { mutate: removeCartItem, isPending: removeCartLoader } =
+      useMutation({
+        mutationFn: cartServices.removeFromCart,
+      });
+      return {removeCartItem,removeCartLoader}
 }

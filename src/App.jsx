@@ -13,14 +13,15 @@ import { ProductDetails } from "./features/public/productDetails";
 import { Cart } from "./features/public/cart";
 import { OrderSummary } from "./features/public/orderSummary";
 import { Orders } from "./features/public/orders";
-import { AuthenticatedRoutesName } from "./utils/util.constant";
+import { AdminRoutes } from "./utils/util.constant";
+import AppRoutes from "./routes/AppRoutes";
 
 export default function App() {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated , user} = useContext(AuthContext);
+  console.log(isAuthenticated)
   return (
     <>
-      <Routes>
-        <Route element={<WebLayout />}>
+         {/* <Route element={<WebLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/product-details/:id" element={<ProductDetails />} />
@@ -29,15 +30,18 @@ export default function App() {
           <Route path="/orders" element={<Orders />} />
         </Route>
         <Route element={<DashboardLayout />}>
-          <Route path={AuthenticatedRoutesName.DASHBOARD} element={<Dashboard />} />
-        </Route>
+          <Route path={AdminRoutes.DASHBOARD} element={<Dashboard />} />
+        </Route> */}
+
+        <AppRoutes/>
         {!isAuthenticated && (
+          <Routes>
           <Route>
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
           </Route>
+          </Routes>
         )}
-      </Routes>
-    </>
+     </>
   );
 }

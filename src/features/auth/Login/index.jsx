@@ -9,18 +9,14 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { Input } from "antd";
 import { Alert } from "antd";
 import { useForm, Controller, useController } from "react-hook-form";
-import { LoadingOutlined } from '@ant-design/icons';
+import { LoadingOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const { isAuthenticated,login } = useContext(AuthContext);
-  const [errorMessage,setErrorMessage]=useState('')
-  const {
-    handleSubmit,
-    control,
-  } = useForm();
-const navigate = useNavigate();
-
+  const { isAuthenticated, login } = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState("");
+  const { handleSubmit, control } = useForm();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -29,8 +25,7 @@ const navigate = useNavigate();
   }, [isAuthenticated]);
   // const { mutateAsync: loginRequest, isPending: loginRequestLoader } =
   //   useMutation({ mutationFn: userServices.loginUser });
- 
-  
+
   // const onSubmit = async (data) => {
   //   try {
   //     const res = await loginRequest(data);
@@ -45,37 +40,34 @@ const navigate = useNavigate();
   //                  setErrorMessage("Something went wrong!")
 
   //      }
-    
-   
+
   //   }
   // };
 
   const { mutate: loginRequest, isPending: loginRequestLoader } = useMutation({
-  mutationFn: userServices.loginUser,
-   onMutate: () => {
-    setErrorMessage(""); 
-  },
-  onSuccess: (res) => {
-    // console.log("logIn success:", res);
-    if(res){
- 
-      login(res);
-    }
-  },
-  onError: (err) => {
-    const code = err.response?.data?.code;
-    if (code === "INVALID_PASSWORD" || code === "INVALID_EMAIL") {
-      setErrorMessage("Invalid email or password.");
-    } else {
-      setErrorMessage("Something went wrong!");
-    }
-  },
-});
+    mutationFn: userServices.loginUser,
+    onMutate: () => {
+      setErrorMessage("");
+    },
+    onSuccess: (res) => {
+      // console.log("logIn success:", res);
+      if (res) {
+        login(res);
+      }
+    },
+    onError: (err) => {
+      const code = err.response?.data?.code;
+      if (code === "INVALID_PASSWORD" || code === "INVALID_EMAIL") {
+        setErrorMessage("Invalid email or password.");
+      } else {
+        setErrorMessage("Something went wrong!");
+      }
+    },
+  });
 
-const onSubmit = (data) => {
-  loginRequest(data); 
-};
-
+  const onSubmit = (data) => {
+    loginRequest(data);
+  };
 
   return (
     <StarfieldBackground>
@@ -96,49 +88,52 @@ const onSubmit = (data) => {
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="space-y-8 w-full">
-               {errorMessage &&  <Alert
-                  message={errorMessage}
-                  type="error"
-                  closable
-                   onClose={() => setErrorMessage("")}
-                    style={{fontSize:'12px'       
-  }}
-                />}
+                {errorMessage && (
+                  <Alert
+                    message={errorMessage}
+                    type="error"
+                    closable
+                    onClose={() => setErrorMessage("")}
+                    style={{ fontSize: "12px" }}
+                  />
+                )}
                 <Controller
                   name="email"
-                    rules={{
-          required: "Email is required",
-          pattern: {
-            value: /^\S+@\S+$/i,
-            message: "Enter a valid email",
-          },
-        }}
-     
+                  rules={{
+                    required: "Email is required",
+                    pattern: {
+                      value: /^\S+@\S+$/i,
+                      message: "Enter a valid email",
+                    },
+                  }}
                   control={control}
-                render={({ field, fieldState }) => (
-    <div>
-      <Input {...field} placeholder="Email" />
-      {fieldState.error && (
-        <span style={{ color: "#ff0000" }}>{fieldState.error.message}</span>
-      )}
-    </div>
-  )}
+                  render={({ field, fieldState }) => (
+                    <div>
+                      <Input {...field} placeholder="Email" />
+                      {fieldState.error && (
+                        <span style={{ color: "#ff0000" }}>
+                          {fieldState.error.message}
+                        </span>
+                      )}
+                    </div>
+                  )}
                 />
                 <Controller
-                   rules={{
-          required: "Password is required",
-         
-        }}          
+                  rules={{
+                    required: "Password is required",
+                  }}
                   name="password"
                   control={control}
-                 render={({ field, fieldState }) => (
-    <div>
-      <Input {...field} placeholder="Password" />
-      {fieldState.error && (
-        <span style={{ color: "#ff0000" }}>{fieldState.error.message}</span>
-      )}
-    </div>
-  )}
+                  render={({ field, fieldState }) => (
+                    <div>
+                      <Input {...field} placeholder="Password" />
+                      {fieldState.error && (
+                        <span style={{ color: "#ff0000" }}>
+                          {fieldState.error.message}
+                        </span>
+                      )}
+                    </div>
+                  )}
                 />
 
                 <button
@@ -146,7 +141,7 @@ const onSubmit = (data) => {
                   type="submit"
                   disabled={loginRequestLoader}
                 >
-                  {loginRequestLoader ? 'Logging in...' :'Login'}
+                  {loginRequestLoader ? "Logging in..." : "Login"}
                 </button>
                 <p>
                   Dont have an account?{" "}
@@ -164,4 +159,3 @@ const onSubmit = (data) => {
 }
 
 export { Login };
- 

@@ -7,7 +7,7 @@ function Card({id,img,productName,description,price,addToCart=()=>{}}){
     return(
         <>
         <div className='bg-white drop--md p-2 rounded-md '>
-            <div className='rounded-md h-52  md:h-80 overflow-hidden'>
+            <div className='rounded-md h-40  md:h-72 overflow-hidden'>
                 <Link to={`/product-details/${id}`}>
                 <img src={img} alt="" className='w-full h-full ' />
                 </Link>

@@ -14,6 +14,10 @@ const addToCart = (payload)=>{
     return response;
 }
 
+const decreaseCartQuantity = (payload)=>{
+    const response  = ApiService.patch(`${cartServiceUrl.cart}/decrease-cart-quantity`,payload);
+    return response;
+}
 const removeFromCart = (payload)=>{
     const response  = ApiService.post(`${cartServiceUrl.cart}/remove-from-cart`,payload);
     return response;
@@ -22,5 +26,6 @@ const removeFromCart = (payload)=>{
 export const cartServices = {
     getCart,
     addToCart,
+    decreaseCartQuantity,
     removeFromCart,
 }
