@@ -20,7 +20,7 @@ const queryClient = new QueryClient({
   },
 });
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  // <StrictMode>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <ConfigProvider theme={antdTheme}>
@@ -32,5 +32,5 @@ createRoot(document.getElementById("root")).render(
         </ConfigProvider>
       </QueryClientProvider>
     </BrowserRouter>
-  </StrictMode>
+  // </StrictMode>
 );

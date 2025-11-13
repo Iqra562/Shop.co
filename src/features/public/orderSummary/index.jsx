@@ -52,10 +52,12 @@ function OrderSummary() {
         }, 1000);
       },
 
-      onError: (err) => {},
+      onError: (err) => {
+        console.log(err)
+      },
     });
   const createOrderHandler = () => {
-    console.log(products);
+    console.log(products,'1244');
     createOrderRequest({ itemDetails: products });
   };
   

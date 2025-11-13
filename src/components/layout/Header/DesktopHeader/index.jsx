@@ -12,7 +12,9 @@ import { Button, Dropdown, Space } from "antd";
 import { FaUser } from "react-icons/fa6";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { FiHeart } from "react-icons/fi";
-import {AuthenticatedUserRoutes} from '@utils/util.constant.js' 
+import { AuthenticatedUserRoutes } from "@utils/util.constant.js";
+import { PiSignOutBold } from "react-icons/pi";
+
 function DesktopHeader({
   glassEffect = false,
   gradient = false,
@@ -116,7 +118,7 @@ function DesktopHeader({
         }`}
       >
         <div className="container flex items-center justify-between">
-            {/* Mobile Menu Button */}
+          {/* Mobile Menu Button */}
           <div className=" lg:hidden md:pr-3 flex justify-end items-end">
             <button
               onClick={toggleMenuOpen}
@@ -153,9 +155,9 @@ function DesktopHeader({
           </nav> */}
 
           <div className="flex items-center space-x-3   ">
-              <span>
-                <FiHeart  className="text-lg" />
-              </span>
+            <span>
+              <FiHeart className="text-lg" />
+            </span>
             <Link to={AuthenticatedUserRoutes.CART}>
               <span>
                 <HiOutlineShoppingBag className="text-lg" />
@@ -165,22 +167,24 @@ function DesktopHeader({
               <div className="flex">
                 <Dropdown
                   trigger={["click"]}
-                  dropdownRender={() => (
-                    <div className="p-4 w-64 bg-white shadow-lg rounded-lg">
+                  popupRender={() => (
+                    <div className="p-4 w-64 bg-white shadow-lg rounded-lg border">
                       <h3 className="text-lg font-bold mb-2">Profile</h3>
                       <p className="text-sm text-gray-600">
                         Hello,{user.data.data.name || user.data.data.user.name}
                       </p>
-                      <button
-                        className="mt-2 w-full bg-blue-500 text-white py-1 rounded"
-                        onClick={() => logoutMutation.mutate()}
-                      >
-                        Logout
-                      </button>
+                      <div className="">
+                        <button
+                          className=" flex items-center text-gray-600  "
+                          onClick={() => logoutMutation.mutate()}
+                        >
+                          <PiSignOutBold className="text-xs font-bold" /> <span>Logout</span>
+                        </button>
+                      </div>
                     </div>
                   )}
                 >
-                    <FaUser className="cursor-pointer text-lg"  />
+                  <FaUser className="cursor-pointer text-lg" />
                 </Dropdown>
               </div>
             ) : (
@@ -189,8 +193,6 @@ function DesktopHeader({
               </Link>
             )}
           </div>
-
-        
         </div>
       </header>
     </>
