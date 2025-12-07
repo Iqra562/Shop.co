@@ -10,7 +10,7 @@ import {SubLayout} from "../layouts";
 import Profile from "../features/public/profile";
 import AddressBook from "../features/public/addressBook";
 import Wishlist from "../features/public/wishlist";
-import EditAddressBook from "../features/public/profile/components/editAddressBook";
+import EditAddressBook from "../features/public/profile/components/editaddressBook";
 import EditProfileInfo from "../features/public/profile/components/editProfileInfo";
 const  AuthenticatedRoutesWrapper =()=>{
 const {isAuthenticated} = useContext(AuthContext);
