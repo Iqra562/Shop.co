@@ -176,7 +176,7 @@ function DesktopHeader({
                           <FaUser className="cursor-pointer text-lg" />
                         </div>
                         <span className="capitalize">
-                          {user.data.data.name || user.data.data.user.name}
+                          {user?.data?.data?.name || user?.data?.data?.user?.name || 'User'}
                         </span>
                       </div>
 
