@@ -23,7 +23,7 @@ function Orders(){
         userOrderData.map((orderItem)=>(
         
         <div className='space-y-4 '>
-            <div className="bg-gray-50 px-2 md:px-10 py-5 ">
+            <div className="bg-white rounded-md border px-2 md:px-10 py-5 ">
                 <div className="border-b flex flex-col md:flex-row  md:justify-between items-center pb-2">
                     <div className='font-bold'>
                     #{orderItem._id}

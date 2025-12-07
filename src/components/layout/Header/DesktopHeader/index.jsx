@@ -14,6 +14,8 @@ import { HiOutlineShoppingBag } from "react-icons/hi";
 import { FiHeart } from "react-icons/fi";
 import { AuthenticatedUserRoutes } from "@utils/util.constant.js";
 import { PiSignOutBold } from "react-icons/pi";
+import { LiaBoxSolid } from "react-icons/lia";
+import { BiUser } from "react-icons/bi";
 
 function DesktopHeader({
   glassEffect = false,
@@ -109,7 +111,7 @@ function DesktopHeader({
       {/* Header for desktop */}
 
       <header
-        className={`z-50 py-4 transition-all duration-300 transform md:px-4  border-b mb-2  ${
+        className={`z-50 py-4 transition-all duration-300 transform md:px-4  border-b  ${
           atTop
             ? ` translate-y-0 bgtransparent duration-100 text-black bg-white `
             : showHeader
@@ -130,7 +132,7 @@ function DesktopHeader({
           {/* Logo */}
           <div className="flex items-center space-x-2">
             <img src={logo} alt="" className="w-10 hidden md:block" />
-            <span className="text-3xl font-bold">Shop.co</span>
+            <span className="text-3xl font-bold hidden md:block">Shop.co</span>
           </div>
 
           {/*  Nav Links */}
@@ -169,22 +171,64 @@ function DesktopHeader({
                   trigger={["click"]}
                   popupRender={() => (
                     <div className="p-4 w-64 bg-white shadow-lg rounded-lg border">
-                      <h3 className="text-lg font-bold mb-2">Profile</h3>
-                      <p className="text-sm text-gray-600">
-                        Hello,{user.data.data.name || user.data.data.user.name}
-                      </p>
+                      <div className="flex items-center space-x-2 border-b pb-3">
+                        <div className="border-2 border-gray-200 rounded-full h-8 w-8 flex justify-center items-center">
+                          <FaUser className="cursor-pointer text-lg" />
+                        </div>
+                        <span className="capitalize">
+                          {user.data.data.name || user.data.data.user.name}
+                        </span>
+                      </div>
+
                       <div className="">
-                        <button
-                          className=" flex items-center text-gray-600  "
-                          onClick={() => logoutMutation.mutate()}
-                        >
-                          <PiSignOutBold className="text-xs font-bold" /> <span>Logout</span>
-                        </button>
+                        <div className="  py-2 space-y-2">
+                          <Link to={AuthenticatedUserRoutes.PROFILE}>
+                          <button className=" flex items-center text-gray-600  space-x-3 ">
+                            <BiUser className="text-lg font-bold" />{" "}
+                            <span>Profile</span>
+                          </button>
+                          </Link>
+                          <Link className="block"  to={AuthenticatedUserRoutes.WISHLIST}>
+                            <button className=" flex items-center text-gray-600  space-x-3 ">
+                              <FiHeart className="text-lg font-bold" />{" "}
+                              <span>My Wishlist</span>
+                            </button>
+                          </Link>
+                          <Link
+                            className="block"
+                            to={AuthenticatedUserRoutes.ORDERS}
+                          >
+                            <button className=" flex items-center text-gray-600  space-x-3 ">
+                              <LiaBoxSolid className="text-lg font-bold" />{" "}
+                              <span>Orders</span>
+                            </button>
+                          </Link>
+                          <Link
+                            className="block"
+                            to={AuthenticatedUserRoutes.CART}
+                          >
+                            <button className=" flex items-center text-gray-600  space-x-3 ">
+                              <HiOutlineShoppingBag className="text-lg font-bold" />{" "}
+                              <span>My Cart</span>
+                            </button>
+                          </Link>
+                        </div>
+                        <div className="border-t pt-2">
+                          <button
+                            className=" flex items-center text-gray-600  space-x-3 "
+                            onClick={() => logoutMutation.mutate()}
+                          >
+                            <PiSignOutBold className="text-lg font-bold" />{" "}
+                            <span>Logout</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   )}
                 >
-                  <FaUser className="cursor-pointer text-lg" />
+                  <div className="border-2 border-gray-200 rounded-full h-8 w-8 flex justify-center items-center cursor-pointer">
+                    <FaUser className="cursor-pointer text-lg" />
+                  </div>
                 </Dropdown>
               </div>
             ) : (

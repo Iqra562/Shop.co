@@ -7,6 +7,15 @@ export const  PublicRoutes = {
 }
 export const AuthenticatedUserRoutes = {
   CART:'/cart',
+  ORDERS:'/orders',
+  ORDERSUMMARY:'/order-summary',
+  WISHLIST:'/wishlist',
+  ADDRESSBOOK:'/addressbook',
+  PROFILE:'/profile',
+  WISHLIST:'/wishlist',
+  ADDADDRESS:'/add-address',
+  EDITADDRESS:'/edit-address/:id',
+  EDITPROFILE:'/edit-profile' 
 
   
 } 

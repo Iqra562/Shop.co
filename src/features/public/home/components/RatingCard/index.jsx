@@ -7,7 +7,7 @@ import { MdOutlineStarHalf } from "react-icons/md";
 function RatingCard(){
     return(
         <>
-        <div className='w-full md:w-60 mx-auto rounded-xl  bg-black px-4 py-3 space-y-8'>
+        <div className='w-full md:w-60 mx-auto rounded-xl  bg-black px-4 py-3 space-y-8 h-fit'>
             <div className='flex space-x-3'>
         
         <h2 className='text-white text-2xl font-bold'>150+</h2>

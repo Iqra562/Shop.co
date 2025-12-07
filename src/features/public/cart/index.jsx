@@ -23,6 +23,7 @@ import { PublicRoutes } from "../../../utils/util.constant";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import CartSkeleton from "./components/cartSkeleton";
 import { LoadingOutlined } from "@ant-design/icons";
+import EmptyCart from "./components/EmptyCart";
 
 function Cart() {
   const queryClient = useQueryClient();
@@ -172,29 +173,30 @@ function Cart() {
   };
 
   return (
-    <section className="container    ">
+    <section className="container   min-h-screen ">
       {contextHolder}
       {isAuthenticated ? (
         <div>
           {isPending ? (
             <CartSkeleton />
           ) : cart.length === 0 ? (
-            <div className="h-[88vh] flex flex-col items-center   justify-center  border-2 rounded-xl px-4">
-              <div className="space-y-4 md:space-y-10">
-                <div className="text-3xl md:text-6xl font-semibold text-center text-[#000000]">
-                  Your cart is empty
-                </div>
-                <div>
-                  <Link to={PublicRoutes.PRODUCTS} className=" ">
-                    <button className="bg-black  bg-gradient-to-r from-[#3a4e66] to-[#537090] w-full md:px-20  text-white py-2 rounded-md mx-auto flex justify-center items-center space-x-2">
-                      {" "}
-                      <HiOutlineShoppingBag className=" text-md text-[#fff]" />
-                      <span>Continue the shopping</span>
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            </div>
+            // <div className="h-[88vh] flex flex-col items-center   justify-center  border-2 rounded-xl px-4">
+            //   <div className="space-y-4 md:space-y-10">
+            //     <div className="text-3xl md:text-6xl font-semibold text-center text-[#000000]">
+            //       Your cart is empty
+            //     </div>
+            //     <div>
+            //       <Link to={PublicRoutes.PRODUCTS} className=" ">
+            //         <button className="bg-black  bg-gradient-to-r from-[#3a4e66] to-[#537090] w-full md:px-20  text-white py-2 rounded-md mx-auto flex justify-center items-center space-x-2">
+            //           {" "}
+            //           <HiOutlineShoppingBag className=" text-md text-[#fff]" />
+            //           <span>Continue the shopping</span>
+            //         </button>
+            //       </Link>
+            //     </div>
+            //   </div>
+            // </div>
+            <EmptyCart/>
           ) : (
             <>
               <div className="border-b pb-4 ">
@@ -219,7 +221,7 @@ function Cart() {
                               <img
                                 src={item.product.thumbnail.url}
                                 alt=""
-                                className="w-full h-full object-cover object-top"
+                                className="w-full h-20 md:h-full object-cover object-top"
                               />
                             </Link>
                           </div>
@@ -246,7 +248,7 @@ function Cart() {
                               <div>
                                 <div className="space-x-1 flex items-center">
                                   <button
-                                    className="bg-slate-100 px-4 py-1 rounded-md text-lg   "
+                                    className="bg-slate-200 px-4 py-1 rounded-md text-lg   "
                                     onClick={(e) => {
                                       e.stopPropagation();
 
@@ -256,15 +258,15 @@ function Cart() {
                                     <span className="mb-1">-</span>{" "}
                                   </button>
                                   <span className="font-bold">
-{String(item.quantity).padStart(2, "0")}
-                                   </span>
+                                    {String(item.quantity).padStart(2, "0")}
+                                  </span>
                                   <button
-                                    className="bg-slate-100  px-4 py-1 rounded-md text-lg"
+                                    className="bg-slate-200  px-4 py-1 rounded-md text-lg"
                                     onClick={(e) => {
                                       e.stopPropagation();
                                       increaseQuantity(item.product._id);
                                     }}
-                                  > 
+                                  >
                                     <span className="mb-1">+</span>{" "}
                                   </button>
                                 </div>

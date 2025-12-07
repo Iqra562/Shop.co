@@ -4,7 +4,7 @@ import { LiaHeart } from "react-icons/lia";
 
 function Card({id,img,productName,description,price,addToCart=()=>{}}){
 
-    return(
+    return( 
         <>
         <div className='bg-white drop--md p-2 rounded-md '>
             <div className='rounded-md h-40  md:h-60 lg:h-72 overflow-hidden'>

@@ -5,6 +5,9 @@
 
 
 @layer base {
+  body{
+    /* background-color: #f6f5f8; */
+  }
   h1 {
   font-family: "Open Sans", sans-serif;
 

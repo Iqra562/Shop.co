@@ -11,7 +11,7 @@ return  response;
 const post = (url,data)=>{
     const response = api.post(url,data);
     return response;
-}
+} 
 const put = (url,data)=>{
     const response = api.put(url,data);
     return response;

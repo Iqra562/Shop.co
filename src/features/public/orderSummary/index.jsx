@@ -36,7 +36,7 @@ function OrderSummary() {
     setTotalItems(
       products.reduce((total, item) => {
         return total + item.quantity;
-      }, 0)
+      }, 0) 
     );
     setTotal(subTotal);
   }, [products, subTotal]);

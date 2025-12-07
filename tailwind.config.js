@@ -9,6 +9,17 @@ export default {
       screens:{
        hd:'2560px'
       },
+        colors: {
+         heading: '#1F1F1F',       
+        paragraphDark: '#333333', 
+        paragraphLight: '#E5E5E5',  
+
+        darkBg: '#1F1F1F',
+        lightGrayBg: '#F5F5F5',    
+      },
+       backgroundImage: {
+      'primary-button-gradient': 'linear-gradient(to right, #2d3d32, #3f5a48, #55795f)',
+    },
         keyframes: {
         slideInLeftTechStack: {
           '0%': { transform: 'translateX(50.5rem)' },
@@ -23,12 +34,12 @@ export default {
           '100%': { maxHeight: '0', opacity: '0' },
         },
         slideInLeft: {
-          '0%': { transform: 'translateX(50.5rem)' },
+          '0%': { transform: 'translateX(-50.5rem)' },
           '100%': { transform: 'translateX(0)' },
         },
         slideOutLeft: {
           '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(50rem)' },
+          '100%': { transform: 'translateX(-50rem)' },
         },
         fadeInOut: {
           '0%': { opacity: '0', transform: 'scale(0.8)' },

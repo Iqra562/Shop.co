@@ -11,7 +11,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { Flex, Spin } from "antd";
 import { Alert } from "antd";
 import { AuthContext } from "../../../context/AuthContext";
-
+ 
 function ProductDetails() {
   const { data: cartData } = useGetCart();
   const { data: productsData, isPending, error } = useGetProducts();
@@ -25,7 +25,10 @@ function ProductDetails() {
     api[type]({ 
       description: message,
       icon: false,
-    });
+       style: {
+        backgroundColor: '#fff', // Force white background
+       },
+    }); 
   };
 
   const queryClient = useQueryClient();
@@ -133,7 +136,7 @@ function ProductDetails() {
           {/* <Alert message="Error Text" type="error" /> */}
 
           <button
-            className="bg-black  bg-gradient-to-r from-[#3a4e66] to-[#537090] w-full text-white py-2 rounded-md"
+            className="bg-primary-button-gradient w-full text-white py-2 rounded-md"
             onClick={() => addToCart(productId)}
             disabled={addToCartLoader}
           >
@@ -155,7 +158,7 @@ function ProductDetails() {
                 spinning={addToCartLoader}
               />
             ) : (
-              "Add to cart"
+              "Add to Cart"
             )}
           </button>
         </div>

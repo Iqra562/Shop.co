@@ -20,6 +20,21 @@ const logoutUser  = ()=>{
     
 }
 
+const currentUser = ()=>{
+    const response = ApiService.get(`${userServiceUrl.users}/user/data`);
+    return response;
+}
+
+const updateUserAddress = (addressId,payload)=>{
+    const response = ApiService.put(`${userServiceUrl.users}/address/${addressId}`,payload);
+    return response;
+}
+
+const addUserAddress = (payload)=>{
+    const response = ApiService.post(`${userServiceUrl.users}/address`,payload);
+    return response;
+} 
+ 
 const checkAuth = ()=>{
       const response = ApiService.get(`${userServiceUrl.users}/auth/check`);
     return response;
@@ -29,6 +44,9 @@ const checkAuth = ()=>{
 export const userServices = {
     registerUser,
     checkAuth,
+    currentUser,
     logoutUser,
-    loginUser
+    loginUser,
+    updateUserAddress,
+    addUserAddress
 }

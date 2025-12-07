@@ -89,7 +89,7 @@ useEffect(() => {
           
           {/* Menu Header with Close Button */}
           <div
-            className={`flex  justify-end items-center mb-6 fixed top-4 right-4 z-10 ${
+            className={`flex  justify-end items-center mb-6 fixed top-4 right-10 md:right-auto md:left-64 z-10 ${
               isMenuOpen ? "animate-slideInLeft" : "animate-slideOutLeft"
             }  `}
           >
@@ -102,18 +102,20 @@ useEffect(() => {
           </div>
             
           <div
-            className={` mx-auto  pt-12 pb-8 float-end bg-white  overflow-y-auto w-[300px] min[425px]:w-[70%] md:w-[40%] min[880px]:w[35%]  ${
+            className={` mx-auto  pt-3 px-4 pb-8 float-start bg-white  overflow-y-auto w-[300px] min[425px]:w-[70%] md:w-[40%] min[880px]:w[35%]  ${
               isMenuOpen ? "animate-slideInLeft" : "animate-slideOutLeft"
             } `}
             onClick={(e) => e.stopPropagation()}
             style={{ height: `${windowHeight}px` }}
-          >
+          > 
               <nav>
-        <ul className=" space-x-0 ">
-            <li>Home</li>
-            <li>About</li>
-            <li>Contact</li>
-            <li></li>
+            <span className="text-3xl font-bold">Shop.co</span>
+
+         <ul className=" space-x-0 mt-10 space-y-2 ">
+            <li className="text-lg font-semibold">Home</li>
+            <li className="text-lg font-semibold">About</li>
+            <li className="text-lg font-semibold">Contact</li>
+            <li className="text-lg font-semibold"></li>
         </ul>
      </nav>
           </div>
