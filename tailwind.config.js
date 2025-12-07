@@ -10,6 +10,7 @@ export default {
        hd:'2560px'
       },
         colors: {
+          
          heading: '#1F1F1F',       
         paragraphDark: '#333333', 
         paragraphLight: '#E5E5E5',  
