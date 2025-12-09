@@ -70,10 +70,10 @@ if(!products.length){
       {contextHolder}
 
       {isAuthenticated ? (
-        <div>
-          <div className="border-b pb-4 ">
-            <h1 className="text-3xl font-bold">Your Cart</h1>
-          </div>
+        <div className="min-h-screen">
+            <div className="border-b py-4 ">
+        <h1 className="text-2xl text-primary font-bold uppercase">Your cart</h1>
+              </div>
           {products.length === 0 ? (
             <div className="pt-10 ">
               <div className="   bg-gray-50 px-20 py-10 rounded-lg w-fit mx-auto">
@@ -159,7 +159,7 @@ if(!products.length){
                     </div>
 
                     <button
-                      className="bg-black  bg-gradient-to-r from-[#3a4e66] to-[#537090] w-full text-white py-2 rounded-md place-self-end  "
+                      className="bg-primary-button-gradient w-full text-white py-2 rounded-md place-self-end  "
                       onClick={createOrderHandler}
                     >
                       {createOrderLoader ? (
@@ -190,7 +190,7 @@ if(!products.length){
           )}
         </div>
       ) : (
-        <div className="h-[80vh] flex flex-col items-center justify-center">
+        <div className="max-h-screen flex flex-col items-center justify-center">
           <div className="   bg-gray-50 px-20 py-10 rounded-lg">
             <h1 className="text-3xl font-bold text-center">
               You are not loggedin

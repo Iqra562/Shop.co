@@ -4,7 +4,7 @@ export const  PublicRoutes = {
   PRODUCTDETAILS:'/product-details/:id',
   LOGIN:'/login',
   REGISTER:'/register'
-}
+} 
 export const AuthenticatedUserRoutes = {
   CART:'/cart',
   ORDERS:'/orders',

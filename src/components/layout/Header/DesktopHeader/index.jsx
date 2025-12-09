@@ -1,10 +1,7 @@
 import React, { useState, useEffect, use, useContext } from "react";
 import logo from "../../../../assets/images/logo.png";
-import userIcon from "@assets/images/user.png";
 import { MdMenu } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { BsCart3 } from "react-icons/bs";
-import { IoCartOutline } from "react-icons/io5";
 import { useMutation } from "@tanstack/react-query";
 import { AuthContext } from "../../../../context/AuthContext";
 import { userServices } from "../../../../services/user.service";
@@ -16,6 +13,8 @@ import { AuthenticatedUserRoutes } from "@utils/util.constant.js";
 import { PiSignOutBold } from "react-icons/pi";
 import { LiaBoxSolid } from "react-icons/lia";
 import { BiUser } from "react-icons/bi";
+import CartDrawer from "../../CartDrawer";
+import WishlistDrawer from "../../WishlistDrawer";
 
 function DesktopHeader({
   glassEffect = false,
@@ -26,7 +25,14 @@ function DesktopHeader({
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [atTop, setAtTop] = useState(true);
-  const [openSubMenuIndex, setOpenSubMenuIndex] = useState(null);
+   const [cartOpen, setCartOpen] = useState(false);
+  const [wishlistOpen, setWishlistOpen] = useState(false);
+
+  const openCart = () => setCartOpen(true);
+  const openWishlist = () => setWishlistOpen(true);
+
+  const closeCart = () => setCartOpen(false);
+  const closeWishlist = () => setWishlistOpen(false);
   const navigate = useNavigate();
   const logoutMutation = useMutation({
     mutationFn: userServices.logoutUser,
@@ -68,6 +74,7 @@ function DesktopHeader({
   const handleSubMenuToggle = () => {
     setIsSubMenuOpen(false);
   };
+
   const items = [
     {
       key: "1",
@@ -109,7 +116,8 @@ function DesktopHeader({
   return (
     <>
       {/* Header for desktop */}
-
+      <CartDrawer  open={cartOpen} onClose={closeCart}/>
+      <WishlistDrawer  open={wishlistOpen} onClose={closeWishlist}/>
       <header
         className={`z-50 py-4 transition-all duration-300 transform md:px-4  border-b  ${
           atTop
@@ -132,7 +140,7 @@ function DesktopHeader({
           {/* Logo */}
           <div className="flex items-center space-x-2">
             <img src={logo} alt="" className="w-10 hidden md:block" />
-            <span className="text-3xl font-bold hidden md:block">Shop.co</span>
+            <span className="text-3xl hidden md:block uppercase font-extrabold">Shop.co</span>
           </div>
 
           {/*  Nav Links */}
@@ -157,14 +165,12 @@ function DesktopHeader({
           </nav> */}
 
           <div className="flex items-center space-x-3   ">
-            <span>
-              <FiHeart className="text-lg" />
+            <span onClick={openWishlist}  className="cursor-pointer">
+              <FiHeart className="text-lg"  />
             </span>
-            <Link to={AuthenticatedUserRoutes.CART}>
-              <span>
-                <HiOutlineShoppingBag className="text-lg" />
+              <span onClick={openCart} className="cursor-pointer">
+                <HiOutlineShoppingBag className="text-lg"  />
               </span>
-            </Link>
             {isAuthenticated ? (
               <div className="flex">
                 <Dropdown

@@ -4,7 +4,7 @@ import { MdEmail } from 'react-icons/md'
 
 export function Footer (){
     return(
-<div className="flex bg-[#1f1f1f] mt-10 rounded-tl-xl rounded-tr-xl">
+<div className="flex bg-primary mt-10 rounded-tl-xl rounded-tr-xl">
          <footer className=" text-wwhite py-10 px-6 w-full container ">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 pt-20">
 

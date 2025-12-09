@@ -5,9 +5,8 @@ import AddressBook from "./components/addressBook";
 function Profile(){
     return(
 <div className="w-full px-3 space-y-10">
-     <div className="border-b pb-4 w-full h-fit">
-                <h1 className="text-3xl font-bold">My Profile</h1>
-              
+   <div className="border-b py-4 ">
+        <h1 className="text-2xl text-primary font-bold uppercase">My Profile</h1>
               </div>
     
  <ProfileInfo/>

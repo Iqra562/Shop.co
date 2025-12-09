@@ -131,7 +131,7 @@ function Signup() {
                 />
 
                 <button
-                  className="bg-black text-white w-full py-2 rounded bg-gradient-to-r from-[#3a4e66] to-[#537090]"
+                  className="bg-black text-white w-full py-2 rounded bg-primary-button-gradient"
                   type="submit"
                   disabled={registerRequestLoader}
                 >    <Spin indicator={<LoadingOutlined  style={{ fontSize: 15, color: "white", marginRight:'10px' }} spin />} size="small  " colorPrimary='#000' dotSizeSM={50}  spinning={registerRequestLoader}/>

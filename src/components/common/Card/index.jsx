@@ -20,7 +20,7 @@ function Card({id,img,productName,description,price,addToCart=()=>{}}){
               <LiaHeart className='text-xl'/>
               </div>
               <p>{description}</p>
-              <span className='block text-[#537090] font-bold text-lg'>${price}</span>
+              <span className='block text-secondary font-bold text-lg'>${price}</span>
               {/* <button onClick={addToCart} className='bg-black  bg-gradient-to-r from-[#3a4e66] to-[#537090] w-full text-white py-2 rounded-md'>Add to cart</button> */}
             </div>
         </div>

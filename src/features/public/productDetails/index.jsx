@@ -98,7 +98,7 @@ function ProductDetails() {
         <div className="md:pl-8 pt-2 md:pt-0 space-y-4 md:space-y-14 w-full md:w-5/12">
           <div className="flex justify-between items-center ">
             <h2 className="text-3xl font-bold capitalize">{product.name}</h2>
-            <span className="block text-[#537090] font-bold text-lg">
+            <span className="block text-secondary font-bold text-lg">
               ${product.price}
             </span>
           </div>

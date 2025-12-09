@@ -23,7 +23,7 @@ import { PublicRoutes } from "../../../utils/util.constant";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import CartSkeleton from "./components/cartSkeleton";
 import { LoadingOutlined } from "@ant-design/icons";
-import EmptyCart from "./components/EmptyCart";
+import EmptyPageLayout from "../../../components/common/EmptyPageLayout";
 
 function Cart() {
   const queryClient = useQueryClient();
@@ -156,9 +156,11 @@ function Cart() {
     }, 0);
     const shippingFee = 0;
     const grandTotal = subTotal + shippingFee;
-    setProducts(itemsSummary);
     return { subTotal, totalItems, grandTotal };
   }, [itemsSummary, cart]);
+useEffect(() => {
+  setProducts(itemsSummary);
+}, [itemsSummary,cart]);
 
   const proceedToCheckout = () => {
     if (!itemsSummary.length) {
@@ -180,35 +182,27 @@ function Cart() {
           {isPending ? (
             <CartSkeleton />
           ) : cart.length === 0 ? (
-            // <div className="h-[88vh] flex flex-col items-center   justify-center  border-2 rounded-xl px-4">
-            //   <div className="space-y-4 md:space-y-10">
-            //     <div className="text-3xl md:text-6xl font-semibold text-center text-[#000000]">
-            //       Your cart is empty
-            //     </div>
-            //     <div>
-            //       <Link to={PublicRoutes.PRODUCTS} className=" ">
-            //         <button className="bg-black  bg-gradient-to-r from-[#3a4e66] to-[#537090] w-full md:px-20  text-white py-2 rounded-md mx-auto flex justify-center items-center space-x-2">
-            //           {" "}
-            //           <HiOutlineShoppingBag className=" text-md text-[#fff]" />
-            //           <span>Continue the shopping</span>
-            //         </button>
-            //       </Link>
-            //     </div>
-            //   </div>
-            // </div>
-            <EmptyCart/>
-          ) : (
+            <div className=" h-[80vh]">
+ 
+    <EmptyPageLayout
+          icon={HiOutlineShoppingBag}
+          title="Your cart is empty"
+          text="Looks like you haven't added anything to your cart yet. Start  exploring and shop your favorite items!"
+          btnText="Browse Products"
+          link={PublicRoutes.PRODUCTS}
+          /> 
+          </div>
+              ) : (
             <>
-              <div className="border-b pb-4 ">
-                <h1 className="text-3xl font-bold">Your Cart</h1>
+              <div className="border-b py-4 ">
+        <h1 className="text-2xl text-primary font-bold uppercase">Your cart</h1>
               </div>
               <div className="flex flex-col md:flex-row pt-3">
-                <div className="w-full md:w-8/12 border-b-2 pb-10 mb-10 md:border-b-0 md:border-r-2 md:pr-4 lg:pr-5 xl:pr-20  space-y-4 md:min-h-80 ">
+                <div className="w-full md:w-8/12 border-b-2 pb-10 mb-10 md:border-b-0 md:border-r-2 md:pr-4 lg:pr-5 xl:pr-20  space-y-4 md:min-h-screen ">
                   {cart.map((item, i) => {
                     const isItemAdded = itemsSummary.some(
                       (summary) => summary.product._id === item.product._id
                     );
-                    // console.log(isItemAdded,'djfs')
                     return (
                       <div
                         key={i}
@@ -306,7 +300,7 @@ function Cart() {
                       </div>
                       {/* <Link to="/order-summary"> */}
                       <button
-                        className="bg-black  bg-gradient-to-r from-[#3a4e66] to-[#537090] w-full text-white py-2 rounded-md   "
+                        className="bg-primary-button-gradient w-full text-white py-2 rounded-md   "
                         onClick={proceedToCheckout}
                         disabled={loader}
                       >

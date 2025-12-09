@@ -13,12 +13,13 @@ function Orders(){
       const userOrderData = userOrder?.data?.data || [];
      
  return(
-    <section className="container space-y-10">
+    <section className="container space-y-10 min-h-screen">
               {contextHolder}
 
-       <div className="border-b pb-4 ">
-         <h1 className="text-3xl font-bold">Your Orders</h1>
-       </div>
+       <div className="border-b py-4 ">
+        <h1 className="text-2xl text-primary font-bold uppercase">My Orders</h1>
+              </div>
+    
        {
         userOrderData.map((orderItem)=>(
         
