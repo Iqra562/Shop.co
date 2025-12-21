@@ -1,7 +1,7 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
-import { useGetCart } from "@hooks/cart/useCart.js";
+import { useGetCart } from "@hooks/cart/useCartData.js";
 import {
   QueryClient,
   useMutation,
@@ -17,111 +17,49 @@ import CartSkeleton from "./components/cartSkeleton";
 import { LoadingOutlined } from "@ant-design/icons";
 import EmptyPageLayout from "@components/common/EmptyPageLayout";
 import { useCartActions } from "@hooks/cart/useCartActions.js";
+import { useCartSelection } from "@hooks/cart/useCartSelection.js";
+import { useCartSummary } from "@hooks/cart/useCartSummary.js";
 function Cart() {
-   const {
+  const {
     data: cartData,
     dataUpdatedAt,
     isFetched,
     isPending,
     error,
   } = useGetCart();
-  const { increaseQuantity, decreaseQuantity, removeCartItemHandler } =
-    useCartActions();
-
-  const { isAuthenticated } = useContext(AuthContext);
-  const [itemsSummary, setItemsSummary] = useState([]);
-  // const [subTotal, setSubTotal] = useState(0);
-  const [shippingFee, setShippingFee] = useState(0);
-  // const [totalItems, setTotalItems] = useState(0);
-  const [total, setTotal] = useState(0);
-  const { setProducts } = useContext(OrderContext);
-  const navigation = useNavigate();
   const [api, contextHolder] = notification.useNotification();
-  const [loader, setLaoder] = useState(false);
-  const notify = (type, message) => {
-    api[type]({
-      description: message,
-      icon: false,
-    });
-  };
+  const navigate = useNavigate();
+const notify = (type, message) => {
+  api[type]({
+    description: message,
+    icon: false,
+  });
+};
+
 
   const cart = useMemo(
     () => cartData?.data?.data.items || [],
     [cartData?.data?.data.items]
   );
+  const { itemsSummary, setItemsSummary } = useCartSelection({ cart });
+  const {increaseQuantity,
+    decreaseQuantity,
+    removeCartItemHandler,} = useCartActions()
 
-  useEffect(() => {
-    if (!cart.length) return;
-    // update the item summary when quantity changes
-    setItemsSummary((prevSummary) => {
-      let updatedSummary = [...prevSummary];
-      // Update or remove items
-      updatedSummary = updatedSummary.filter((summaryItem) =>
-        cart.some((cartItem) => cartItem._id === summaryItem._id)
-      );
-      cart.forEach((item) => {
-        const existingIndex = updatedSummary.findIndex(
-          (summaryItem) => summaryItem._id === item._id
-        );
-        console.log("existing index", existingIndex);
-        if (existingIndex !== -1) {
-          updatedSummary[existingIndex] = item;
-        }
-      });
+  const {
+    subTotal,
+    totalItems,
+    grandTotal,
+    totalProductSummaryHandler,
+    proceedToCheckout,
+    loader,
+  } = useCartSummary({ itemsSummary, setItemsSummary, cart ,onNotify:notify ,onNavigate:navigate });
 
-      return updatedSummary;
-    });
-    // console.log("");
-  }, [cart]);
+  const { isAuthenticated } = useContext(AuthContext);
 
-  const totalProductSummaryHandler = (id) => {
-    //  console.log(id)
-    const items = cart.find((item) => item._id === id);
-    const isItemInSummaryArray = itemsSummary.find((item) => item._id === id);
-    if (isItemInSummaryArray) {
-      setItemsSummary((prev) =>
-        prev.filter((summaryItem) => summaryItem._id !== id)
-      );
-    } else {
-      setItemsSummary((pre) => [...pre, items]);
-    }
-    // console.log(itemsSummary, "items summary");
-  };
-
-  // console.log(itemsSummary);
-
-  const { subTotal, totalItems, grandTotal } = useMemo(() => {
-    if (itemsSummary.length === 0) {
-      return { subTotal: 0, totalItems: 0, total: 0, grandTotal: 0 };
-    }
-    const subTotal = itemsSummary.reduce((total, item) => {
-      return total + item.product.price * item.quantity;
-    }, 0);
-    const totalItems = itemsSummary.reduce((total, item) => {
-      return total + item.quantity;
-    }, 0);
-    const shippingFee = 0;
-    const grandTotal = subTotal + shippingFee;
-    return { subTotal, totalItems, grandTotal };
-  }, [itemsSummary, cart]);
-  useEffect(() => {
-    setProducts(itemsSummary);
-  }, [itemsSummary, cart]);
-
-  const proceedToCheckout = () => {
-    if (!itemsSummary.length) {
-      notify("warning", "Please select items");
-      return;
-    }
-    setLaoder(true);
-    setTimeout(() => {
-      setLaoder(false);
-      navigation("/order-summary");
-    }, 3000);
-  };
-
+ 
   return (
-    <section className="container   min-h-screen ">
+    <section className="container min-h-screen ">
       {contextHolder}
       {isAuthenticated ? (
         <div>

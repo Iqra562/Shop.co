@@ -57,7 +57,7 @@ function OrderSummary() {
       },
     });
   const createOrderHandler = () => {
-    console.log(products,'1244');
+    // console.log(products,'1244');
     createOrderRequest({ itemDetails: products });
   };
   

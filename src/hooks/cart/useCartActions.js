@@ -2,20 +2,24 @@ import {
   useAddToCart,
   useDecreaseCartQuantity,
   useRemoveCart,
-} from "./useCart";
+
+} from "./useCartData";
 import {
   QueryClient,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
-
+ 
 export const useCartActions = () => {
+
+
   const { addToCart } = useAddToCart();
   const { decreaseCartQuantity } = useDecreaseCartQuantity();
   const { removeCartItem } = useRemoveCart();
   const queryClient = useQueryClient();
 
-  
+
+
   const increaseQuantity = (productId) => {
     addToCart(
       { productId: String(productId), quantity: 1 },
@@ -28,7 +32,7 @@ export const useCartActions = () => {
     );
   };
 
-   const decreaseQuantity = (productId) => {
+  const decreaseQuantity = (productId) => {
     decreaseCartQuantity(
       { productId: String(productId), quantity: 1 },
       {
@@ -42,14 +46,14 @@ export const useCartActions = () => {
       }
     );
   };
-   const removeCartItemHandler = (id) => {
+  const removeCartItemHandler = (id) => {
     removeCartItem(
       {
         cartItemId: id,
       },
       {
         onSuccess: (response) => {
-           queryClient.invalidateQueries(["cart"]);
+          queryClient.invalidateQueries(["cart"]);
         },
         onError: (error) => {
           console.error(" Inline error:", error);
@@ -58,10 +62,14 @@ export const useCartActions = () => {
     );
   };
 
+
+
   return {
     increaseQuantity,
-     decreaseQuantity,
-     removeCartItemHandler
-     
+    decreaseQuantity,
+    removeCartItemHandler,
+
+
+
   };
 };

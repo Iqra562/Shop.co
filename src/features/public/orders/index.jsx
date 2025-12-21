@@ -9,7 +9,7 @@ function Orders(){
         queryKey: ["userOrders"],
         queryFn: orderServices.getOrdersById,
       }); 
-      console.log(userOrder?.data?.data)
+    //   console.log(userOrder?.data?.data)
       const userOrderData = userOrder?.data?.data || [];
      
  return(
@@ -21,9 +21,9 @@ function Orders(){
               </div>
     
        {
-        userOrderData.map((orderItem)=>(
+        userOrderData.map((orderItem,index)=>(
         
-        <div className='space-y-4 '>
+        <div key={index} className='space-y-4 '>
             <div className="bg-white rounded-md border px-2 md:px-10 py-5 ">
                 <div className="border-b flex flex-col md:flex-row  md:justify-between items-center pb-2">
                     <div className='font-bold'>
@@ -34,8 +34,8 @@ function Orders(){
                     </div>
                     </div>
                     {
-                        orderItem.items.map((eachOrderData)=>(
-                            <div>
+                        orderItem.items.map((eachOrderData,index)=>(
+                            <div key={index}>
    <div className='flex py-4 space-x-5'>
                     <div className='rounded-md overflow-hidden w-20 h-20'  >
                         <img src={eachOrderData.thumbnail} alt="" className='w-full h-full' />

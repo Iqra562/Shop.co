@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { cartServices } from "../../../services/cart.service";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useGetCart } from "../../../hooks/cart/useCart.js";
+import { useGetCart } from "../../../hooks/cart/useCartData.js";
 import { Button, notification, Space } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Flex, Spin } from "antd";
@@ -37,7 +37,7 @@ function ProductDetails() {
   const findProductInCart = cart.find((item) => item.product._id === productId);
   //  const products = productsData.data
   const product = getProductDataById?.data?.data ?? [];
-  console.log(findProductInCart);
+  // console.log(findProductInCart);
   const increaseQuantity = () => {
     setProductQuantity((prev) => (prev >= 15 ? prev : prev + 1));
   };
@@ -67,7 +67,7 @@ function ProductDetails() {
     const newQuantity = existingItem
       ? existingItem.quantity + productQuantity
       : productQuantity;
-    console.log("existing item", productQuantity);
+    // console.log("existing item", productQuantity);
     cartRequest(
       { productId: String(id), quantity: productQuantity },
       {

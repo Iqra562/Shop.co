@@ -18,7 +18,7 @@ import AppRoutes from "./routes/AppRoutes";
 
 export default function App() {
   const { isAuthenticated , user} = useContext(AuthContext);
-  console.log(isAuthenticated)
+  // console.log(isAuthenticated)
   return (
     <>
          {/* <Route element={<WebLayout />}>

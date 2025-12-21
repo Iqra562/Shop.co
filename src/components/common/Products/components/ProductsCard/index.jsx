@@ -13,6 +13,7 @@ import ProductCardSkeleton from "../ProductCardSkeleton";
                 <div className=" grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-0">
 { products.map((data, i) => (
           <Card
+          key={i}
             id={data._id}
             productName={data.name}
             description={data.description}

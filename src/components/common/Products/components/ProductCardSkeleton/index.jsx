@@ -5,7 +5,7 @@
                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 w-full">
                    {Array.from({ length: 4 }).map((_, i) => (
 
-          <div className="border border-gray-100 rounded-lg p-4 flex flex-col space-y-3 w-full">
+          <div key={i} className="border border-gray-100 rounded-lg p-4 flex flex-col space-y-3 w-full">
       <div className="w-full h-48 rounded-md overflow-hidden ">
         <Skeleton.Image active     style={{  }}
  />
