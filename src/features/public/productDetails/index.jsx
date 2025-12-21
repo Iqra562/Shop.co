@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { cartServices } from "../../../services/cart.service";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useGetCart } from "../../../hooks/useCart";
+import { useGetCart } from "../../../hooks/cart/useCart.js";
 import { Button, notification, Space } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Flex, Spin } from "antd";

@@ -9,7 +9,7 @@ import {
   useDecreaseCartQuantity,
   useAddToCart,
   useRemoveCart,
-} from "../../../hooks/useCart";
+} from "@hooks/cart/useCart.js";
 import {
   QueryClient,
   useMutation,
@@ -24,7 +24,9 @@ import { HiOutlineShoppingBag } from "react-icons/hi";
 import CartSkeleton from "./components/cartSkeleton";
 import { LoadingOutlined } from "@ant-design/icons";
 import EmptyPageLayout from "../../../components/common/EmptyPageLayout";
-
+import {
+   useCartActions,
+ } from "@hooks/cart/useCartActions.js";
 function Cart() {
   const queryClient = useQueryClient();
   const {
@@ -34,6 +36,9 @@ function Cart() {
     isPending,
     error,
   } = useGetCart();
+   const {  decreaseQuantity } =
+    useCartActions();
+
   const { isAuthenticated } = useContext(AuthContext);
   const [itemsSummary, setItemsSummary] = useState([]);
   // const [subTotal, setSubTotal] = useState(0);
@@ -113,20 +118,20 @@ function Cart() {
       }
     );
   };
-  const decreaseQuantity = (productId) => {
-    decreaseCartQuantity(
-      { productId: String(productId), quantity: 1 },
-      {
-        onSuccess: () => {
-          //  When mutation succeeds, refetch the cart data
-          queryClient.invalidateQueries(["cart"]);
-        },
-        onError: (error) => {
-          console.error("Decrease failed:", error);
-        },
-      }
-    );
-  };
+  // const decreaseQuantity = (productId) => {
+  //   decreaseCartQuantity(
+  //     { productId: String(productId), quantity: 1 },
+  //     {
+  //       onSuccess: () => {
+  //         //  When mutation succeeds, refetch the cart data
+  //         queryClient.invalidateQueries(["cart"]);
+  //       },
+  //       onError: (error) => {
+  //         console.error("Decrease failed:", error);
+  //       },
+  //     }
+  //   );
+  // };
 
   const totalProductSummaryHandler = (id) => {
     //  console.log(id)
