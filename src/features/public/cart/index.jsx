@@ -1,42 +1,31 @@
-import Card from "@components/common/Card";
-import { useGetProducts, useGetProductById } from "../../../hooks/useProducts";
-import img from "@assets/images/img3.jpg";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
-import {
-  useGetCart,
-  useDecreaseCartQuantity,
-  useAddToCart,
-  useRemoveCart,
-} from "@hooks/cart/useCart.js";
+import { useGetCart } from "@hooks/cart/useCart.js";
 import {
   QueryClient,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
-import { Button, notification, Space, Skeleton, Spin } from "antd";
-import { AuthContext } from "../../../context/AuthContext";
-import { OrderContext } from "../../../context/OrderContext";
+import { notification, Spin } from "antd";
+import { AuthContext } from "@context/AuthContext";
+import { OrderContext } from "@context/OrderContext";
 import { TbShoppingBagPlus } from "react-icons/tb";
 import { PublicRoutes } from "../../../utils/util.constant";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import CartSkeleton from "./components/cartSkeleton";
 import { LoadingOutlined } from "@ant-design/icons";
-import EmptyPageLayout from "../../../components/common/EmptyPageLayout";
-import {
-   useCartActions,
- } from "@hooks/cart/useCartActions.js";
+import EmptyPageLayout from "@components/common/EmptyPageLayout";
+import { useCartActions } from "@hooks/cart/useCartActions.js";
 function Cart() {
-  const queryClient = useQueryClient();
-  const {
+   const {
     data: cartData,
     dataUpdatedAt,
     isFetched,
     isPending,
     error,
   } = useGetCart();
-   const {  decreaseQuantity } =
+  const { increaseQuantity, decreaseQuantity, removeCartItemHandler } =
     useCartActions();
 
   const { isAuthenticated } = useContext(AuthContext);
@@ -55,30 +44,12 @@ function Cart() {
       icon: false,
     });
   };
-  const { removeCartItem, removeCartFromLoader } = useRemoveCart();
 
   const cart = useMemo(
     () => cartData?.data?.data.items || [],
     [cartData?.data?.data.items]
   );
-  // console.log("cart", cart);
 
-  const removeCartItemHandler = (id) => {
-    removeCartItem(
-      {
-        cartItemId: id,
-      },
-      {
-        onSuccess: (response) => {
-          // console.log(" Inline success for this item:", response);
-          queryClient.invalidateQueries(["cart"]);
-        },
-        onError: (error) => {
-          console.error(" Inline error:", error);
-        },
-      }
-    );
-  };
   useEffect(() => {
     if (!cart.length) return;
     // update the item summary when quantity changes
@@ -103,36 +74,6 @@ function Cart() {
     // console.log("");
   }, [cart]);
 
-  const { addToCart, addToCartLoader } = useAddToCart();
-
-  const { decreaseCartQuantity, decreaseCartQuantityLoader } =
-    useDecreaseCartQuantity();
-  const increaseQuantity = (productId) => {
-    addToCart(
-      { productId: String(productId), quantity: 1 },
-      {
-        onSuccess: () => {
-          //  When mutation succeeds, refetch the cart data
-          queryClient.invalidateQueries(["cart"]);
-        },
-      }
-    );
-  };
-  // const decreaseQuantity = (productId) => {
-  //   decreaseCartQuantity(
-  //     { productId: String(productId), quantity: 1 },
-  //     {
-  //       onSuccess: () => {
-  //         //  When mutation succeeds, refetch the cart data
-  //         queryClient.invalidateQueries(["cart"]);
-  //       },
-  //       onError: (error) => {
-  //         console.error("Decrease failed:", error);
-  //       },
-  //     }
-  //   );
-  // };
-
   const totalProductSummaryHandler = (id) => {
     //  console.log(id)
     const items = cart.find((item) => item._id === id);
@@ -144,7 +85,7 @@ function Cart() {
     } else {
       setItemsSummary((pre) => [...pre, items]);
     }
-    console.log(itemsSummary, "items summary");
+    // console.log(itemsSummary, "items summary");
   };
 
   // console.log(itemsSummary);
@@ -163,9 +104,9 @@ function Cart() {
     const grandTotal = subTotal + shippingFee;
     return { subTotal, totalItems, grandTotal };
   }, [itemsSummary, cart]);
-useEffect(() => {
-  setProducts(itemsSummary);
-}, [itemsSummary,cart]);
+  useEffect(() => {
+    setProducts(itemsSummary);
+  }, [itemsSummary, cart]);
 
   const proceedToCheckout = () => {
     if (!itemsSummary.length) {
@@ -188,19 +129,20 @@ useEffect(() => {
             <CartSkeleton />
           ) : cart.length === 0 ? (
             <div className=" h-[80vh]">
- 
-    <EmptyPageLayout
-          icon={HiOutlineShoppingBag}
-          title="Your cart is empty"
-          text="Looks like you haven't added anything to your cart yet. Start  exploring and shop your favorite items!"
-          btnText="Browse Products"
-          link={PublicRoutes.PRODUCTS}
-          /> 
-          </div>
-              ) : (
+              <EmptyPageLayout
+                icon={HiOutlineShoppingBag}
+                title="Your cart is empty"
+                text="Looks like you haven't added anything to your cart yet. Start  exploring and shop your favorite items!"
+                btnText="Browse Products"
+                link={PublicRoutes.PRODUCTS}
+              />
+            </div>
+          ) : (
             <>
               <div className="border-b py-4 ">
-        <h1 className="text-2xl text-primary font-bold uppercase">Your cart</h1>
+                <h1 className="text-2xl text-primary font-bold uppercase">
+                  Your cart
+                </h1>
               </div>
               <div className="flex flex-col md:flex-row pt-3">
                 <div className="w-full md:w-8/12 border-b-2 pb-10 mb-10 md:border-b-0 md:border-r-2 md:pr-4 lg:pr-5 xl:pr-20  space-y-4 md:min-h-screen ">

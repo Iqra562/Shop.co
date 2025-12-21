@@ -16,6 +16,17 @@ export const useCartActions = () => {
   const queryClient = useQueryClient();
 
   
+  const increaseQuantity = (productId) => {
+    addToCart(
+      { productId: String(productId), quantity: 1 },
+      {
+        onSuccess: () => {
+          //  When mutation succeeds, refetch the cart data
+          queryClient.invalidateQueries(["cart"]);
+        },
+      }
+    );
+  };
 
    const decreaseQuantity = (productId) => {
     decreaseCartQuantity(
@@ -31,10 +42,26 @@ export const useCartActions = () => {
       }
     );
   };
-  
+   const removeCartItemHandler = (id) => {
+    removeCartItem(
+      {
+        cartItemId: id,
+      },
+      {
+        onSuccess: (response) => {
+           queryClient.invalidateQueries(["cart"]);
+        },
+        onError: (error) => {
+          console.error(" Inline error:", error);
+        },
+      }
+    );
+  };
 
   return {
+    increaseQuantity,
      decreaseQuantity,
+     removeCartItemHandler
      
   };
 };

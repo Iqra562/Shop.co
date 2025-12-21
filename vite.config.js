@@ -29,7 +29,7 @@ export default defineConfig({
  outDir: "dist",
  },
    resolve: {
-    alias: {
+    alias: { 
       "@": path.resolve(__dirname, "./src"),
       "@assets": path.resolve(__dirname, "./src/assets"),
       "@features": path.resolve(__dirname, "./src/features"),
