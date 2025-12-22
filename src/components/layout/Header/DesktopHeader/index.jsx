@@ -1,4 +1,4 @@
-import React, { useState, useEffect, use, useContext } from "react";
+import React, { useState, useEffect, use, useContext, useMemo } from "react";
 import logo from "../../../../assets/images/logo.png";
 import { MdMenu } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -15,6 +15,7 @@ import { LiaBoxSolid } from "react-icons/lia";
 import { BiUser } from "react-icons/bi";
 import CartDrawer from "../../CartDrawer";
 import WishlistDrawer from "../../WishlistDrawer";
+import { useGetCart } from "@hooks/cart/useCartData.js";
 
 function DesktopHeader({
   glassEffect = false,
@@ -25,7 +26,7 @@ function DesktopHeader({
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [atTop, setAtTop] = useState(true);
-   const [cartOpen, setCartOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
   const [wishlistOpen, setWishlistOpen] = useState(false);
 
   const openCart = () => setCartOpen(true);
@@ -75,49 +76,15 @@ function DesktopHeader({
     setIsSubMenuOpen(false);
   };
 
-  const items = [
-    {
-      key: "1",
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.antgroup.com"
-        >
-          1st menu item
-        </a>
-      ),
-    },
-    {
-      key: "2",
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.aliyun.com"
-        >
-          2nd menu item
-        </a>
-      ),
-    },
-    {
-      key: "3",
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.luohanacademy.com"
-        >
-          3rd menu item
-        </a>
-      ),
-    },
-  ];
+  const { data: cartData } = useGetCart();
+
+  const cartCount = cartData?.data?.data?.items?.length || 0;
+
   return (
     <>
       {/* Header for desktop */}
-      <CartDrawer  open={cartOpen} onClose={closeCart}/>
-      <WishlistDrawer  open={wishlistOpen} onClose={closeWishlist}/>
+      <CartDrawer open={cartOpen} onClose={closeCart} />
+      <WishlistDrawer open={wishlistOpen} onClose={closeWishlist} />
       <header
         className={`z-50 py-4 transition-all duration-300 transform md:px-4  border-b  ${
           atTop
@@ -140,7 +107,9 @@ function DesktopHeader({
           {/* Logo */}
           <div className="flex items-center space-x-2">
             <img src={logo} alt="" className="w-10 hidden md:block" />
-            <span className="text-3xl hidden md:block uppercase font-extrabold">Shop.co</span>
+            <span className="text-3xl hidden md:block uppercase font-extrabold">
+              Shop.co
+            </span>
           </div>
 
           {/*  Nav Links */}
@@ -165,12 +134,17 @@ function DesktopHeader({
           </nav> */}
 
           <div className="flex items-center space-x-3   ">
-            <span onClick={openWishlist}  className="cursor-pointer">
-              <FiHeart className="text-lg"  />
+            <span onClick={openWishlist} className="cursor-pointer">
+              <FiHeart className="text-lg" />
             </span>
-              <span onClick={openCart} className="cursor-pointer">
-                <HiOutlineShoppingBag className="text-lg"  />
-              </span>
+            <span onClick={openCart} className="relative cursor-pointer">
+              <HiOutlineShoppingBag className="text-lg" />
+
+               {isAuthenticated &&  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
+                  {cartCount}
+                </span>}
+             </span>
+
             {isAuthenticated ? (
               <div className="flex">
                 <Dropdown
@@ -182,19 +156,24 @@ function DesktopHeader({
                           <FaUser className="cursor-pointer text-lg" />
                         </div>
                         <span className="capitalize">
-                          {user?.data?.data?.name || user?.data?.data?.user?.name || 'User'}
+                          {user?.data?.data?.name ||
+                            user?.data?.data?.user?.name ||
+                            "User"}
                         </span>
                       </div>
 
                       <div className="">
                         <div className="  py-2 space-y-2">
                           <Link to={AuthenticatedUserRoutes.PROFILE}>
-                          <button className=" flex items-center text-gray-600  space-x-3 ">
-                            <BiUser className="text-lg font-bold" />{" "}
-                            <span>Profile</span>
-                          </button>
+                            <button className=" flex items-center text-gray-600  space-x-3 ">
+                              <BiUser className="text-lg font-bold" />{" "}
+                              <span>Profile</span>
+                            </button>
                           </Link>
-                          <Link className="block"  to={AuthenticatedUserRoutes.WISHLIST}>
+                          <Link
+                            className="block"
+                            to={AuthenticatedUserRoutes.WISHLIST}
+                          >
                             <button className=" flex items-center text-gray-600  space-x-3 ">
                               <FiHeart className="text-lg font-bold" />{" "}
                               <span>My Wishlist</span>

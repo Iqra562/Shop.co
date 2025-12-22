@@ -11,7 +11,7 @@ function ProfileInfo(){
      
      <div className=" w-full border rounded-md px-5 md:px-10 py-5 ">
 
-       <div className=" w-full h-fit flex justify-between border-b">
+       {/* <div className=" w-full h-fit flex justify-between border-b">
                 <h2 className="text-base font-bold text-gray-600 capitalize ">Profile Information</h2>
                   <div className="text-sm">
                     <Link to={AuthenticatedUserRoutes.EDITPROFILE}>
@@ -33,6 +33,16 @@ function ProfileInfo(){
  
  
            </div>
+         </div> */}
+
+         <div>
+          <div className="flex">
+<span>
+  User name:
+</span>
+          <h2 className="text-">Iqra</h2>
+          </div>
+          <h6>iqra@gmail.com</h6>
          </div>
      </div>
      

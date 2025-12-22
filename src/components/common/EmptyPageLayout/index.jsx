@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { PublicRoutes } from "@utils/util.constant";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 
-function EmptyPageLayout({ icon: Icon, title, text, link, btnText ,btnIcon : BtnIcon}) {
+function EmptyPageLayout({ icon: Icon, title, text, link, btnText ,btnIcon : BtnIcon,onCloseDrawer}) {
   return ( 
     <div className=" flex flex-col items-center justify-center  h-full">
       <div className="space-y-4 md:space-y-4">
@@ -19,7 +19,7 @@ function EmptyPageLayout({ icon: Icon, title, text, link, btnText ,btnIcon : Btn
         </div>
         <div>
           <Link to={link} className=" ">
-            <button className="bg-primary-button-gradient  px-8  text-white py-2 rounded-md mx-auto flex justify-center items-center space-x-">
+            <button onClick={onCloseDrawer} className="bg-primary-button-gradient  px-8  text-white py-2 rounded-md mx-auto flex justify-center items-center space-x-">
               <span>
 
               {btnText}

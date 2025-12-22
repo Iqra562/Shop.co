@@ -29,12 +29,14 @@ function WishlistDrawer({open, onClose})  {
         closable={{ "aria-label": "Close Button" }}
         onClose={onClose}
         open={open}
-        headerStyle={{ borderBottom: "none" }}
         styles={{
           wrapper: {
             borderTopLeftRadius: "20px",
             borderBottomLeftRadius: "20px",
             overflow: "hidden",
+          },
+           header: {
+            borderBottom: "none",
           },
         }}
       > 
@@ -44,6 +46,8 @@ function WishlistDrawer({open, onClose})  {
           title="Your Wishlist is empty"
           text="It looks like you haven't added anything to your wishlist yet. Start exploring and add your favorite items!"
           btnText="Browse Products"
+                     onCloseDrawer={onClose}
+
         />):(<EmptyPageLayout
           icon={FiHeart}
                     title="You’re not logged in"
