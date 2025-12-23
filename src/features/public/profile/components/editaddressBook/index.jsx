@@ -4,9 +4,7 @@ import {
   useAddUserData,
   useUpdateAddressMutation,
 } from "../../../../../hooks/useUser.js";
-import { userServices } from "../../../../../services/user.service.js";
-import { useMutation } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+  import { useParams } from "react-router-dom";
 import { notification } from "antd";
 import { useState,useEffect } from "react";
 function EditAddressBook() {
@@ -22,7 +20,7 @@ function EditAddressBook() {
       description: message,
       icon: false,
        style: {
-        backgroundColor: '#fff', // Force white background
+        backgroundColor: '#fff', 
        },
     }); 
   };
@@ -113,8 +111,8 @@ function EditAddressBook() {
                   },
                 })}
               />
-              {errors.contact && (
-                <p className="text-red-600 text-sm">{errors.contact.message}</p>
+              {errors.phone && (
+                <p className="text-red-600 text-sm">{errors.phone.message}</p>
               )}
             </div>
 

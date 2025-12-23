@@ -14,7 +14,7 @@ function EditProfileInfo() {
   });
   const onSubmit = (data) => console.log(getUserData);
 
-  return (
+  return ( 
     <div className="w-full px-3 space-y-3">
       <div className="border-b pb-4 w-full h-fit">
         <h1 className="text-3xl font-bold">Update Profile</h1>

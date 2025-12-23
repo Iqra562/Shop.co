@@ -8,9 +8,11 @@ function Profile(){
    <div className="border-b py-4 ">
         <h1 className="text-2xl text-primary font-bold uppercase">My Profile</h1>
               </div>
-    
+    <div className=" w-full border rounded-md px-5 md:px-10 py-5 space-y-4 ">
+
  <ProfileInfo/>
 <AddressBook/>
+    </div>
 </div>
                 
     )

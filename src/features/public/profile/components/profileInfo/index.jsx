@@ -1,53 +1,40 @@
 import { MdEdit } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { AuthenticatedUserRoutes } from "../../../../../utils/util.constant.js";
-import { useFetchUserData } from "../../../../../hooks/useUser.js";
+import { AuthenticatedUserRoutes } from "@utils/util.constant.js";
+import { useFetchUserData } from "@hooks/useUser.js";
+import { AuthContext } from "@context/AuthContext";
+import { useContext } from "react";
 
+function ProfileInfo() {
+  const { getUserData } = useFetchUserData();
 
-function ProfileInfo(){
-  const {getUserData} =useFetchUserData();
-  console.log(getUserData)
-    return(
-     
-     <div className=" w-full border rounded-md px-5 md:px-10 py-5 ">
-
-       {/* <div className=" w-full h-fit flex justify-between border-b">
-                <h2 className="text-base font-bold text-gray-600 capitalize ">Profile Information</h2>
-                  <div className="text-sm">
-                    <Link to={AuthenticatedUserRoutes.EDITPROFILE}>
-                    <MdEdit/>
-                    </Link>
-                </div>
-              </div>
-               <div className=" mt-2">
-           <div className="flex justify-between">
-  <div className="w-6/12 md:space-y-2">
-    <div className="w-full  py-2 text-black font-bold  text-sm">User Name</div>
-    <div className=" text-sm capitalize">{getUserData?.name}</div>
-  </div>
- 
-  <div className="w-6/12 md:space-y-2">
-    <div className="w-full px-2 py-2 text-black font-bold  text-sm">Email</div>
-    <div className="px-2 text-sm">{getUserData?.email}</div>
-  </div>
- 
- 
-           </div>
-         </div> */}
-
-         <div>
-          <div className="flex">
-<span>
-  User name:
-</span>
-          <h2 className="text-">Iqra</h2>
+  // console.log(getUserData);
+  return (
+    <div class="rounded-2xl shadow overflow-hidden">
+      <div class=" p-6 text-black ">
+        <div class="flex items-center gap-4">
+          <div
+            class="w-14 h-14 p-5 rounded-full bg-black text-white 
+                  flex items-center justify-center text-xl font-bold uppercase"
+          >
+            {getUserData?.name?.charAt(0)}{" "}
           </div>
-          <h6>iqra@gmail.com</h6>
-         </div>
-     </div>
-     
- 
-                 
-    )
+          <div className="flex justify-between w-full">
+            <div>
+              <h2 class="text-xl font-bold uppercase"> {getUserData?.name}</h2>
+              <p class=""> {getUserData?.email}</p>
+            </div>
+            <div>
+              <Link to={AuthenticatedUserRoutes.EDITPROFILE}>
+              <button class="text-secondary font-semibold hover:underline">
+                Edit
+              </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 export default ProfileInfo;
