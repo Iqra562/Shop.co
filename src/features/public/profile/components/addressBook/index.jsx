@@ -6,17 +6,19 @@ import { BiSolidMap } from "react-icons/bi";
 
 function AddressBook() {
   const { getUserData } = useFetchUserData();
-console.log(getUserData)
+// console.log(getUserData)
   return (
-    <div className="space-y-5">
+    <div className="space-y-5"> 
      
 
       <div className=" py-5">
          <div className="flex items-center justify-between">
           <h2 className="text-xl font-bold">Address Book</h2>
+          <Link to={AuthenticatedUserRoutes.ADDADDRESS}>
           <button className="px-4 py-2 border bg-secondary text-white rounded-lg">
             + Add Address
           </button>
+          </Link>
         </div>
 
         {getUserData?.address.length === 0 ? (

@@ -185,7 +185,7 @@ function EditAddressBook() {
 
             <div className="flex">
               <button
-                className="bg-black text-white  py-2 rounded bg-gradient-to-r from-[#3a4e66] to-[#537090] ml-auto px-6"
+                className="bg-primary-button-gradient  text-white py-2 rounded-md ml-auto px-6"
                 type="submit"
               >
                 Save changes

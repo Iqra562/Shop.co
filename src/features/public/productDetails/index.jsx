@@ -11,7 +11,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { Flex, Spin } from "antd";
 import { Alert } from "antd";
 import { AuthContext } from "../../../context/AuthContext";
- 
+  
 function ProductDetails() {
   const { data: cartData } = useGetCart();
   const { data: productsData, isPending, error } = useGetProducts();

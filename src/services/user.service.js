@@ -30,6 +30,11 @@ const updateUserAddress = (addressId,payload)=>{
     return response;
 }
 
+const updateUserDetails = (payload)=>{
+const response = ApiService.patch(`${userServiceUrl.users}/update-account-details`,payload);
+return response;
+}
+
 const addUserAddress = (payload)=>{
     const response = ApiService.post(`${userServiceUrl.users}/address`,payload);
     return response;
@@ -48,5 +53,6 @@ export const userServices = {
     logoutUser,
     loginUser,
     updateUserAddress,
-    addUserAddress
+    addUserAddress,
+    updateUserDetails
 }
