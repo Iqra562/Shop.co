@@ -25,8 +25,16 @@ const currentUser = ()=>{
     return response;
 }
 
+const addUserAddress = (payload)=>{
+    const response = ApiService.post(`${userServiceUrl.users}/address/add`,payload);
+    return response;
+} 
 const updateUserAddress = (addressId,payload)=>{
-    const response = ApiService.put(`${userServiceUrl.users}/address/${addressId}`,payload);
+    const response = ApiService.patch(`${userServiceUrl.users}/address/update/${addressId}`,payload);
+    return response;
+}
+const deleteUserAddress=(addressId)=>{
+      const response = ApiService.delete(`${userServiceUrl.users}/address/delete/${addressId}`);
     return response;
 }
 
@@ -34,11 +42,6 @@ const updateUserDetails = (payload)=>{
 const response = ApiService.patch(`${userServiceUrl.users}/update-account-details`,payload);
 return response;
 }
-
-const addUserAddress = (payload)=>{
-    const response = ApiService.post(`${userServiceUrl.users}/address`,payload);
-    return response;
-} 
  
 const checkAuth = ()=>{
       const response = ApiService.get(`${userServiceUrl.users}/auth/check`);
@@ -52,7 +55,9 @@ export const userServices = {
     currentUser,
     logoutUser,
     loginUser,
-    updateUserAddress,
     addUserAddress,
-    updateUserDetails
+    updateUserAddress,
+    deleteUserAddress,
+    updateUserDetails,
+
 }

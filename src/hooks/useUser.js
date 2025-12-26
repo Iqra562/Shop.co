@@ -11,19 +11,12 @@ export const useFetchUserData = () => {
 }
 
 
-export const useAddUserData = () => {
+export const useAddUserAddress   = () => {
   const { mutateAsync: addUserAddress, isPending: addAddressLoading } = useMutation({
     mutationFn: userServices.addUserAddress,
-    onSuccess: () => {
-      console.log("Address saved successfully");
-      // Add success notification or redirect here
-    },
-    onError: (err) => {
-      console.log("Error saving address:", err);
-      // Add error notification here
-    },
+  
   });
-  return {
+  return { 
     addUserAddress,
     addAddressLoading
   }
@@ -35,7 +28,7 @@ export const useUpdateAddressMutation = (addressId, { onMutate, onSuccess, onErr
 
   const {
     mutateAsync: updateUserAddress,
-    isPending: updateUserAddressLoading,
+    isPending: updateAddressLoading,
     error: updateUserAddressError,
   } = useMutation({
     mutationFn: (payload) => userServices.updateUserAddress(addressId, payload),
@@ -51,10 +44,22 @@ export const useUpdateAddressMutation = (addressId, { onMutate, onSuccess, onErr
 
   return {
     updateUserAddress,
-    updateUserAddressLoading,
+    updateAddressLoading,
     updateUserAddressError,
   };
 };
+
+export const useDeleteAddressMutation = ({ onMutate, onSuccess, onError } = {})=>{
+  const {mutateAsync:deleteAddress,isPending:deleteAddressLoading} = useMutation({
+    mutationFn: userServices.deleteUserAddress,
+      onSuccess:onSuccess,
+    onError: onError
+  });
+  return{
+    deleteAddress,
+    deleteAddressLoading
+  }
+}
 
 
 export const useUpdateUserDetailsMutation = ({ onMutate, onSuccess, onError } = {}) => {
@@ -80,3 +85,6 @@ export const useUpdateUserDetailsMutation = ({ onMutate, onSuccess, onError } = 
     updateUserDetailsError
   }
 }
+
+
+ 
