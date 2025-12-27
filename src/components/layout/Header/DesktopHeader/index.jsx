@@ -79,7 +79,10 @@ function DesktopHeader({
   const { data: cartData } = useGetCart();
 
   const cartCount = cartData?.data?.data?.items?.length || 0;
+const location = useLocation();
 
+const isWishlistPage = location.pathname === "/wishlist";
+const isCartPage = location.pathname === "/cart";
   return (
     <>
       {/* Header for desktop */}
@@ -134,10 +137,12 @@ function DesktopHeader({
           </nav> */}
 
           <div className="flex items-center space-x-3   ">
-            <span onClick={openWishlist} className="cursor-pointer">
+            <span     onClick={!isWishlistPage ? openWishlist : undefined}
+ className="cursor-pointer">
               <FiHeart className="text-lg" />
             </span>
-            <span onClick={openCart} className="relative cursor-pointer">
+            <span     onClick={!isCartPage ? openCart : undefined}
+ className="relative cursor-pointer">
               <HiOutlineShoppingBag className="text-lg" />
 
                {isAuthenticated &&  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">

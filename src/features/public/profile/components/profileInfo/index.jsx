@@ -13,7 +13,7 @@ function ProfileInfo() {
     <div className="rounded-2xl shadow overflow-hidden">
       <div className=" p-6 text-black ">
         <div className="flex items-center gap-4">
-          <div
+          <div  
             className="w-14 h-14 p-5 rounded-full bg-black text-white 
                   flex items-center justify-center text-xl font-bold uppercase"
           >

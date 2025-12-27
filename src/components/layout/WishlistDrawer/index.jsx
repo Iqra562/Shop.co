@@ -1,30 +1,28 @@
-import React, { useContext, useEffect, useState } from 'react';
-import {   Drawer } from 'antd';
+import React, { useContext, useEffect, useState } from "react";
+import { Drawer } from "antd";
 import { FiHeart } from "react-icons/fi";
-import EmptyPageLayout from '../../common/EmptyPageLayout';
+import EmptyPageLayout from "../../common/EmptyPageLayout";
 import { PublicRoutes } from "@utils/util.constant";
 import { AuthContext } from "@context/AuthContext";
 import { TiArrowRight } from "react-icons/ti";
 
-function WishlistDrawer({open, onClose})  {
-      const { isAuthenticated } = useContext(AuthContext);
-  
-    useEffect(()=>{
-   if (open) {
-         document.body.style.overflow = 'hidden';
-       } else {
-         document.body.style.overflow = 'unset';
-       }
-      
-      // Cleanup
-      return () => {
-        document.body.style.overflow = 'unset';
-       };
-    },[open])
+function WishlistDrawer({ open, onClose }) {
+  const { isAuthenticated } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    // Cleanup
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [open]);
   return (
     <>
-  
-  
       <Drawer
         closable={{ "aria-label": "Close Button" }}
         onClose={onClose}
@@ -35,31 +33,33 @@ function WishlistDrawer({open, onClose})  {
             borderBottomLeftRadius: "20px",
             overflow: "hidden",
           },
-           header: {
+          header: {
             borderBottom: "none",
           },
         }}
-      > 
-      {
-        isAuthenticated ?(<EmptyPageLayout
-          icon={FiHeart}
-          title="Your Wishlist is empty"
-          text="It looks like you haven't added anything to your wishlist yet. Start exploring and add your favorite items!"
-          btnText="Browse Products"
-                     onCloseDrawer={onClose}
+      >
+        {isAuthenticated ? (
+          <EmptyPageLayout 
+            icon={FiHeart}
+            title="Your Wishlist is empty"
+            text="It looks like you haven't added anything to your wishlist yet. Start exploring and add your favorite items!"
+            btnText="Browse Products"
+            onCloseDrawer={onClose}
+                        link={PublicRoutes.PRODUCTS}
 
-        />):(<EmptyPageLayout
-          icon={FiHeart}
-                    title="You’re not logged in"
-                   text="Sign in to view your wishlist and continue shopping your favorite items."
-                   btnText="Login"
-                   link={PublicRoutes.LOGIN}
-                   btnIcon={TiArrowRight}
-        />)
-      }
-        
+          /> 
+        ) : (
+          <EmptyPageLayout
+            icon={FiHeart}
+            title="You’re not logged in"
+            text="Sign in to view your wishlist and continue shopping your favorite items."
+            btnText="Login"
+            link={PublicRoutes.LOGIN}
+            btnIcon={TiArrowRight}
+          />
+        )}
       </Drawer>
     </>
   );
-};
+}
 export default WishlistDrawer;

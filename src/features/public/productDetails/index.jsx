@@ -104,7 +104,7 @@ function ProductDetails() {
           </div>
           <div>
             <h3 className="text-base font-bold">Description:</h3>
-            <p className="text-gray-600">{product.description}</p>
+            <p className="text-gray-600 capitalize">{product.description}</p>
           </div>
           <div>
             <div className="flex space-x-4 items-center">
@@ -136,7 +136,7 @@ function ProductDetails() {
           {/* <Alert message="Error Text" type="error" /> */}
 
           <button
-            className="bg-primary-button-gradient w-full text-white py-2 rounded-md"
+            className="bg-primary-button-gradient w-full text-white py-2 rounded-md uppercase font-bold"
             onClick={() => addToCart(productId)}
             disabled={addToCartLoader}
           >

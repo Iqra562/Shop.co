@@ -16,7 +16,7 @@ function EmptyPageLayout({ icon: Icon, title, text, link, btnText ,btnIcon : Btn
           <div className="w-full  mx-auto">
             <p className="text-center text-gray-500">{text}</p>
           </div>
-        </div>
+        </div> 
         <div>
           <Link to={link} className=" ">
             <button onClick={onCloseDrawer} className="bg-primary-button-gradient  px-8  text-white py-2 rounded-md mx-auto flex justify-center items-center space-x-">

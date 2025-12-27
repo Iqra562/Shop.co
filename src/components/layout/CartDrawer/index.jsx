@@ -32,7 +32,7 @@ function CartDrawer({ open, onClose }) {
             borderBottom: "none",
           },
 
-          body: {
+          body: { 
             flex: 1,
             display: "flex",
             flexDirection: "column",

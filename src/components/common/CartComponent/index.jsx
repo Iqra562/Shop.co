@@ -18,7 +18,7 @@ import {
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { TiArrowRight } from "react-icons/ti";
 
-function CartComponent({ isSidebar ,onCloseDrawer=()=>{}}) {
+function CartComponent({ isSidebar, onCloseDrawer = () => {} }) {
   const {
     data: cartData,
     dataUpdatedAt,
@@ -105,7 +105,10 @@ function CartComponent({ isSidebar ,onCloseDrawer=()=>{}}) {
                 {isSidebar ? (
                   <div className="pt-2">
                     <Link to={AuthenticatedUserRoutes.CART} className=" ">
-                      <button className="bg-primary-button-gradient  px-8  text-white py-2 rounded-md mx-auto flex justify-center items-center space-x- w-full">
+                      <button
+                        onClick={onCloseDrawer}
+                        className="bg-primary-button-gradient  px-8  text-white py-2 rounded-md mx-auto flex justify-center items-center space-x- w-full"
+                      >
                         <span>View Cart </span>
 
                         <span>
@@ -139,6 +142,7 @@ function CartComponent({ isSidebar ,onCloseDrawer=()=>{}}) {
           btnText="Login"
           link={PublicRoutes.LOGIN}
           btnIcon={TiArrowRight}
+          onCloseDrawer={onClose}
         />
       )}
     </>
