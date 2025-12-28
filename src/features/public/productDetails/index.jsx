@@ -1,7 +1,7 @@
 import Card from "@components/common/Card";
 import { useGetProducts, useGetProductById } from "../../../hooks/useProducts";
 import img from "@assets/images/img3.jpg";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { cartServices } from "../../../services/cart.service";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -11,7 +11,8 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { Flex, Spin } from "antd";
 import { Alert } from "antd";
 import { AuthContext } from "../../../context/AuthContext";
-  
+import AddToCart from "../../../components/common/CartComponent/AddToCart/index.jsx";
+
 function ProductDetails() {
   const { data: cartData } = useGetCart();
   const { data: productsData, isPending, error } = useGetProducts();
@@ -22,17 +23,16 @@ function ProductDetails() {
   const [showMaxQuantityError, setShowMaxQuantityError] = useState(false);
   const { isAuthenticated } = useContext(AuthContext);
   const openNotificationWithIcon = (type, message) => {
-    api[type]({ 
+    api[type]({
       description: message,
       icon: false,
-       style: {
-        backgroundColor: '#fff', // Force white background
-       },
-    }); 
+      style: {
+        backgroundColor: "#fff", // Force white background
+      },
+    });
   };
 
-  const queryClient = useQueryClient();
-
+ 
   const cart = cartData?.data?.data.items ?? [];
   const findProductInCart = cart.find((item) => item.product._id === productId);
   //  const products = productsData.data
@@ -43,43 +43,12 @@ function ProductDetails() {
   };
   const decreaseQuantity = () => {
     setProductQuantity((prev) => (prev <= 1 ? prev : prev - 1));
-  }; 
-  const { mutate: cartRequest, isPending: addToCartLoader } = useMutation({
-    mutationFn: cartServices.addToCart,
-    onMutate: async () => {
-      setShowMaxQuantityError(false);
-    },
-    onError: (err) => {
-      const code = err.response?.data?.code;
-      if (code === "Max_Quantity") {
-        setShowMaxQuantityError(true);
-      }
-    },
-  });
-  
-  const addToCart = (id) => {
-    if (!isAuthenticated) {
-      openNotificationWithIcon("error", "Sign in to add items to your cart.");
-      return;
-    }
-    // console.log(id)
-    const existingItem = cart.find((item) => item.product._id === id);
-    const newQuantity = existingItem
-      ? existingItem.quantity + productQuantity
-      : productQuantity;
-    // console.log("existing item", productQuantity);
-    cartRequest(
-      { productId: String(id), quantity: productQuantity },
-      {
-        onSuccess: () => {
-          //  When mutation succeeds, refetch the cart data
-          queryClient.invalidateQueries(["cart"]);
-          openNotificationWithIcon("success", "Item added to cart");
-        },
-      },
-     
-    );
   };
+ useEffect(()=>{
+setShowMaxQuantityError(false)
+ },[productId])
+
+ 
 
   return (
     <section className="container    ">
@@ -97,7 +66,9 @@ function ProductDetails() {
         </div>
         <div className="md:pl-8 pt-2 md:pt-0 space-y-4 md:space-y-14 w-full md:w-5/12">
           <div className="flex justify-between items-center ">
-            <h2 className="text-3xl font-bold capitalize">{product.name}</h2>
+            <h2 className="text-3xl font-bold capitalize text-paragraphDark">
+              {product.name}
+            </h2>
             <span className="block text-secondary font-bold text-lg">
               ${product.price}
             </span>
@@ -135,32 +106,25 @@ function ProductDetails() {
           </div>
           {/* <Alert message="Error Text" type="error" /> */}
 
-          <button
-            className="bg-primary-button-gradient w-full text-white py-2 rounded-md uppercase font-bold"
-            onClick={() => addToCart(productId)}
-            disabled={addToCartLoader}
-          >
-            {addToCartLoader ? (
-              <Spin
-                indicator={
-                  <LoadingOutlined
-                    style={{
-                      fontSize: 15,
-                      color: "white",
-                      marginRight: "10px",
-                    }}
-                    spin
-                  />
-                }
-                size="small  "
-                colorPrimary="#000"
-                dotSizeSM={50}
-                spinning={addToCartLoader}
-              />
-            ) : (
-              "Add to Cart"
-            )}
-          </button>
+         <div>
+
+          <AddToCart
+            classAttributes="bg-primary-button-gradient w-full text-white py-2 rounded-md uppercase font-bold"
+            productId={productId}
+            quantity={productQuantity}
+            setShowMaxQuantityError={setShowMaxQuantityError} 
+            
+            onSuccess={() => {
+              openNotificationWithIcon("success", "Product added to kcart");
+            }}
+            onError={  (err,code) => {
+              if (code === "Max_Quantity") {
+                setShowMaxQuantityError(true);
+              }
+               
+            }}
+            />
+            </div>
         </div>
       </div>
     </section>
