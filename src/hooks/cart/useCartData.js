@@ -13,7 +13,7 @@ export const useAddToCart  = ()=> {
     });
   return {addToCart,addToCartLoader}
 }
-
+ 
 export const useDecreaseCartQuantity = ()=>{
    const { mutate: decreaseCartQuantity, isPending :decreaseCartQuantityLoader} = useMutation({
       mutationFn: cartServices.decreaseCartQuantity,

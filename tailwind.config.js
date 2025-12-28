@@ -9,7 +9,7 @@ export default {
       screens: {
         hd: '2560px'
       },
-      colors: {
+      colors: { 
 
         primary: '#1F1F1F',
         secondary:'#3f5a48',

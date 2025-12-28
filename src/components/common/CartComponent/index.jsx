@@ -10,8 +10,7 @@ import { useCartSummary } from "@hooks/cart/useCartSummary.js";
 import { AuthContext } from "@context/AuthContext";
 import EmptyPageLayout from "../EmptyPageLayout";
 import CartSkeleton from "./CartSkeleton";
-import { TbShoppingBagPlus } from "react-icons/tb";
-import {
+ import {
   AuthenticatedUserRoutes,
   PublicRoutes,
 } from "../../../utils/util.constant";
