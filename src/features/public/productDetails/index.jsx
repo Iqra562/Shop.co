@@ -45,7 +45,8 @@ function ProductDetails() {
     setProductQuantity((prev) => (prev <= 1 ? prev : prev - 1));
   };
  useEffect(()=>{
-setShowMaxQuantityError(false)
+setShowMaxQuantityError(false);
+setProductQuantity(1);
  },[productId])
 
  
@@ -115,7 +116,7 @@ setShowMaxQuantityError(false)
             setShowMaxQuantityError={setShowMaxQuantityError} 
             
             onSuccess={() => {
-              openNotificationWithIcon("success", "Product added to kcart");
+              openNotificationWithIcon("success", "Product added to cart");
             }}
             onError={  (err,code) => {
               if (code === "Max_Quantity") {
