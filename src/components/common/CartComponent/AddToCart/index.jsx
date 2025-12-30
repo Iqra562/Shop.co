@@ -30,7 +30,11 @@ function AddToCart({
   };
 
   const handleAddToCart = () => {
-    setShowMaxQuantityError(false)
+    setShowMaxQuantityError(false);
+                  setpopoverContent("");
+                                setShowPopover(false);
+
+
     if (!isAuthenticated) {
       openNotificationWithIcon("error", "Sign in to add items to your cart.");
       return;

@@ -1,7 +1,7 @@
  import { Link } from 'react-router-dom';
 import product1 from '../../../assets/images/product1.jpg'
-import { LiaHeart } from "react-icons/lia";
 import AddToCart from '../CartComponent/AddToCart';
+import WishlistToggle from '../WishlistToggle';
 function Card({id,img,productName,description,price,addToCart=()=>{}}){
 
     return( 
@@ -19,7 +19,7 @@ function Card({id,img,productName,description,price,addToCart=()=>{}}){
 
               <p className='font-bold text-lg md:text-2xl capitalize text-paragraphDark'>{productName} </p>
               
-              <LiaHeart className='text-xl text-secondary '/>
+            <WishlistToggle productId={id}/>
               </div>
               <p className='text-base capitalize'>{description}</p>
                 </div>

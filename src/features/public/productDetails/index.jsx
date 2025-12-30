@@ -12,6 +12,7 @@ import { Flex, Spin } from "antd";
 import { Alert } from "antd";
 import { AuthContext } from "../../../context/AuthContext";
 import AddToCart from "../../../components/common/CartComponent/AddToCart/index.jsx";
+import WishlistToggle from "../../../components/common/WishlistToggle/index.jsx";
 
 function ProductDetails() {
   const { data: cartData } = useGetCart();
@@ -52,12 +53,12 @@ setProductQuantity(1);
  
 
   return (
-    <section className="container    ">
+    <section className="container ">
       {contextHolder}
 
       <div className="flex flex-col  md:flex-row pt-10">
         <div className="w-full md:w-8/12 md:border-r-2 md:pr-2 lg:pr-20">
-          <div className=" h-[  ]  rounded-md overflow-hidden">
+          <div className=" rounded-md overflow-hidden">
             <img
               src={product.thumbnail?.url}
               className="w-full h-auto  "
@@ -66,14 +67,18 @@ setProductQuantity(1);
           </div>
         </div>
         <div className="md:pl-8 pt-2 md:pt-0 space-y-4 md:space-y-14 w-full md:w-5/12">
+        <div className="space-y-4">
+
           <div className="flex justify-between items-center ">
             <h2 className="text-3xl font-bold capitalize text-paragraphDark">
               {product.name}
             </h2>
-            <span className="block text-secondary font-bold text-lg">
+            <WishlistToggle productId={productId}/>
+          </div>
+            <span className="block text-secondary font-bold text-2xl">
               ${product.price}
             </span>
-          </div>
+        </div>
           <div>
             <h3 className="text-base font-bold">Description:</h3>
             <p className="text-gray-600 capitalize">{product.description}</p>
