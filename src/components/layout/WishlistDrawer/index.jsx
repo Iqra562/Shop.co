@@ -5,6 +5,7 @@ import EmptyPageLayout from "../../common/EmptyPageLayout";
 import { PublicRoutes } from "@utils/util.constant";
 import { AuthContext } from "@context/AuthContext";
 import { TiArrowRight } from "react-icons/ti";
+import Wishlist from "../../../features/public/wishlist";
 
 function WishlistDrawer({ open, onClose }) {
   const { isAuthenticated } = useContext(AuthContext);
@@ -27,18 +28,25 @@ function WishlistDrawer({ open, onClose }) {
         closable={{ "aria-label": "Close Button" }}
         onClose={onClose}
         open={open}
-        styles={{
+         styles={{
           wrapper: {
             borderTopLeftRadius: "20px",
             borderBottomLeftRadius: "20px",
             overflow: "hidden",
+            backgroundColor: "red",
           },
           header: {
             borderBottom: "none",
           },
+
+          body: { 
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+          },
         }}
       >
-        {isAuthenticated ? (
+        {/* {isAuthenticated ? (
           <EmptyPageLayout 
             icon={FiHeart}
             title="Your Wishlist is empty"
@@ -57,7 +65,11 @@ function WishlistDrawer({ open, onClose }) {
             link={PublicRoutes.LOGIN}
             btnIcon={TiArrowRight}
           />
-        )}
+        )} */}
+        <div className="h-full">
+        <Wishlist isSidebar={true} onClose={onClose}/>
+
+        </div>
       </Drawer>
     </>
   );

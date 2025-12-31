@@ -26,7 +26,7 @@ function WishlistToggle({ productId }) {
     <div>
       {isWishlist ? (
         <button disabled={deleteWishlistProductPending} onClick={removeFromWishlistHandler}>
-          <LiaHeartSolid className="text-xl text-red-600 " />
+          <LiaHeartSolid className="text-xl text-secondary " />
         </button>
       ) : (
         <button disabled={wishlistUpdatePending}  onClick={addToWishlistHandler}>

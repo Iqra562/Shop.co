@@ -3,7 +3,7 @@ import { wishlistServices } from "../services/wishlist.service";
 import { useState } from "react";
 
 export const useWishlist =()=>{
-
+ 
     const {data:getUserWishlist,isPending: wishlistLoading}= useQuery({
         queryKey:["wishlist"],
         queryFn:wishlistServices.getwishlist

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, use, useContext, useMemo } from "react";
-import logo from "../../../../assets/images/logo.png";
+import logo from "@assets/images/logo.png";
 import { MdMenu } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import { AuthContext } from "../../../../context/AuthContext";
+import { AuthContext } from "@context/AuthContext";
 import { userServices } from "../../../../services/user.service";
 import { Button, Dropdown, Space } from "antd";
 import { FaUser } from "react-icons/fa6";
@@ -16,6 +16,8 @@ import { BiUser } from "react-icons/bi";
 import CartDrawer from "../../CartDrawer";
 import WishlistDrawer from "../../WishlistDrawer";
 import { useGetCart } from "@hooks/cart/useCartData.js";
+import { useWishlist } from "@hooks/useWishlist";
+import { PublicRoutes } from "@utils/util.constant";
 
 function DesktopHeader({
   glassEffect = false,
@@ -77,12 +79,14 @@ function DesktopHeader({
   };
 
   const { data: cartData } = useGetCart();
+  const { getUserWishlistData } = useWishlist();
 
   const cartCount = cartData?.data?.data?.items?.length || 0;
-const location = useLocation();
+  const wishlistCount = getUserWishlistData?.length || 0;
+  const location = useLocation();
 
-const isWishlistPage = location.pathname === "/wishlist";
-const isCartPage = location.pathname === "/cart";
+  const isWishlistPage = location.pathname === "/wishlist";
+  const isCartPage = location.pathname === "/cart";
   return (
     <>
       {/* Header for desktop */}
@@ -108,12 +112,14 @@ const isCartPage = location.pathname === "/cart";
             </button>
           </div>
           {/* Logo */}
+            <Link to={PublicRoutes.HOME}>
           <div className="flex items-center space-x-2">
             <img src={logo} alt="" className="w-10 hidden md:block" />
             <span className="text-3xl hidden md:block uppercase font-extrabold">
               Shop.co
             </span>
           </div>
+            </Link>
 
           {/*  Nav Links */}
           {/* <nav className="hidden lg:flex  text-black ">
@@ -137,18 +143,29 @@ const isCartPage = location.pathname === "/cart";
           </nav> */}
 
           <div className="flex items-center space-x-3   ">
-            <span     onClick={!isWishlistPage ? openWishlist : undefined}
- className="cursor-pointer">
+            <span
+              onClick={!isWishlistPage ? openWishlist : undefined}
+              className="relative cursor-pointer"
+            >
               <FiHeart className="text-lg" />
+               {isAuthenticated && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
+                  {wishlistCount}
+                </span>
+              )}
             </span>
-            <span     onClick={!isCartPage ? openCart : undefined}
- className="relative cursor-pointer">
+            <span
+              onClick={!isCartPage ? openCart : undefined}
+              className="relative cursor-pointer"
+            >
               <HiOutlineShoppingBag className="text-lg" />
 
-               {isAuthenticated &&  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
+              {isAuthenticated && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
                   {cartCount}
-                </span>}
-             </span>
+                </span>
+              )}
+            </span>
 
             {isAuthenticated ? (
               <div className="flex">

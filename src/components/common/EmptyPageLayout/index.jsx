@@ -4,7 +4,7 @@ import { HiOutlineShoppingBag } from "react-icons/hi";
 
 function EmptyPageLayout({ icon: Icon, title, text, link, btnText ,btnIcon : BtnIcon,onCloseDrawer}) {
   return ( 
-    <div className=" flex flex-col items-center justify-center  h-full">
+    <div className=" flex flex-col items-center justify-center h-full  ">
       <div className="space-y-4 md:space-y-4">
         <div className="w-full flex justify-center">
           <Icon className="text-7xl md:text-9xl text-[#2d3d32]" />
