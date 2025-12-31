@@ -141,7 +141,7 @@ function CartComponent({ isSidebar, onCloseDrawer = () => {} }) {
           btnText="Login"
           link={PublicRoutes.LOGIN}
           btnIcon={TiArrowRight}
-          onCloseDrawer={onClose}
+          onCloseDrawer={onCloseDrawer}
         />
       )}
     </>
