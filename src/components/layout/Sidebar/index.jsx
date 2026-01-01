@@ -25,6 +25,11 @@ export function Sidebar() {
       label: "User",
       list: ["List", "Create", "Edit"],
     },
+    {
+      icon: <BiSolidTachometer className="text-xl" />,
+      label: "Products",
+      list: ["List", "Create", "Edit"],
+    },
 
   ],
 };
@@ -66,41 +71,39 @@ export function Sidebar() {
         <div className={`flex-1 overflow-y-scroll ${isCollapsed &&  'no-scrollbar'} `}>
         <div className={`${!isCollapsed ? "pl-6" : "px-1"}  space-y-2 `}>
             <div className="flex flex-col">
-{
-  Object.entries(menuItems).map(([category, items]) => {
-        return(
-            <>
-           {!isCollapsed && (
-            <span className="uppercase text-[#919EAB] font-semibold text-xs px-3 my-3">
-              {category}
+{Object.entries(menuItems).map(([category, items]) => {
+  return (
+    <div key={category}>
+      {!isCollapsed && (
+        <span className="uppercase text-[#919EAB] font-semibold text-xs px-3 my-3">
+          {category}
+        </span>
+      )}
+      {items.map((item, index) => 
+        item.list ? (
+          // Pass the actual item data to Dropdown
+          <Dropdown 
+            key={`${category}-${index}`}
+            isCollapsed={isCollapsed}
+            Icon={item.icon}
+            List={item.list}
+            label={item.label} // Add this prop
+          />
+        ) : (
+          <div
+            key={`${category}-${index}`}
+            className={`flex ${!isCollapsed ? "flex-row space-x-3" : "flex-col space-y-2"} transition-all duration-500 items-center px-3 py-3 rounded hover:bg-gray-100 cursor-pointer mb-2 ${index === 0 && "bg-gray-100"}`}
+          >
+            {item.icon}
+            <span className="text-[#637381] font-smibold text-xs font-semibold">
+              {item.label}
             </span>
-          )}
-            {items.map((item, index) => 
-                
-                    item.list ?(
-        <Dropdown isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed}   Icon={item.icon} List={item.list}/>
-
-                    ):(
-   <div
-                key={index}
-                className={`flex ${!isCollapsed ? "flex-row space-x-3" : "flex-col space-y-2"}  transition-all duration-500 items-center px-3 py-3 rounded hover:bg-gray-100 cursor-pointer mb-2     ${index === 0 && "bg-gray-100"}`}
-              >
-                {item.icon}
-                <span className="text-[#637381] font-smibold text-xs font-semibold">
-                  {item.label}
-                </span>
-              </div>
-                    )
-                
-           
-            )}
-         
-          </>
+          </div>
         )
-    })
-}
-          
-         
+      )}
+    </div>
+  );
+})}   
 
           
 
