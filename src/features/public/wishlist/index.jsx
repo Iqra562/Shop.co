@@ -6,6 +6,7 @@ import { AuthContext } from "@context/AuthContext";
 import EmptyPageLayout from "@components/common/EmptyPageLayout";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { PublicRoutes } from "../../../utils/util.constant";
+import { TiArrowRight } from "react-icons/ti";
 
 function Wishlist({ isSidebar, onClose }) {
   const { getUserWishlistData, wishlistLoading } = useWishlist();
