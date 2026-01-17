@@ -78,11 +78,14 @@ function Signup() {
                   name="name"
                   rules={{
                     required: "Name is required",
-                  }}
+   minLength: {
+      value: 2,
+      message: "Please provide valid name",
+    },                  }}
                   control={control}
                   render={({ field, fieldState }) => (
                     <div>
-                      <Input {...field} placeholder="Name" />
+                      <Input {...field} placeholder="Name"  />
                       {fieldState.error && (
                         <span style={{ color: "#ff0000" }}>
                           {fieldState.error.message}
@@ -113,9 +116,19 @@ function Signup() {
                   )}
                 />
                 <Controller
-                  rules={{
-                    required: "Password is required",
-                  }}
+                 rules={{
+    required: "Password is required",
+    minLength: {
+      value: 8,
+      message: "Password must be at least 8 characters long",
+    },
+       pattern: {
+      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/,
+      message:
+        "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+    },
+
+  }}
                   name="password"
                   control={control}
                   render={({ field, fieldState }) => (
