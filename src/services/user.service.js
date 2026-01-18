@@ -9,6 +9,10 @@ const registerUser = (payload)=>{
     const response = ApiService.post(`${userServiceUrl.users}/register`,payload);
     return response;
 }
+const verifyUser = (payload)=>{
+    const response = ApiService.post(`${userServiceUrl.users}/verify-otp`,payload);
+    return response;
+}
 
 const loginUser = (payload)=>{
  const response = ApiService.post(`${userServiceUrl.users}/login`,payload);
@@ -51,6 +55,7 @@ const checkAuth = ()=>{
 
 export const userServices = {
     registerUser,
+    verifyUser,
     checkAuth,
     currentUser,
     logoutUser,

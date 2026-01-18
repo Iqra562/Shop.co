@@ -1,6 +1,6 @@
 import React from "react";
 import { useMutation } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { userServices } from "../../../services/user.service";
 import { AuthContext } from "../../../context/AuthContext";
@@ -13,7 +13,8 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { Flex, Spin } from 'antd';
 function Signup() {
   const [errorMessage, setErrorMessage] = useState("");
-  const { handleSubmit, control } = useForm(); 
+  const { handleSubmit, control } = useForm();  
+  const navigate = useNavigate();
 
   const { login } = useContext(AuthContext);
 
@@ -24,16 +25,19 @@ function Signup() {
     setErrorMessage(""); 
   },
       onSuccess: (res) => {
-        // console.log("logIn success:", res);
-        if (res) {
-          login(res);
-        }
+        // console.lo g("logIn success:", res);
+              navigate("/verify-otp");
+
+        // if (res) {
+        //   login(res);
+        // }
       },
       onError: (err) => {
         const code = err.response?.data?.code;
         if (code === "EMAIL_ALREADY_EXISTS") {
           setErrorMessage("This email is not available.");
         }  else {
+          console.log(err)
           setErrorMessage("Something went wrong!");
         }
         // console.log(err)

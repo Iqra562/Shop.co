@@ -13,8 +13,9 @@ import { ProductDetails } from "./features/public/productDetails";
 import { Cart } from "./features/public/cart";
 import { OrderSummary } from "./features/public/orderSummary";
 import { Orders } from "./features/public/orders";
-import { AdminRoutes } from "./utils/util.constant";
+import { AdminRoutes, PublicRoutes } from "./utils/util.constant";
 import AppRoutes from "./routes/AppRoutes";
+import { VerifyOTP } from "./features/auth/VerifyOTP";
 
 export default function App() {
   const { isAuthenticated , user} = useContext(AuthContext);
@@ -39,6 +40,7 @@ export default function App() {
           <Route>
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+            <Route path={PublicRoutes.VERIFYOTP} element={<VerifyOTP />} />
           </Route>
           </Routes>
         )}

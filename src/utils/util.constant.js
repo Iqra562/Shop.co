@@ -3,7 +3,8 @@ export const  PublicRoutes = {
   PRODUCTS:'/products',
   PRODUCTDETAILS:'/product-details/:id',
   LOGIN:'/login',
-  REGISTER:'/register'
+  REGISTER:'/register',
+  VERIFYOTP:'/verify-otp'
 } 
 export const AuthenticatedUserRoutes = {
   CART:'/cart',
