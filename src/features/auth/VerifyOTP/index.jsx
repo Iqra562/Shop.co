@@ -11,6 +11,7 @@ import { Alert } from "antd";
 import { useForm, Controller, useController } from "react-hook-form";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import OTP from "./verify-otp-Input";
 
 function VerifyOTP() {
   const { isAuthenticated, login } = useContext(AuthContext);
@@ -18,6 +19,7 @@ function VerifyOTP() {
   const [otpCode,setOtpCode] = useState(null)
   const { handleSubmit, control } = useForm();
   const navigate = useNavigate();
+  const [otp, setOtp] = useState(Array(6).fill(""));
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -46,8 +48,8 @@ function VerifyOTP() {
     },
   });
 
-  const onSubmit = (data) => {
-    otpVerificationRequest(data);
+  const onSubmit = () => {
+    otpVerificationRequest({otp:otp.join("")});
   };
 
   return (
@@ -72,6 +74,7 @@ function VerifyOTP() {
               </p>
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
+              
               <div className="space-y-8 w-full">
                 {errorMessage && (
                   <Alert
@@ -82,7 +85,8 @@ function VerifyOTP() {
                     style={{ fontSize: "12px" }}
                   />
                 )}
-                <Controller
+                <OTP otp={otp} setOtp={setOtp}/>
+                {/* <Controller
                   name="otp"
                   rules={{
                     required: "Provide OTP code.",
@@ -109,7 +113,7 @@ function VerifyOTP() {
                       )}
                     </div>
                   )}
-                />
+                /> */}
 
                 <button
                   className="bg-black text-white w-full py-2 rounded bg-primary-button-gradient"
