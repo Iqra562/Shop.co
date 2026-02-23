@@ -16,14 +16,9 @@ function Wishlist({ isSidebar, onClose }) {
     <div
       className={`w-full h-full p-0 ${isSidebar ? "px-0 space-y-3" : "px-3 space-y-10 "} `}
     >
-      <div className={`w-full `}>
-        <div className={`border-b ${isSidebar ? "py-0" : "py-4 "} `}>
-          <h1 className="text-2xl text-primary font-bold uppercase">
-            My Wishlist
-          </h1>
-        </div>
-      </div> 
+      
       {isAuthenticated ? (
+        
         wishlistLoading ? (
           <WishlistSkeleton />
         ) : getUserWishlistData.length === 0 ? (
@@ -36,13 +31,22 @@ function Wishlist({ isSidebar, onClose }) {
             onCloseDrawer={onClose}
           />
         ) : (
+          <>
+           <div className={`w-full `}>
+        <div className={`border-b ${isSidebar ? "py-0" : "py-4 "} `}>
+          <h1 className="text-2xl text-primary font-bold uppercase">
+            My Wishlist
+          </h1>
+        </div>
+      </div>
           <WishlistCard isSidebar={isSidebar} />
+          </>
         )
       ) : (
         <EmptyPageLayout
           icon={HiOutlineShoppingBag}
           title="You’re not logged in"
-          text="Sign in to view your cart and continue shopping your favorite items."
+          text="Sign in to view your wishlist and continue shopping your favorite items."
           btnText="Login"
           link={PublicRoutes.LOGIN}
           btnIcon={TiArrowRight}

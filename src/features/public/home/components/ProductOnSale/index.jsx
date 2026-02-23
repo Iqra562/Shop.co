@@ -6,25 +6,25 @@ import { RatingCard } from "../RatingCard";
 import { ProductsCard } from "@components/common/Products";
 import { useGetProducts } from "@hooks/useProducts";
 
-function ProductsSection() {
+function ProductOnSale() {
   
   return (
     <>
     
 
-      <div className="container mt-12 ">
+      <div className="container mt-12  ">
         <div className="flex justify-between">
           <h2 className="text-2xl font-extrabold   mb-4 uppercase">
-            Top products
+            On Sale
           </h2>
-          <Link to="/products">
+<Link to="/products?type=sale">
             <span className="text-sm underline">View all </span>
-          </Link> 
+          </Link>
         </div>
         <ProductsCard limit={4} useQueryHook={useGetProducts}/>
       </div>
-    </>
+    </> 
   );
 }
 
-export { ProductsSection };
+export { ProductOnSale };

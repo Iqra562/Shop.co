@@ -1,6 +1,6 @@
 import img1 from "@assets/images/banner5.jpg";
-import img5 from "@assets/images/img5.jpg";
-import img6 from "@assets/images/banner2.jpg";
+import img5 from "@assets/images/banner-img-2.webp";
+import img6 from "@assets/images/img-banner.png";
 
 import Card from "@components/common/Card";
 import { useMutation, useQuery } from "@tanstack/react-query";

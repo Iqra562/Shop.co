@@ -86,35 +86,7 @@ function VerifyOTP() {
                   />
                 )}
                 <OTP otp={otp} setOtp={setOtp}/>
-                {/* <Controller
-                  name="otp"
-                  rules={{
-                    required: "Provide OTP code.",
-                  }}
-                  control={control}
-                  render={({ field, fieldState }) => (
-                    <div>
-                      <Input
-                        {...field}
-                        placeholder="6-digit code"
-                        type="text"
-                        inputMode="numeric"
-                        maxLength={6}
-                        onChange={(e) => {
-                          const value = e.target.value.replace(/\D/g, "");
-                          field.onChange(value);
-                          setOtpCode(value)
-                        }}
-                      />
-                      {fieldState.error && (
-                        <span style={{ color: "#ff0000" }}>
-                          {fieldState.error.message}
-                        </span>
-                      )}
-                    </div>
-                  )}
-                /> */}
-
+               
                 <button
                   className="bg-black text-white w-full py-2 rounded bg-primary-button-gradient"
                   type="submit"

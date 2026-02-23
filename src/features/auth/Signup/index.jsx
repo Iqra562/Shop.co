@@ -26,11 +26,12 @@ function Signup() {
   },
       onSuccess: (res) => {
         // console.lo g("logIn success:", res);
-              navigate("/verify-otp");
+              navigate("/");
+              
 
-        // if (res) {
-        //   login(res);
-        // }
+        if (res) {
+          login(res);
+        } 
       },
       onError: (err) => {
         const code = err.response?.data?.code;
