@@ -3,7 +3,7 @@ import { useWishlist } from "../../../hooks/useWishlist";
 import { WishlistCard } from "./components";
 import WishlistSkeleton from "./components/WishlistSkeleton";
 import { AuthContext } from "@context/AuthContext";
-import EmptyPageLayout from "@components/common/EmptyPageLayout";
+import EmptyPageLayout from "@components/common/EmptyPageLayout"; 
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { PublicRoutes } from "../../../utils/util.constant";
 import { TiArrowRight } from "react-icons/ti";
@@ -11,21 +11,21 @@ import { TiArrowRight } from "react-icons/ti";
 function Wishlist({ isSidebar, onClose }) {
   const { getUserWishlistData, wishlistLoading } = useWishlist();
   const { isAuthenticated } = useContext(AuthContext);
-
+  console.log(getUserWishlistData,'data')
   return (
     <div
-      className={`w-full h-full p-0 ${isSidebar ? "px-0 space-y-3" : "px-3 space-y-10 "} `}
+      className={`w-full  p-0 ${isSidebar ? "px-0 space-y-3 h-full " : "px-3 space-y-10 "} `}
     >
-      
+       
       {isAuthenticated ? (
         
         wishlistLoading ? (
           <WishlistSkeleton />
-        ) : getUserWishlistData.length === 0 ? (
-          <EmptyPageLayout
+        ) : !getUserWishlistData || getUserWishlistData.length === 0 ? (
+          <EmptyPageLayout 
             icon={HiOutlineShoppingBag}
-            title="Your cart is empty"
-            text="Looks like you haven't added anything to your cart yet. Start  exploring and shop your favorite items!"
+            title="Your wishlist is empty"
+text="Looks like you haven't added anything to your wishlist yet. Start exploring and save your favorite items!"
             btnText="Browse Products"
             link={PublicRoutes.PRODUCTS}
             onCloseDrawer={onClose}
@@ -39,7 +39,7 @@ function Wishlist({ isSidebar, onClose }) {
           </h1>
         </div>
       </div>
-          <WishlistCard isSidebar={isSidebar} />
+          <WishlistCard isSidebar={isSidebar} data={getUserWishlistData}/>
           </>
         )
       ) : (

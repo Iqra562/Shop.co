@@ -15,7 +15,7 @@ import { BiUser } from "react-icons/bi";
 
 export const SubLayout = () => {
   return (
-    <div className="flex container min-h-screen ">
+    <div className="flex container min-h-[90vh] ">
       <div className="w-2/12 border-r hidden lg:block pr-2 ">
         <div className="  py-2 space-y-2 rounded-md">
           <ul className="space-y-1" >

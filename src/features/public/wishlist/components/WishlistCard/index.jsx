@@ -7,8 +7,8 @@ import { AuthenticatedUserRoutes } from "../../../../../utils/util.constant";
 import { TiArrowRight } from "react-icons/ti";
 import { RxCross2 } from "react-icons/rx";
 
-function WishlistCard({ isSidebar, onClose }) {
-  const { getUserWishlistData } = useWishlist();
+function WishlistCard({ isSidebar, onClose,data:getUserWishlistData }) {
+  // const { getUserWishlistData } = useWishlist();
 
   const { removeFromWishlist, deleteWishlistProductPending } =
     useRemoveFromWishlist();
