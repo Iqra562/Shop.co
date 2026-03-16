@@ -3,11 +3,7 @@ import React, { useState } from "react";
 import DesktopHeader from "./DesktopHeader";
 import MobileHeader from "./MobileAppsHeader";
 
-const navItems = [
-  { label: "Home", link:'/'},
-  { label: "About Us", link:'/' },
-  { label: "Contact Us", link: '/' },
-];
+
 
 export function Header({ gradient = false,glassEffect=false }) { 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -51,10 +47,10 @@ export function Header({ gradient = false,glassEffect=false }) {
     <>
   
       {/* Header for desktop */}
-    <DesktopHeader glassEffect={glassEffect}  gradient = {gradient} navItems={navItems}  toggleMenuOpen={toggleMenuOpen }/>
+    <DesktopHeader glassEffect={glassEffect}  gradient = {gradient}  toggleMenuOpen={toggleMenuOpen }/>
 
       {/* Header for mobile apps */}
-     <MobileHeader   navItems={navItems} toggleMenuClose={toggleMenuClose} shouldRender ={shouldRender} setShouldRender={setShouldRender} isMenuOpen={isMenuOpen} setIsMenuOpen ={setIsMenuOpen} isSubMenuOpen ={isSubMenuOpen} setIsSubMenuOpen={setIsSubMenuOpen} openSubmenuIndex={openSubmenuIndex}setOpenSubmenuIndex={setOpenSubmenuIndex}
+     <MobileHeader   toggleMenuClose={toggleMenuClose} shouldRender ={shouldRender} setShouldRender={setShouldRender} isMenuOpen={isMenuOpen} setIsMenuOpen ={setIsMenuOpen} isSubMenuOpen ={isSubMenuOpen} setIsSubMenuOpen={setIsSubMenuOpen} openSubmenuIndex={openSubmenuIndex}setOpenSubmenuIndex={setOpenSubmenuIndex}
      />
     </>
   );

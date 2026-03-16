@@ -4,7 +4,7 @@ import { IoClose } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
 // import { routes } from "../../../config/utilities/utils.constant";
 
-function MobileHeader({ navItems,toggleMenuClose,shouldRender,isMenuOpen,isSubMenuOpen,setIsSubMenuOpen,openSubmenuIndex,setOpenSubmenuIndex}) {
+function MobileHeader({ toggleMenuClose,shouldRender,isMenuOpen,isSubMenuOpen,setIsSubMenuOpen,openSubmenuIndex,setOpenSubmenuIndex}) {
   const [isTargetWidth, setIsTargetWidth] = useState(false);
   const [isSubMenuAnimating, setIsSubMenuAnimating] = useState(false);
 const [windowHeight, setWindowHeight] = useState(

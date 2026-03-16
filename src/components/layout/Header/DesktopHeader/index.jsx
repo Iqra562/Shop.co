@@ -18,11 +18,11 @@ import WishlistDrawer from "../../WishlistDrawer";
 import { useGetCart } from "@hooks/cart/useCartData.js";
 import { useWishlist } from "@hooks/useWishlist";
 import { PublicRoutes } from "@utils/util.constant";
+import NavItem from "../NavItem";
 
 function DesktopHeader({
   glassEffect = false,
   gradient = false,
-  navItems,
   toggleMenuOpen,
 }) {
   const [showHeader, setShowHeader] = useState(true);
@@ -121,26 +121,7 @@ function DesktopHeader({
           </div>
             </Link>
 
-          {/*  Nav Links */}
-          {/* <nav className="hidden lg:flex  text-black ">
-            <ul className="flex space-x-4 xl:space-x-6">
-              {navItems.map((item, index) => (
-                <li
-                  key={index}
-                  className="relative group cursor-pointer transition text-lg"
-                  onMouseEnter={() => setOpenSubMenuIndex(index)}
-                  onMouseLeave={() => setOpenSubMenuIndex(null)}
-                >
-                  <Link
-                    to={item.link}
-                    className={`transition after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px]  after:rounded-full after:transition-all after:duration-300 group-hover:after:w-full flex  items-center space-x-2 `}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav> */}
+          <NavItem/>
 
           <div className="flex items-center space-x-3   ">
             <span
