@@ -7,11 +7,14 @@ function Card({id,img,productName,description,price,addToCart=()=>{}}){
     return( 
         <>
         <div className='bg-white rounded-lg overflow-hidden shadow-lg '>
-            <div className='h-28  md:h-60 lg:h-60 overflow-hidden'>
+          <div className='p-2'>
+
+            <div className='h-28  md:h-60 lg:h-60 overflow-hidden  rounded-lg '>
                 <Link to={`/product-details/${id}`}>
                 <img src={img} alt="" className='w-full h-full object-cover object-top' />
                 </Link>
                 </div>
+          </div>
             <div className='pt-3 space-y-1 p-2 md:p-4 py-3'>
                 <div> 
 
