@@ -17,7 +17,13 @@
 }
 
 @layer utilities {
- 
+   .border-gradient {
+    border: 2px solid transparent;
+    background: 
+      linear-gradient(white, white) padding-box,
+      theme('backgroundImage.primary-button-gradient') border-box;
+  }
+
   .container {
     max-width: 1536px;
     margin-left: auto;
