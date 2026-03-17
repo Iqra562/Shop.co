@@ -4,7 +4,7 @@ import img6 from "@assets/images/banner2.jpg";
 import { Link } from "react-router-dom";
 import { RatingCard } from "../RatingCard";
 import { ProductsCard } from "@components/common/Products";
-import { useGetProducts } from "@hooks/useProducts";
+import { useGetSaleProducts } from "@hooks/useProducts";
 
 function ProductOnSale() {
   
@@ -16,12 +16,12 @@ function ProductOnSale() {
         <div className="flex justify-between">
           <h2 className="text-2xl font-extrabold   mb-4 uppercase">
             On Sale
-          </h2>
+          </h2>  
 <Link to="/products?type=sale">
             <span className="text-sm underline">View all </span>
           </Link>
         </div>
-        <ProductsCard limit={4} useQueryHook={useGetProducts}/>
+        <ProductsCard limit={4} useQueryHook={useGetSaleProducts}/>
       </div>
     </> 
   );

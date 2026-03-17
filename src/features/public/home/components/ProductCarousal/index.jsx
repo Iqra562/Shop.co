@@ -29,13 +29,13 @@ export function ProductCarousal({ limit }) {
       {/* Navigation buttons */}
       <button
         ref={prevRef}
-        className="absolute right-10 md:right-20 -top-8 md:-top-40 lg:-top-48 xl:-top-1 -translate-y-1/2 z-10 bg-transparent border border-gray-400 transition-all duration-200  hover:bg-primary-button-gradient hover:border-none  text-gray-400 hover:text-paragraphLight px-2 md:px-4 py-2 md:py-4 rounded-full "
+        className="absolute right-20 md:right-20 -top-0 md:-top-40 lg:-top-48 xl:-top-1 -translate-y-1/2 z-10 bg-transparent border border-gray-400 transition-all duration-200  hover:bg-primary-button-gradient hover:border-none  text-gray-400 hover:text-paragraphLight px-2 md:px-4 py-2 md:py-4 rounded-full "
       >
         <FaAngleLeft />
       </button>
       <button
         ref={nextRef}
-        className="absolute right-0 -top-8 md:-top-40 lg:-top-48 xl:-top-1 -translate-y-1/2 z-10 bg-transparent border border-gray-400  transition-all duration-200 hover:bg-primary-button-gradient   hover:border-none  text-gray-400 hover:text-paragraphLight px-2 md:px-4 py-2 md:py-4 rounded-full "
+        className="absolute right-10 -top-0 md:-top-40 lg:-top-48 xl:-top-1 -translate-y-1/2 z-10 bg-transparent border border-gray-400  transition-all duration-200 hover:bg-primary-button-gradient   hover:border-none  text-gray-400 hover:text-paragraphLight px-2 md:px-4 py-2 md:py-4 rounded-full "
       >
         <FaAngleRight />
       </button>
@@ -78,6 +78,7 @@ export function ProductCarousal({ limit }) {
               description={product.description}
               price={product.price}
               img={product.thumbnail.url}
+             
               />
               
           </SwiperSlide>

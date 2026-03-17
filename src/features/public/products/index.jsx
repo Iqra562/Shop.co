@@ -1,7 +1,7 @@
 
 import { ProductsCard } from "@components/common/Products";
 import { useSearchParams } from "react-router-dom";
-import { useGetProducts } from "@hooks/useProducts";
+import { useGetProducts ,useGetSaleProducts} from "@hooks/useProducts";
 
 function Products() {
  
@@ -10,7 +10,7 @@ function Products() {
 
   const useQueryHook = 
     type === "sale"
-      ? useGetProducts
+      ? useGetSaleProducts
       : useGetProducts;
   return (
     <section className="container space-y-10 min-h-screen">

@@ -9,6 +9,10 @@ const getProducts = ()=>{
     const response = ApiService.get(`${productServiceUrl.products}/get-product`);
     return response;
 }
+const getProductsOnSale = ()=>{
+    const response = ApiService.get(`${productServiceUrl.products}/product-on-sale`);
+    return response;
+}
 const getProductById  = (productId)=>{
     const response  = ApiService.get(`${productServiceUrl.products}/get-product-by-id/${productId}`);
     return response;
@@ -17,4 +21,5 @@ const getProductById  = (productId)=>{
 export const productServices = {
     getProducts,
     getProductById,
+    getProductsOnSale
 }

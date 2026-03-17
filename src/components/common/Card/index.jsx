@@ -8,13 +8,18 @@ function Card({
   productName,
   description,
   price,
+  onsale,
+  discount,
   addToCart = () => {},
 }) {
   return (
     <>
       <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-lg ">
         <div className="p-2">
-          <div className="h-28  md:h-60 lg:h-60 overflow-hidden  rounded-3xl ">
+          <div className="h-28  md:h-60 lg:h-60 overflow-hidden  rounded-3xl relative">
+            {onsale &&
+               <div className="absolute z-10 px-2 py-1 bg-red-800 text-white left-2 top-3 rounded-md text-xs font-bold uppercase">on sale</div>
+            }
             <Link to={`/product-details/${id}`}>
               <img
                 src={img}
@@ -42,9 +47,15 @@ function Card({
             </p>
           </div>
           <div className="flex flex-col md:flex-row justify-between space-y-2 md:space-y-0 ">
-            <span className="block text-secondary font-bold text-base md:text-lg">
+            <div className="flex items-center space-x-2">
+
+            <span className={`block text-secondary font-bold text-base md:text-lg ${onsale && 'line-through text-red-700 text-sm md:text-base'}`}>
               ${price}
-            </span>
+            </span >
+             {
+                onsale && <span className={`block text-secondary font-bold text-base md:text-lg`}>${ price - (price * discount / 100)}</span>
+              }
+              </div>
             {/* <button className='bg-primary-button-gradient w-fit px-2 py-1 text-xs font-bold text-white rounded-md '>
                 ADD TO CART
               </button> */}

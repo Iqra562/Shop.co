@@ -19,6 +19,8 @@ function ProductsCard({ limit,useQueryHook }) {
               description={data.description}
               price={data.price}
               img={data.thumbnail.url}
+               discount={data.discountPrice}
+              onsale={true}
             />
           ))}
         </div>

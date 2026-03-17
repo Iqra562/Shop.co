@@ -5,6 +5,10 @@ export const useGetProducts = ()=> useQuery({
     queryKey: ["products"], 
     queryFn: productServices.getProducts,
   });
+export const useGetSaleProducts = ()=> useQuery({
+    queryKey: ["productsOnSale"], 
+    queryFn: productServices.getProductsOnSale,
+  });
 
 export const useGetProductById = (productId)=> useQuery({
 
