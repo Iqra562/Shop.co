@@ -5,7 +5,7 @@ import { ProductOnSale } from "./components/ProductOnSale";
  
 function Home(){
 return(
-    <div className="min-h-screen">
+    <div className="min-h-screen space-y-20 ">
      <Banner/>
      <ProductCarousal/>
       <ProductOnSale/>

@@ -20,28 +20,30 @@ function Banner() {
   // console.log(productsData)
   return (
     <>
-      <div className="px-4 md:px-10 pt-20 rounded-sm  ">
+      <div className="px-4 md:px-10 pt-16 rounded-sm  ">
         <div className=" flex flex-col md:flex-row rounded-lg overflowhidden space-y-2 md:space-y-0 md:space-x-3  xl:container ">
-          <div className="w-full md:w-6/12">
-            <h1 className=" text-5xl md:text-8xl font-bold uppercase text-[#1f1f1f]">
+          <div className="w-full md:w-7/12 lg:w-7/12">
+            <h1 className=" text-5xl lg:text-7xl font-bold uppercase text-[#1f1f1f]">
               Walk in Style with TrendWear
             </h1>
-            <p className="my-5 text-black text-lg">
+            <p className="my-5 text-gray-500 text-lg font-medium">
               Step into a world of comfort and everyday style. Discover clothing
               that fits your life perfectly—simple, stylish, and made for you.
               Whether you're dressing up or keeping it casual, we’ve got
               something for every moment.{" "}
             </p>
-            <div className="mt-10 flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-10">
-              <button className="bg-primary-button-gradient w-full md:w-fit px-10 py-3 text-base font-bold text-white uppercase rounded-md">
+            <div className="mt-10 flex flex-col space-y-4 lg:space-y-0 lg:flex-row lg:space-x-3">
+              <button className="bg-primary-button-gradient w-full lg:w-fit px-10 py-3 text-base font-bold text-white uppercase rounded-md">
                 Shop Now
               </button>
-              <button className=" border-gradient  w-full md:w-fit px-10 py-3 text-base font-bold text-black uppercase rounded-md">
+              <button className=" border-gradient  w-full lg:w-fit px-10 py-3 text-base font-bold text-secondary uppercase rounded-md">
                 View collections{" "}
               </button>
             </div>
+
+                              <RatingCard />
           </div>
-          <div className="w-full md:w-6/12  ">
+          <div className="w-full md:w-5/12 lg:w-5/12  ">
             <img src={img6} className="w-full " />
           </div>
         </div>
