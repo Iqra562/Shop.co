@@ -21,7 +21,6 @@ export default {
       backgroundImage: {
         'primary-button-gradient': 'linear-gradient(to right, #2d3d32, #3f5a48, #55795f)',
       },
-      
       keyframes: {
         slideInLeftTechStack: {
           '0%': { transform: 'translateX(50.5rem)' },

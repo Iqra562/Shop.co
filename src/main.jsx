@@ -23,7 +23,16 @@ createRoot(document.getElementById("root")).render(
   // <StrictMode>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <ConfigProvider theme={antdTheme}>
+        <ConfigProvider  theme={{
+           components: {
+      Spin: {
+        dotSizeLG: 50,
+      },
+    },
+    token: {
+      colorPrimary: '#3f5a48', 
+    },
+  }}>
           <AuthContextProvider>
           <OrderContextProvider>
             <App />

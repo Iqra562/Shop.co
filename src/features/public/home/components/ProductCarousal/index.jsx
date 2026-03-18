@@ -36,10 +36,10 @@ const sharedProps = {
           Top products
         </h2>
       </div>
-      {/* {
-        isPending &&      <Spiner/>
-
-      } */}
+      { isPending && <div className="w-full min-h-80 flex justify-center items-center">
+<Spin size="large"  />
+      </div>
+      }
       {/* Navigation buttons */}
       <button
         ref={prevRef}
