@@ -49,7 +49,7 @@ function Card({
           <div className="flex flex-col md:flex-row justify-between space-y-2 md:space-y-0 ">
             <div className="flex items-center space-x-2">
 
-            <span className={`block text-secondary font-bold text-base md:text-lg ${onsale && 'line-through text-red-700 text-sm md:text-base'}`}>
+            <span className={`block  font-bold ${onsale ? 'line-through text-red-700 text-sm md:text-base':'text-secondary  text-base md:text-lg'}`}>
               ${price}
             </span >
              {
