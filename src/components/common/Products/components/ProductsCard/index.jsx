@@ -1,6 +1,6 @@
 import Card from "@components/common/Card";
 import ProductCardSkeleton from "../ProductCardSkeleton";
-function ProductsCard({ limit,useQueryHook }) {
+function ProductsCard({onsale, limit,useQueryHook }) {
   const { data: productsData, isPending, error } = useQueryHook();
   const getProducts = productsData?.data?.data ?? [];
   const products = limit ? getProducts.slice(0, limit) : getProducts;
@@ -20,7 +20,7 @@ function ProductsCard({ limit,useQueryHook }) {
               price={data.price}
               img={data.thumbnail.url}
                discount={data.discountPrice}
-              onsale={true}
+              onsale={onsale}
             />
           ))}
         </div>

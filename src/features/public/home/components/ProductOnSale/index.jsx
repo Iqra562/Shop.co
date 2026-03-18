@@ -21,7 +21,7 @@ function ProductOnSale() {
             <span className="text-sm underline">View all </span>
           </Link>
         </div>
-        <ProductsCard limit={4} useQueryHook={useGetSaleProducts}/>
+        <ProductsCard onsale={true} limit={4} useQueryHook={useGetSaleProducts}/>
       </div>
     </> 
   );
