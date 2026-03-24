@@ -1,13 +1,13 @@
 import Card from "@components/common/Card";
 import ProductCardSkeleton from "../ProductCardSkeleton";
-function ProductsCard({ limit,useQueryHook }) {
+function ProductsCard({onsale, limit,useQueryHook }) {
   const { data: productsData, isPending, error } = useQueryHook();
   const getProducts = productsData?.data?.data ?? [];
   const products = limit ? getProducts.slice(0, limit) : getProducts;
 
   return (
     <>
-      {isPending ? (
+       {isPending ? (
         <ProductCardSkeleton />
       ) : (
         <div className=" grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-y-8 gap-x-3 md:gap-y-8 md:gap-x-4">
@@ -20,7 +20,7 @@ function ProductsCard({ limit,useQueryHook }) {
               price={data.price}
               img={data.thumbnail.url}
                discount={data.discountPrice}
-              onsale={true}
+              onsale={onsale}
             />
           ))}
         </div>

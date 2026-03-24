@@ -12,9 +12,9 @@
       </div>
 
       <div className="flex flex-col space-y-2">
-        <Skeleton.Input active size="default" style={{ width: "80%" }} />
-        <Skeleton.Input active size="small" style={{ width: "60%" }} />
-        <Skeleton.Input active size="small" style={{ width: "40%" }} />
+        <Skeleton.Input active size="small"  className="" style={{ width: "100%" }}  />
+        <Skeleton.Input active size="small" block className="w-full sm:w-4/5"/>
+        <Skeleton.Input active size="small" style={{ width: "10%" }} />
       </div>
     </div>
 

@@ -9,30 +9,42 @@ import { BiSolidTachometer } from "react-icons/bi";
 import { IoChevronForward } from "react-icons/io5";
 import { HiMiniChevronDown } from "react-icons/hi2";
 import { Button, ConfigProvider, Flex, Popover } from "antd";
-
+import { useLocation } from "react-router-dom";
 import svg from "@assets/images/icon.svg";
-export function Dropdown({ isCollapsed, setIsCollapsed, Icon, List,label }) {
+import { Link } from "react-router-dom";
+export function Dropdown({ isCollapsed, setIsCollapsed, Icon, List, label }) {
   const [isOpen, setIsOpen] = useState(false);
-
+  const location = useLocation();
   const content = (
     <div className=" ">
-      <ul className="space-y-4 w-28">
-        {List.map((item, index) => (
-          <li
-            key={index}
-            className="text-[#637381] font-smibold text-xs font-semibold"
-          >
-            {item}
-          </li>
-        ))}
+      <ul className="space-y-2 w-28">
+        {List.map((item, index) => {
+          const isActive = location.pathname === (item.link || "");
+          return (
+            <li
+              key={index}
+              className={`${
+                isActive ? "bg-gray-200" : ""
+              } hover:bg-gray-100 rounded-md`}
+            >
+              <Link
+                to={item.link || "#"}
+                className="text-[#637381]  flex font-smibold text-xs font-semibold py-1.5 px-1  cursor-pointer"
+              >
+                {item.name}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
+  // document.writeln(label)
   return (
     <>
       <div>
         {!isCollapsed && (
-          <div className="space-y-1 ">
+          <div className="space-y-1  ">
             <div
               onClick={() => setIsOpen(!isOpen)}
               className={`flex  flex-row ${!isCollapsed ? " space-x-3 justify-between items-center  px-3 " : " justify-center items-start px-0"}  transition-all duration-500     py-3 rounded hover:bg-gray-100 cursor-pointer    `}
@@ -42,7 +54,8 @@ export function Dropdown({ isCollapsed, setIsCollapsed, Icon, List,label }) {
               >
                 {Icon}{" "}
                 <span className="text-[#637381] font-semibold text-xs text-center">
- {label}                </span>
+                  {label}{" "}
+                </span>
               </div>
 
               {!isCollapsed &&
@@ -63,18 +76,23 @@ export function Dropdown({ isCollapsed, setIsCollapsed, Icon, List,label }) {
             >
               {!isCollapsed && (
                 <ul className="ul-list space-y-1 pl-3 ">
-                  {List.map((item, index) => (
-                    <li
-                      key={index}
-                      className={`li-list flex  transition-all duration-500 items-center   cursor-pointer `}
-                    >
-                      <span
-                        className={`text-[#637381] font-smibold text-xs font-semibold  px-3 py-3 w-full rounded    ${index === 0 && "bg-gray-100"}  hover:bg-gray-100`}
-                      >
-                        {item}
-                      </span>
-                    </li>
-                  ))}
+                  {List.map((item, index) => {
+                    const isActive = location.pathname === (item.link || "");
+                    return (
+                      <li key={index}>
+                        <Link
+                          to={item.link || "#"}
+                          className={`li-list flex  transition-all duration-500 items-center   cursor-pointer `}
+                        >
+                          <span
+                            className={`text-[#637381] font-smibold text-xs font-semibold  px-3 py-3 w-full rounded   ${isActive ? "bg-gray-200 text-dark hover:bg-gray-200" : "bg-white"}  hover:bg-gray-100`}
+                          >
+                            {item.name}
+                          </span>
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               )}
             </div>
@@ -95,9 +113,10 @@ export function Dropdown({ isCollapsed, setIsCollapsed, Icon, List,label }) {
                 <div
                   className={`flex ${!isCollapsed ? "flex-row space-x-3 items-center " : "flex-col flex-1 justify-center items-center space-y-2"}`}
                 >
-                  <BiSolidTachometer className="text-[#000] text-xl" />
+                  {/* <Icon className="text-[#000] text-xl" /> */}
+                  {Icon}
                   <span className="text-[#637381] font-semibold text-xs text-center">
-                    User
+                    {label}
                   </span>
                 </div>
 

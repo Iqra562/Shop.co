@@ -2,7 +2,7 @@
 import { ProductsCard } from "@components/common/Products";
 import { useSearchParams } from "react-router-dom";
 import { useGetProducts ,useGetSaleProducts} from "@hooks/useProducts";
-
+ 
 function Products() {
  
  const [searchParams] = useSearchParams();

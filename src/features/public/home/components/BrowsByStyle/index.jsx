@@ -11,7 +11,7 @@ function BrowsByStyle() {
         <p class="text-3xl md:text-5xl font-extrabold text-center pb-8">
           BROWSE BY DRESS STYLE
         </p>
-        <div class="flex flex-col md:flex-row mb-4 ">
+        <div class="flex flex-col md:flex-row mb-4 px-4 md:px-0">
           <div class="relative w-auto md:w-2/3 h-60 md:mr-4">
             <img
               src={img1}
@@ -33,7 +33,7 @@ function BrowsByStyle() {
             </p>
           </div>
         </div>
-        <div class="flex flex-col md:flex-row">
+        <div class="flex flex-col md:flex-row px-4 md:px-0">
           <div class="relative w-auto md:w-2/5 h-60 md:mr-4">
             <img
               src={img3}

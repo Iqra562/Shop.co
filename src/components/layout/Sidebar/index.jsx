@@ -3,10 +3,12 @@ import { HiMiniChevronLeft } from "react-icons/hi2";
 import { HiMiniChevronRight } from "react-icons/hi2";
 import logo from "@assets/images/logo.png";
 import { BiSolidTachometer } from "react-icons/bi";
-
+import { useLocation } from "react-router-dom";
 import { Dropdown } from "../../common/Dropdown";
+import { AdminRoutes } from "../../../utils/util.constant";
 export function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const location = useLocation();
 
  const menuItems = {
   overview: [
@@ -21,15 +23,16 @@ export function Sidebar() {
   ],
   management: [
     {
-      icon: <BiSolidTachometer className="text-xl" />,
+      icon: <BiSolidTachometer className="text-xl" color="#000"/>,
       label: "User",
-      list: ["List", "Create", "Edit"],
+        list: [{name:"List"}, {name:"Create"}, {name:"Edit"}],
     },
     {
-      icon: <BiSolidTachometer className="text-xl" />,
-      label: "Products",
-      list: ["List", "Create", "Edit"],
-    },
+      icon: <BiSolidTachometer className="text-xl" color="#000" />,
+        label: "Products",
+        list: [{name:"List",link:AdminRoutes.FETCHPRODUCTS}, {name:"Create"}, {name:"Edit"}],
+      
+      },
 
   ],
 };
@@ -37,9 +40,8 @@ export function Sidebar() {
 
   
   return (
-    <>
-      <div
-        className={`h-screen  text-black m-0 p-0 transition-all duration-500
+       <div
+        className={`h-screen  text-black m-0 p-0 transition-all duration-500 
         ${isCollapsed ? "w-24" : "w-72"} bor\r-[#f4f4f4]  border-r-[1px] relative flex flex-col`}
       >
         {/* Toggle Button */}
@@ -81,16 +83,15 @@ export function Sidebar() {
       )}
       {items.map((item, index) => 
         item.list ? (
-          // Pass the actual item data to Dropdown
-          <Dropdown 
+           <Dropdown 
             key={`${category}-${index}`}
             isCollapsed={isCollapsed}
             Icon={item.icon}
             List={item.list}
-            label={item.label} // Add this prop
+            label={item.label} 
           />
         ) : (
-          <div
+          <div 
             key={`${category}-${index}`}
             className={`flex ${!isCollapsed ? "flex-row space-x-3" : "flex-col space-y-2"} transition-all duration-500 items-center px-3 py-3 rounded hover:bg-gray-100 cursor-pointer mb-2 ${index === 0 && "bg-gray-100"}`}
           >
@@ -112,6 +113,5 @@ export function Sidebar() {
         </div>
         </div>
       </div>
-    </>
-  );
+   );
 }

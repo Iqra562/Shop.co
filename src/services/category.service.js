@@ -14,6 +14,8 @@ const getSubCategories = (parentId)=>{
     return response;
 }
 
+
+
 export const categoryServices ={
     getMainCategories,
     getSubCategories

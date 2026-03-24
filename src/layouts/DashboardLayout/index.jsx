@@ -4,14 +4,15 @@ import { Navbar } from "../../components/layout/Navbar";
 
 export const DashboardLayout=()=>{
     return(
-        <div className="flex">
+    <div className="flex h- overflow-hidden">
 <div className="">
 
         <Sidebar />
 </div>
-<div className="w-full">
+<div className="w-full h-screen bg-gray-100 overflow-y-auto">
 
         <Navbar/>
+
       <Outlet/>
 </div>
         </div>

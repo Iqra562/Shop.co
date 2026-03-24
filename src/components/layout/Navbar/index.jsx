@@ -8,7 +8,7 @@ export function Navbar() {
       const [position, setPosition] = useState('end');
 
     return (
-        <div className="w-full py-7 px-10 bg-white/5 flex justify-between items-center  h-20 sticky top-0 ">
+        <div className="w-full py-7 px-10 bg-white flex justify-between items-center  h-20 sticky top-0 rounded-b-xl ">
             <div className=" ">Team1 </div>
             <div className='flex items-center space-x-4'>
        

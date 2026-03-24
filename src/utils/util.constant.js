@@ -2,6 +2,7 @@ export const  PublicRoutes = {
   HOME:'/',
   PRODUCTS:'/products',
   PRODUCTDETAILS:'/product-details/:id',
+  GETPRODUCTBYCATEGORY:'/product',
   LOGIN:'/login',
   REGISTER:'/register',
   VERIFYOTP:'/verify-otp'
@@ -22,6 +23,8 @@ export const AuthenticatedUserRoutes = {
 } 
 export const AdminRoutes = {
   DASHBOARD:'/admin',
-
+  FETCHPRODUCTS:'/admin/fetchproducts',
+  PRODUCT_ADD:'/admin/product/add',
+  PRODUCT_EDIT:'/admin/product/edit/:id',
   
 } 

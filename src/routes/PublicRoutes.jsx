@@ -4,7 +4,8 @@ import { Home } from "../features/public";
 import { Products } from "../features/public/products";
 import { ProductDetails } from "../features/public/productDetails";
 import { WebLayout } from "../layouts";
-
+import ShopByCategory from "../features/public/shopByCategory";
+import { PublicRoutes as RoutePaths } from "../utils/util.constant";
 function PublicRoutes() {
   return (
     <Routes>
@@ -12,7 +13,9 @@ function PublicRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/product-details/:id" element={<ProductDetails />} />
+        <Route path={RoutePaths.GETPRODUCTBYCATEGORY} element={<ShopByCategory />} />
       </Route>
+      
     </Routes>
   );
 }

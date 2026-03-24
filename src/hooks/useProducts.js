@@ -10,6 +10,7 @@ export const useGetSaleProducts = ()=> useQuery({
     queryFn: productServices.getProductsOnSale,
   });
 
+  
 export const useGetProductById = (productId)=> useQuery({
 
    queryKey: ["product", productId],

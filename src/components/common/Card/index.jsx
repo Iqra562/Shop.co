@@ -48,13 +48,13 @@ function Card({
           </div>
           <div className="flex flex-col md:flex-row justify-between space-y-2 md:space-y-0 ">
             <div className="flex items-center space-x-2">
-
-            <span className={`block text-secondary font-bold text-base md:text-lg ${onsale && 'line-through text-red-700 text-sm md:text-base'}`}>
-              ${price}
-            </span >
              {
                 onsale && <span className={`block text-secondary font-bold text-base md:text-lg`}>${ price - (price * discount / 100)}</span>
               }
+
+            <span className={`block  font-bold ${onsale ? 'line-through text-red-700 text-sm md:text-base':'text-secondary  text-base md:text-lg'}`}>
+              ${price}
+            </span >
               </div>
             {/* <button className='bg-primary-button-gradient w-fit px-2 py-1 text-xs font-bold text-white rounded-md '>
                 ADD TO CART

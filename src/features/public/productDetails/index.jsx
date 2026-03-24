@@ -75,10 +75,19 @@ setProductQuantity(1);
             </h2>
             <WishlistToggle productId={productId}/>
           </div>
-            <span className="block text-secondary font-bold text-2xl">
+
+            <div className="flex flex-col-reverse items-start ">
+              <div className="flex space-x-1 items-center">
+
+                 <span className={`block  ${product.onsale ? 'line-through text-red-600 text-sm md:text-base font-semibold ':'text-secondary  text-lg md:text-xl  font-bold'}`}>
               ${product.price}
-            </span>
-        </div>
+            </span ><span className="text-gray-500 text-xs font-semibold">-{product.discountPrice}%</span>
+              </div>
+            {
+                product.onsale &&( <span className={`block text-secondary font-bold text-lg md:text-xl`}>${ product.price - (product.price * product.discountPrice / 100)} <span></span></span> )
+              }
+            </div>
+        </div> 
           <div>
             <h3 className="text-base font-bold">Description:</h3>
             <p className="text-gray-600 capitalize">{product.description}</p>

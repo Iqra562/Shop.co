@@ -21,25 +21,44 @@ const queryClient = new QueryClient({
 });
 createRoot(document.getElementById("root")).render(
   // <StrictMode>
-    <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <ConfigProvider  theme={{
-           components: {
-      Spin: {
-        dotSizeLG: 50,
-      },
-    },
-    token: {
-      colorPrimary: '#3f5a48', 
-    },
-  }}>
-          <AuthContextProvider>
+  <BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <ConfigProvider
+       wave={{ disabled: true }}
+        theme={{
+          components: {
+            Spin: {
+              dotSizeLG: 50,
+            },
+            Select: {
+              activeOutlineColor: "transparent",
+              borderRadius: 9999,
+              colorBgElevated: "#fff",
+              colorBgContainer: "#55795f", 
+              controlHeight: 40,
+              colorTextQuaternary:'#fff'
+             
+
+              // optionSelectedColor: "#ffffff",
+              // optionSelectedBg: "#000", //active hover
+              // optionActiveBg: "red",
+              // colorItemTextSelected: "yellow",
+              // colorItemBgSelected: "yellow",
+              // colorItemBgActive: "#000",
+            },
+          },
+          token: {
+            colorPrimary: "#3f5a48",
+          },
+        }}
+      >
+        <AuthContextProvider>
           <OrderContextProvider>
             <App />
           </OrderContextProvider>
-          </AuthContextProvider>
-        </ConfigProvider>
-      </QueryClientProvider>
-    </BrowserRouter>
+        </AuthContextProvider>
+      </ConfigProvider>
+    </QueryClientProvider>
+  </BrowserRouter>,
   // </StrictMode>
 );
