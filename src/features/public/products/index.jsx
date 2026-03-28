@@ -8,7 +8,7 @@ function Products() {
  const [searchParams] = useSearchParams();
   const type = searchParams.get("type");
 
-  const useQueryHook = 
+  const useQueryHook =   
     type === "sale"
       ? useGetSaleProducts
       : useGetProducts;

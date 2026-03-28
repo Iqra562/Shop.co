@@ -29,8 +29,7 @@ const handleChange = value => {
       options={options}
       style={{ minWidth: 200 }}
  
-      // Customize internal styles
-      styles={{
+       styles={{
         control: {
           border: "none",         
           boxShadow: "none",     

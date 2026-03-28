@@ -39,12 +39,7 @@ createRoot(document.getElementById("root")).render(
               colorTextQuaternary:'#fff'
              
 
-              // optionSelectedColor: "#ffffff",
-              // optionSelectedBg: "#000", //active hover
-              // optionActiveBg: "red",
-              // colorItemTextSelected: "yellow",
-              // colorItemBgSelected: "yellow",
-              // colorItemBgActive: "#000",
+             
             },
           },
           token: {

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { categoryServices } from "../../../../services/category.service";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-
+ 
 const subItems = [
   { label: "Home", link: "/" },
   { label: "About Us", link: "/" },
