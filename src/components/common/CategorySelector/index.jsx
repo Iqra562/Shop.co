@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { categoryServices } from "@services/category.service";
 import { ConfigProvider, Select } from "antd";
 import "./style.css";
-const CategorySelector = ({ onLeafSelect }) => {
+const CategorySelector = ({ value, onChange }) => {
   const [selectedLevel1, setSelectedLevel1] = useState("");
   const [selectedLevel2, setSelectedLevel2] = useState("");
   const [selectedLevel3, setSelectedLevel3] = useState("");
@@ -45,18 +45,27 @@ const CategorySelector = ({ onLeafSelect }) => {
     setSelectedLevel1(value);
     setSelectedLevel2("");
     setSelectedLevel3("");
+        onChange(""); 
+
   };
 
   const handleLevel2Change = (value) => {
     setSelectedLevel2(value);
     setSelectedLevel3("");
+        onChange(""); 
+
   };
 
   const handleLevel3Change = (v) => {
     const value = v;
     setSelectedLevel3(value);
-    onLeafSelect(value);
+      onChange(value);
   };
+
+ 
+  useEffect(() => {
+    if (value) setSelectedLevel3(value); 
+  }, [value]);
 
   const selectTheme = {
     components: {
@@ -80,13 +89,18 @@ const CategorySelector = ({ onLeafSelect }) => {
 
       <ConfigProvider theme={selectTheme}>
         <Select
+          key={level1Options}
           placeholder="Select category"
           onChange={handleLevel1Change}
           options={level1Options}
           className="category-select"
           style={{ minWidth: 200 }}
           disabled={loadingL1}
-          popupClassName="category-custom-dropdown"
+          classNames={{
+            popup: {
+              root: "category-custom-dropdown",
+            },
+          }}
         />
       </ConfigProvider>
 
@@ -94,13 +108,18 @@ const CategorySelector = ({ onLeafSelect }) => {
       {selectedLevel1 && (
         <ConfigProvider theme={selectTheme}>
           <Select
+            key={level2Options}
             placeholder="Select Sub category"
             onChange={handleLevel2Change}
             options={level2Options}
             className="category-select"
             style={{ minWidth: 200 }}
             disabled={!selectedLevel1 || loadingL2}
-            popupClassName="category-custom-dropdown"
+            classNames={{
+              popup: {
+                root: "category-custom-dropdown",
+              },
+            }}
           />
         </ConfigProvider>
       )}
@@ -115,7 +134,11 @@ const CategorySelector = ({ onLeafSelect }) => {
             className="category-select"
             style={{ minWidth: 200 }}
             disabled={!selectedLevel2 || loadingL3}
-            popupClassName="category-custom-dropdown"
+            classNames={{
+              popup: {
+                root: "category-custom-dropdown",
+              },
+            }}
           />
         </ConfigProvider>
       )}

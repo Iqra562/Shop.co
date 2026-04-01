@@ -9,6 +9,12 @@ const getProducts = ()=>{
     const response = ApiService.get(`${productServiceUrl.products}/get-product`);
     return response;
 }
+
+const addProduct = (payload)=>{
+     const response = ApiService.post(`${productServiceUrl.products}/add-product`,payload);
+    return response;
+}
+
 const getProductsOnSale = ()=>{
     const response = ApiService.get(`${productServiceUrl.products}/product-on-sale`);
     return response;
@@ -21,5 +27,6 @@ const getProductById  = (productId)=>{
 export const productServices = {
     getProducts,
     getProductById,
-    getProductsOnSale
+    getProductsOnSale,
+    addProduct
 }

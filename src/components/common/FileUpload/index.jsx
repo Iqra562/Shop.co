@@ -1,15 +1,29 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect,forwardRef } from "react";
 import { RxCross2 } from "react-icons/rx";
 
-export default function FileUpload({max_image =10}) {
+const FileUpload = forwardRef(function FileUpload({ value = [], onChange, max_image = 1 }, ref) {
   const inputRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [isDisabled,setIsDisabled] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(false);
   const [images, setImages] = useState([]);
+
   const MAX_IMAGES = max_image;
 
+  // initialize local state from RHF value
+  useEffect(() => {
+    if (value.length) {
+      const previewImages = value.map((file) => ({
+        id: crypto.randomUUID(),
+        file,
+        preview: URL.createObjectURL(file),
+      }));
+      setImages(previewImages);
+      if (previewImages.length >= MAX_IMAGES) setIsDisabled(true);
+    }
+  }, []);
+
   const handleClick = () => {
-    inputRef.current.click();
+    if (!isDisabled) inputRef.current.click();
   };
 
   const handleDrop = (e) => {
@@ -19,48 +33,44 @@ export default function FileUpload({max_image =10}) {
     handleFiles(files);
   };
 
-  const handleChange = (e) => {
+  const handleChangeFiles = (e) => {
     const files = Array.from(e.target.files);
     handleFiles(files);
   };
 
- const handleFiles = (files) => {
-  const imageFiles = files.filter((file) =>
-    file.type.startsWith("image/")
-  );
+  const handleFiles = (files) => {
+    const imageFiles = files.filter((file) => file.type.startsWith("image/"));
+    const remainingSlots = MAX_IMAGES - images.length;
+    const limitedFiles = imageFiles.slice(0, remainingSlots);
 
-  const remainingSlots = MAX_IMAGES - images.length;
-
-   const limitedFiles = imageFiles.slice(0, remainingSlots);
-
-  const previewImages = limitedFiles.map((file) => ({
+    const previewImages = limitedFiles.map((file) => ({
       id: crypto.randomUUID(),
-    file,
-    preview: URL.createObjectURL(file),
-  }));
+      file,
+      preview: URL.createObjectURL(file),
+    }));
 
-  setImages((prev) => [...prev, ...previewImages]);
+    const newImages = [...images, ...previewImages];
+    setImages(newImages);
 
-   if (images.length + limitedFiles.length >= MAX_IMAGES) {
-    setIsDisabled(true);
-  }
-};
+    if (newImages.length >= MAX_IMAGES) setIsDisabled(true);
 
-const removeImage = (id) => {
-  setImages((prev) => {
-    const target = prev.find((img) => img.id === id);
-    if (target) URL.revokeObjectURL(target.preview);
+    // updat RHF form state
+    onChange(newImages.map((img) => img.file));
+  };
 
-    const updated = prev.filter((img) => img.id !== id);
+  const removeImage = (id) => {
+    const updated = images.filter((img) => img.id !== id);
+    setImages(updated);
     if (updated.length < MAX_IMAGES) setIsDisabled(false);
-    return updated;
-  });
-};
-   const removeAll = () => {
-    images.forEach((img) => URL.revokeObjectURL(img.preview));
-    setIsDisabled(false)   
 
+    onChange(updated.map((img) => img.file)); 
+  };
+
+  const removeAll = () => {
+    images.forEach((img) => URL.revokeObjectURL(img.preview));
     setImages([]);
+    setIsDisabled(false);
+    onChange([]); 
   };
 
    useEffect(() => {
@@ -81,11 +91,10 @@ const removeImage = (id) => {
         }}
         onDragLeave={() => setIsDragging(false)}
         onDrop={handleDrop}
-        className={`border border-dashed rounded-xl flex flex-col items-center justify-center text-center ${isDisabled ? `cursor-not-allowed` :`cursor-pointer `} transition-all h-64 mt-2
-        ${
-          isDragging
-            ? "border-blue-500 bg-blue-50"
-            : "border-gray-300 bg-gray-50"
+        className={`border border-dashed rounded-xl flex flex-col items-center justify-center text-center ${
+          isDisabled ? "cursor-not-allowed" : "cursor-pointer"
+        } transition-all h-64 mt-2 ${
+          isDragging ? "border-blue-500 bg-blue-50" : "border-gray-300 bg-gray-50"
         }`}
       >
         <div className="mb-4 text-4xl">📁</div>
@@ -95,17 +104,17 @@ const removeImage = (id) => {
         </p>
 
         <p className="text-sm text-gray-500 mt-1">
-          Drag files here, or{" "}
-          <span className="text-blue-500 underline">browse</span> your device.
-
+          Drag files here, or <span className="text-blue-500 underline">browse</span> your device.
         </p>
-        <p className="text-gray-400 font-medium text-sm">Only {max_image} product image can be selected</p>
+        <p className="text-gray-400 font-medium text-sm">
+          Only {max_image} product images can be selected
+        </p>
 
         <input
           type="file"
           multiple
           ref={inputRef}
-          onChange={handleChange}
+          onChange={handleChangeFiles}
           className="hidden"
           disabled={isDisabled}
         />
@@ -128,7 +137,7 @@ const removeImage = (id) => {
 
       {images.length > 0 && (
         <div className="mt-3 flex flex-wrap gap-3">
-          {images.map((img, index) => (
+          {images.map((img) => (
             <div key={img.id} className="relative group w-20">
               <img
                 src={img.preview}
@@ -138,7 +147,7 @@ const removeImage = (id) => {
 
               <button
                 onClick={() => removeImage(img.id)}
-                className="absolute top-1 right-1 bg-black/60 text-white text-xs px-1 py-1 rounded-full  transition"
+                className="absolute top-1 right-1 bg-black/60 text-white text-xs px-1 py-1 rounded-full transition"
               >
                 <RxCross2 className="text-sm" />
               </button>
@@ -148,4 +157,6 @@ const removeImage = (id) => {
       )}
     </div>
   );
-}
+})
+
+export default FileUpload;

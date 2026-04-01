@@ -29,6 +29,12 @@ export function Sidebar() {
     },
     {
       icon: <BiSolidTachometer className="text-xl" color="#000" />,
+        label: "Category",
+        list: [{name:"List",link:AdminRoutes.FETCHPRODUCTS}, {name:"Create",link:AdminRoutes.PRODUCT_ADD}],
+      
+      },
+    {
+      icon: <BiSolidTachometer className="text-xl" color="#000" />,
         label: "Products",
         list: [{name:"List",link:AdminRoutes.FETCHPRODUCTS}, {name:"Create",link:AdminRoutes.PRODUCT_ADD}],
       

@@ -5,6 +5,14 @@
   font-size: 10px;
   color: #222 !important;
 }
+.category-select .ant-select-selection-item {
+  padding: 15px !important;
+  color: #222 !important;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 400 !important;
+  font-size: 14px;
+}
 
 .category-custom-dropdown .ant-select-item-option-active {
   background: #52535379 !important;
@@ -23,15 +31,9 @@
 }
 
 
-.category-select .ant-select-selection-item {
-  padding: 15px !important;
-  color: #000 !important;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-weight: 400 !important;
-  font-size: 14px;
-}
+
 .category-custom-dropdown {
+  text-transform: lowercase;
   border: 1px solid #f9fafb;
   border-radius: 20px;
   padding: 10px 15px;
