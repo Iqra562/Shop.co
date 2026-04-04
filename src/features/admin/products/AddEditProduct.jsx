@@ -1,16 +1,5 @@
-import React from "react";
-import logo from "@assets/images/logo.png";
-import { Button, ConfigProvider, Flex, Popover } from "antd";
-import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
-import { MdEdit } from "react-icons/md";
-import { MdDelete } from "react-icons/md";
-import { useGetProducts } from "@hooks/useProducts";
 import { AdminRoutes } from "../../../utils/util.constant.js";
 import { Link } from "react-router-dom";
-import { TiEye } from "react-icons/ti";
-import { MdOutlineAdd } from "react-icons/md";
-import { Collapse, Form, Input, Switch } from "antd";
-import { RightOutlined } from "@ant-design/icons";
 import Collapsible from "../../../components/common/Collapsible/index.jsx";
 import FileUpload from "../../../components/common/FileUpload/index.jsx";
 import CategorySelector from "../../../components/common/CategorySelector/index.jsx";
@@ -28,7 +17,7 @@ function AddEditProduct() {
   } = useForm();
 
     // add product request 
-  const { mutate: createProduct, isPending: createProcuctLoading } =
+  const { mutate: createProduct, isPending: createProductLoading } =
     useMutation({mutationFn :productServices.addProduct});
  const onSubmit = (data) => {
   const formData = new FormData();
@@ -65,10 +54,7 @@ function AddEditProduct() {
             <span className="text-sm text-gray-400  ">Create</span>{" "}
           </div>
         </div>
-        <button className="bg-primary-button-gradient ml-auto flex justify-center items-center  px-5 py-3 text-sm font-bold text-white  rounded-md">
-          <MdOutlineAdd className="font-bold" />
-          Add product{" "}
-        </button>
+     
         <div></div>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>

@@ -6,7 +6,7 @@
   color: #222 !important;
 }
 .category-select .ant-select-selection-item {
-  padding: 15px !important;
+  padding: 15px 0 !important;
   color: #222 !important;
   letter-spacing: 1px;
   text-transform: uppercase;

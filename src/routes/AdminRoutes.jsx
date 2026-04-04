@@ -6,6 +6,8 @@ import {Routes, Route, Outlet } from "react-router-dom";
 import { useContext } from "react";
 import FetchProducts from "../features/admin/products/FetchProducts";
 import AddEditProduct from "../features/admin/products/AddEditProduct";
+import AddEditCategory from "../features/admin/category/AddEditCategory";
+import FetchCategory from "../features/admin/category/FetchCategory";
 const AdminRoutesWrapper = ()=>{
     const {isAuthenticated , isAdmin } = useContext(AuthContext)
          if(!isAdmin) return;
@@ -24,6 +26,9 @@ function AdminRoutesApp(){
           <Route path={AdminRoutes.FETCHPRODUCTS} element={<FetchProducts />} />
           <Route path={AdminRoutes.PRODUCT_ADD} element={<AddEditProduct />} />
           <Route path={AdminRoutes.PRODUCT_EDIT} element={<AddEditProduct />} />
+          <Route path={AdminRoutes.FETCHCATEGORY} element={<FetchCategory />} />
+          <Route path={AdminRoutes.CATEGORY_ADD} element={<AddEditCategory />} />
+          <Route path={AdminRoutes.CATEGORY_EDIT} element={<AddEditCategory />} />
         </Route> 
         </Route>
         </Routes>

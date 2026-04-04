@@ -14,9 +14,13 @@ const getSubCategories = (parentId)=>{
     return response;
 }
 
-
+const addCategories = (payload)=>{
+    const response = ApiService.post(`${categoryServiceUrl.category}`,payload);
+    return response;
+}
 
 export const categoryServices ={
     getMainCategories,
-    getSubCategories
+    getSubCategories,
+    addCategories
 }

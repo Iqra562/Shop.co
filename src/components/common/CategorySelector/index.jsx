@@ -45,26 +45,23 @@ const CategorySelector = ({ value, onChange }) => {
     setSelectedLevel1(value);
     setSelectedLevel2("");
     setSelectedLevel3("");
-        onChange(""); 
-
+    onChange("");
   };
 
   const handleLevel2Change = (value) => {
     setSelectedLevel2(value);
     setSelectedLevel3("");
-        onChange(""); 
-
+    onChange("");
   };
 
   const handleLevel3Change = (v) => {
     const value = v;
     setSelectedLevel3(value);
-      onChange(value);
+    onChange(value);
   };
 
- 
   useEffect(() => {
-    if (value) setSelectedLevel3(value); 
+    if (value) setSelectedLevel3(value);
   }, [value]);
 
   const selectTheme = {
@@ -128,6 +125,7 @@ const CategorySelector = ({ value, onChange }) => {
       {selectedLevel2 && (
         <ConfigProvider theme={selectTheme}>
           <Select
+            key={level3Options}
             placeholder="Select Sub-subcategory"
             onChange={handleLevel3Change}
             options={level3Options}

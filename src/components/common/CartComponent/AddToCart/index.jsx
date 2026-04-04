@@ -14,11 +14,11 @@ function AddToCart({
   setShowMaxQuantityError = () => {},
 }) {
   const { increaseQuantity, addToCartLoader } = useCartActions();
-  const [api, contextHolder] = notification.useNotification();
   const { isAuthenticated } = useContext(AuthContext);
   const [showPopover, setShowPopover] = useState(false);
   const [popoverContent, setpopoverContent] = useState("");
   const [popoverError, setpopoverError] = useState(false);
+  const [api, contextHolder] = notification.useNotification();
   const openNotificationWithIcon = (type, message) => {
     api[type]({
       description: message,
