@@ -25,13 +25,13 @@ function AdminRoutesApp(){
           <Route path={AdminRoutes.DASHBOARD} element={<Dashboard />} />
           <Route path={AdminRoutes.FETCHPRODUCTS} element={<FetchProducts />} />
           <Route path={AdminRoutes.PRODUCT_ADD} element={<AddEditProduct />} />
-          <Route path={AdminRoutes.PRODUCT_EDIT} element={<AddEditProduct />} />
+          <Route path={`${AdminRoutes.PRODUCT_EDIT}/:id`} element={<AddEditProduct />} />
           <Route path={AdminRoutes.FETCHCATEGORY} element={<FetchCategory />} />
           <Route path={AdminRoutes.CATEGORY_ADD} element={<AddEditCategory />} />
           <Route path={AdminRoutes.CATEGORY_EDIT} element={<AddEditCategory />} />
         </Route> 
         </Route>
         </Routes>
-    )
+    ) 
 }
 export default  AdminRoutesApp;

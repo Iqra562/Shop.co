@@ -33,7 +33,6 @@ function ProductDetails() {
     });
   };
 
- 
   const cart = cartData?.data?.data.items ?? [];
   const findProductInCart = cart.find((item) => item.product._id === productId);
   //  const products = productsData.data
@@ -45,12 +44,10 @@ function ProductDetails() {
   const decreaseQuantity = () => {
     setProductQuantity((prev) => (prev <= 1 ? prev : prev - 1));
   };
- useEffect(()=>{
-setShowMaxQuantityError(false);
-setProductQuantity(1);
- },[productId])
-
- 
+  useEffect(() => {
+    setShowMaxQuantityError(false);
+    setProductQuantity(1);
+  }, [productId]);
 
   return (
     <section className="container ">
@@ -67,27 +64,39 @@ setProductQuantity(1);
           </div>
         </div>
         <div className="md:pl-8 pt-2 md:pt-0 space-y-4 md:space-y-14 w-full md:w-5/12">
-        <div className="space-y-4">
-
-          <div className="flex justify-between items-center ">
-            <h2 className="text-3xl font-bold capitalize text-paragraphDark">
-              {product.name}
-            </h2>
-            <WishlistToggle productId={productId}/>
-          </div>
+          <div className="space-y-4">
+            <div className="flex justify-between items-center ">
+              <h2 className="text-3xl font-bold capitalize text-paragraphDark">
+                {product.name}
+              </h2>
+              <WishlistToggle productId={productId} />
+            </div>
 
             <div className="flex flex-col-reverse items-start ">
               <div className="flex space-x-1 items-center">
-
-                 <span className={`block  ${product.onsale ? 'line-through text-red-600 text-sm md:text-base font-semibold ':'text-secondary  text-lg md:text-xl  font-bold'}`}>
-              ${product.price}
-            </span ><span className="text-gray-500 text-xs font-semibold">-{product.discountPrice}%</span>
+                <span
+                  className={`block  ${product.onsale ? "line-through text-red-600 text-sm md:text-base font-semibold " : "text-secondary  text-lg md:text-xl  font-bold"}`}
+                >
+                  ${product.price}
+                </span>
+                {product.onsale && (
+                  <span className="text-gray-500 text-xs font-semibold">
+                    -{product.discountPrice}%
+                  </span>
+                )}{" "}
               </div>
-            {
-                product.onsale &&( <span className={`block text-secondary font-bold text-lg md:text-xl`}>${ product.price - (product.price * product.discountPrice / 100)} <span></span></span> )
-              }
+              {product.onsale && (
+                <span
+                  className={`block text-secondary font-bold text-lg md:text-xl`}
+                >
+                  $
+                  {product.price -
+                    (product.price * product.discountPrice) / 100}{" "}
+                  <span></span>
+                </span>
+              )}
             </div>
-        </div> 
+          </div>
           <div>
             <h3 className="text-base font-bold">Description:</h3>
             <p className="text-gray-600 capitalize">{product.description}</p>
@@ -121,25 +130,22 @@ setProductQuantity(1);
           </div>
           {/* <Alert message="Error Text" type="error" /> */}
 
-         <div>
-
-          <AddToCart
-            classAttributes="bg-primary-button-gradient w-full text-white py-2 rounded-md uppercase font-bold"
-            productId={productId}
-            quantity={productQuantity}
-            setShowMaxQuantityError={setShowMaxQuantityError} 
-            
-            onSuccess={() => {
-              openNotificationWithIcon("success", "Product added to cart");
-            }}
-            onError={  (err,code) => {
-              if (code === "Max_Quantity") {
-                setShowMaxQuantityError(true);
-              }
-               
-            }}
+          <div>
+            <AddToCart
+              classAttributes="bg-primary-button-gradient w-full text-white py-2 rounded-md uppercase font-bold"
+              productId={productId}
+              quantity={productQuantity}
+              setShowMaxQuantityError={setShowMaxQuantityError}
+              onSuccess={() => {
+                openNotificationWithIcon("success", "Product added to cart");
+              }}
+              onError={(err, code) => {
+                if (code === "Max_Quantity") {
+                  setShowMaxQuantityError(true);
+                }
+              }}
             />
-            </div>
+          </div>
         </div>
       </div>
     </section>

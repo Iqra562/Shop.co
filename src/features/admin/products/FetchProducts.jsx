@@ -16,26 +16,7 @@ function FetchProducts() {
   console.log(getProducts);
   const maxStock = 100;
  
-  const content = (
-    <div className=" ">
-      <ul className="space-y-2 w-20">
-        <li className="space-y-2">
-          <span className="flex items-center space-x-2 cursor-pointer">
-            <TiEye className="text-dark text-base" />{" "}
-            <span className="font-semibold text-sm">View</span>
-          </span>
-          <span className="flex items-center space-x-2 cursor-pointer">
-            <MdEdit className="text-dark text-base" />{" "}
-            <span className="font-semibold text-sm">Edit</span>
-          </span>
-          <span className="flex items-center space-x-2 cursor-pointer">
-            <MdDelete className="text-red-500 text-base" />{" "}
-            <span className="font-semibold text-sm text-red-500">Delete</span>
-          </span>
-        </li>
-      </ul>
-    </div>
-  );
+  
   return (
     <div className="container">
       <div className="mb-10 flex items-center ">
@@ -111,8 +92,32 @@ function FetchProducts() {
               </tr>
             </thead>
             <tbody>
-              {getProducts.map((element, i) => (
-                <tr key={i} className="w-full border border-gray-100 hover:bg-gray-100 cursor-pointer">
+              {getProducts.map((element, i) => {
+                const content = (
+    <div className=" ">
+      <ul className="space-y-2 w-20">
+        <li className="space-y-2">
+          <span className="flex items-center space-x-2 cursor-pointer">
+            <TiEye className="text-dark text-base" />{" "}
+            <span className="font-semibold text-sm">View</span>
+          </span>
+          <Link to={`${AdminRoutes.PRODUCT_EDIT}/${element._id}`}>
+          <span className="flex items-center space-x-2 cursor-pointer">
+
+            <MdEdit className="text-dark text-base" />{" "}
+            <span className="font-semibold text-sm"> Edit</span>
+          </span>
+          </Link>
+          <span className="flex items-center space-x-2 cursor-pointer">
+            <MdDelete className="text-red-500 text-base" />{" "}
+            <span className="font-semibold text-sm text-red-500">Delete</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+  );
+               return(
+                 <tr key={i} className="w-full border border-gray-100 hover:bg-gray-100 cursor-pointer">
                   <td className="px-4 ">
                     <input
                       type="checkbox"
@@ -225,8 +230,8 @@ function FetchProducts() {
                       </Button>
                     </Popover>
                   </td>
-                </tr>
-              ))}
+                </tr>)
+})}
              
             </tbody>
           </table>

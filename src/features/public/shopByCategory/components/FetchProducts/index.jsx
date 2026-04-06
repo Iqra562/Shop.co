@@ -1,11 +1,11 @@
 import { useGetProducts } from "@hooks/useProducts";
 import { ProductsCard } from "@components/common/Products/components/ProductsCard";
-import { categoryServices } from "../../../../../services/category.service";
+// import { categoryServices } from "../../../../../services/category.service";
 import { useQuery } from "@tanstack/react-query";
 import { useGetProductsByCategory } from "../../../../../hooks/useProducts";
 import { useLocation } from "react-router-dom";
 
-function FetchProducts() {
+function FetchProducts({categoryId}) {
 //   console.log(categoryId);
 
   return (

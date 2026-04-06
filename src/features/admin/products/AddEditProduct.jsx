@@ -1,11 +1,13 @@
 import { AdminRoutes } from "../../../utils/util.constant.js";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Collapsible from "../../../components/common/Collapsible/index.jsx";
 import FileUpload from "../../../components/common/FileUpload/index.jsx";
 import CategorySelector from "../../../components/common/CategorySelector/index.jsx";
 import { useForm, Controller } from "react-hook-form";
 import { productServices } from "../../../services/product.service.js";
 import { useMutation } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useGetProductById } from "../../../hooks/useProducts.js";
 
 function AddEditProduct() {
   const {
@@ -13,26 +15,73 @@ function AddEditProduct() {
     handleSubmit,
     control,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
+  const { id } = useParams();
+    const { data: getProductDataById } = useGetProductById(id);
+    const productDetails = getProductDataById?.data?.data ?? [];
 
+    const [editMode, setEditMode] = useState(false);
+
+   useEffect(() => {
+    if (id) {
+
+      setEditMode(true);
+    }
+  }, [id]);
+    useEffect(() => {
+    if (editMode && productDetails) {
+      reset({
+        productName: productDetails.name,
+        productDescription: productDetails.description,
+        productPrice: productDetails.price,
+        productStock: productDetails.stock,
+        productDiscount: productDetails.discountPrice,
+        categoryId: productDetails.category,
+      });
+    }
+  }, [editMode, productDetails, reset]);
     // add product request 
   const { mutate: createProduct, isPending: createProductLoading } =
     useMutation({mutationFn :productServices.addProduct});
  const onSubmit = (data) => {
   const formData = new FormData();
-  
-  formData.append("name", data.productName);
-  formData.append("description", data.productDescription);
-  formData.append("price", data.productPrice);
-  formData.append("stock", data.productStock);
-  formData.append("thumbnail", data.thumbnailFile[0]);
-   Array.from(data.galleryFiles).forEach((file) => {
-    formData.append("galleryImages", file);
-  });
-  formData.append("category", data.categoryId);
-  formData.append("discountPrice", data.productDiscount);
-  console.log(data)
+    if (!editMode || data.productName !== original?.name) {
+      formData.append("name", data.productName);
+    }
+
+  if (!editMode || data.productDescription !== original?.description) {
+    formData.append("description", data.productDescription);
+  }
+
+  if (!editMode || data.productPrice !== original?.price) {
+    formData.append("price", data.productPrice);
+  }
+
+  if (!editMode || data.productStock !== original?.stock) {
+    formData.append("stock", data.productStock);
+  }
+
+  if (!editMode || data.productDiscount !== original?.discountPrice) {
+    formData.append("discountPrice", data.productDiscount);
+  }
+
+  if (!editMode || data.categoryId !== original?.category) {
+    formData.append("category", data.categoryId);
+  }
+
+   if (data.thumbnailFile?.[0]) {
+    formData.append("thumbnail", data.thumbnailFile[0]);
+  }
+
+   if (data.galleryFiles?.length > 0) {
+    Array.from(data.galleryFiles).forEach((file) => {
+      formData.append("galleryImages", file);
+    });
+  }
+
+   console.log(data)
   createProduct(formData, {
     onSuccess: () => {
       console.log("created");
@@ -54,7 +103,7 @@ function AddEditProduct() {
               <Link to={AdminRoutes.FETCHPRODUCTS}>Product</Link>
             </span>{" "}
             <span className="h-[2px] w-[2px] p-[2px] bg-gray-400 rounded-full"></span>
-            <span className="text-sm text-gray-400  ">Create</span>{" "}
+            <span className="text-sm text-gray-400  "> {editMode ? 'Upadate' :  'Create'}</span>{" "}
           </div>
         </div>
      
@@ -108,7 +157,7 @@ function AddEditProduct() {
                 name="thumbnailFile"
                 control={control}
                 defaultValue={[]}
-                rules={{ required: "Thumbnail is required" }}
+                rules={{     required: !editMode ? "Thumbnail is required" : false }}
                 render={({ field }) => (
                   <>
                     <FileUpload {...field} title='Images' />
@@ -240,7 +289,7 @@ function AddEditProduct() {
               type="submit"
               className="bg-primary-button-gradient ml-auto flex justify-center items-center  px-5 py-3 text-base font-bold text-white  rounded-md"
             >
-              Create product{" "}
+             {editMode ? 'Update product' : 'Create product'} {" "}
             </button>
           </div>
         </div>

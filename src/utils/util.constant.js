@@ -25,7 +25,7 @@ export const AdminRoutes = {
   DASHBOARD:'/admin',
   FETCHPRODUCTS:'/admin/fetchproducts',
   PRODUCT_ADD:'/admin/product/add',
-  PRODUCT_EDIT:'/admin/product/edit/:id',
+  PRODUCT_EDIT:'/admin/product/edit',
   FETCHCATEGORY:'/admin/fetchcategory',
   CATEGORY_ADD:'/admin/category/add',
   CATEGORY_EDIT:'/admin/product/edit/:id'
