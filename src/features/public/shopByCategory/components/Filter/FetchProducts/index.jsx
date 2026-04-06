@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 function FetchProducts(){
       
 
-console.log(categoryId)
+// console.log(categoryId)
 
 return(
                  <ProductsCard useQueryHook={() => useGetProductsByCategory(categoryId)}/>
