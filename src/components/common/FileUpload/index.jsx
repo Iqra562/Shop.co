@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect,forwardRef } from "react";
 import { RxCross2 } from "react-icons/rx";
 
-const FileUpload = forwardRef(function FileUpload({ value = [], onChange, max_image = 1 }, ref) {
+const FileUpload = forwardRef(function FileUpload({ value = [], onChange,title, max_image = 1 }, ref) {
   const inputRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -81,7 +81,7 @@ const FileUpload = forwardRef(function FileUpload({ value = [], onChange, max_im
 
   return (
     <div className="w-full">
-      <label className="text-gray-400 text-sm font-medium mb-4">Images</label>
+      <label className="text-gray-400 text-sm font-medium mb-4">{title}</label>
 
       <div
         onClick={handleClick}

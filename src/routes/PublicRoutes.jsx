@@ -13,9 +13,11 @@ function PublicRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/product-details/:id" element={<ProductDetails />} />
-        <Route path={RoutePaths.GETPRODUCTBYCATEGORY} element={<ShopByCategory />} />
+        <Route
+          path={`${RoutePaths.GETPRODUCTBYCATEGORY}/*`}
+          element={<ShopByCategory />}
+        />
       </Route>
-      
     </Routes>
   );
 }

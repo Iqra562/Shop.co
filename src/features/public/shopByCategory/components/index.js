@@ -1,3 +1,3 @@
 export * from './Banner'
 export * from './Filter'
-export * from './FetchProducts'
+export * from './Filter/FetchProducts'

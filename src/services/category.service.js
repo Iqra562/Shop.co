@@ -19,8 +19,14 @@ const addCategories = (payload)=>{
     return response;
 }
 
+const getProductsByCategory= (categoryId)=>{
+    const response = ApiService.get(`${categoryServiceUrl.category}/get-product-by-category/${categoryId}`);
+    return response;
+}
+
 export const categoryServices ={
     getMainCategories,
     getSubCategories,
-    addCategories
+    addCategories,
+    getProductsByCategory
 }

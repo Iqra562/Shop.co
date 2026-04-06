@@ -1,21 +1,16 @@
- import { useGetProducts } from "@hooks/useProducts"
-import { ProductsCard } from "@components/common/Products/components/ProductsCard"
+import { useGetProducts } from "@hooks/useProducts";
+import { ProductsCard } from "@components/common/Products/components/ProductsCard";
 import { categoryServices } from "../../../../../services/category.service";
 import { useQuery } from "@tanstack/react-query";
-function FetchProducts(){
+import { useGetProductsByCategory } from "../../../../../hooks/useProducts";
+import { useLocation } from "react-router-dom";
 
-//      const {data:getProductByCategory} =  useQuery({
+function FetchProducts() {
+//   console.log(categoryId);
 
-//    queryKey: ["productByCategory", categoryId],
-//    queryFn: ()=> categoryServices.getSubCategories(categoryId),
-//   enabled: Boolean(categoryId),
-// }
-//     );
-    // console.log(getProductByCategory)
-return(
-                 <ProductsCard useQueryHook={useGetProducts}/>
-        
-)
-} 
+  return (
+    <ProductsCard useQueryHook={() => useGetProductsByCategory(categoryId)} />
+  );
+}
 
-export  {FetchProducts}
+export { FetchProducts };

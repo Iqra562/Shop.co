@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import { categoryServices } from "../../../../services/category.service";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
- 
+import { PublicRoutes } from "../../../../utils/util.constant";
+
 const subItems = [
   { label: "Home", link: "/" },
   { label: "About Us", link: "/" },
@@ -10,21 +11,20 @@ const subItems = [
 ];
 
 function NavItem() {
-    const [activeCategory,setActiveCategory] = useState(null)
+  const [activeCategory, setActiveCategory] = useState(null);
   const { data: getMainCategories, isPending: categoriesLoading } = useQuery({
     queryKey: ["main-category"],
     queryFn: categoryServices.getMainCategories,
   });
   const { data: getSubCategories, isPending: subCategoriesLoading } = useQuery({
-    queryKey: ["sub-category",activeCategory],
-    queryFn:()=> categoryServices.getSubCategories(activeCategory),
-    enabled:!!activeCategory ,
-      refetchOnWindowFocus: true,
-
+    queryKey: ["sub-category", activeCategory],
+    queryFn: () => categoryServices.getSubCategories(activeCategory),
+    enabled: !!activeCategory,
+    refetchOnWindowFocus: true,
   });
-   const maincategories = getMainCategories?.data?.data || [];
+  const maincategories = getMainCategories?.data?.data || [];
   const subcategories = getSubCategories?.data?.data || [];
-// console.log(subcategories)
+  // console.log(subcategories)
   return (
     <>
       {/*  Nav Links */}
@@ -46,22 +46,25 @@ function NavItem() {
               {activeCategory === item._id && (
                 <div className="absolute top-5  left-0 ">
                   <ul className="relative top-4 bg-white w-56 px-3 py-3 rounded-md border space-y-2 shadow-lg capitalize">
-                    {
-                        subcategories.map((item, index) => (
-                            <li key={index} className={`  ${index === subcategories.length -1 ? 'border-0 pb-0':'border-b pb-1'}`}>{item.name}</li>
-
-                        ))
-                    }
-                   
+                    {subcategories.map((subItem, index) => (
+                      <li
+                        key={index}
+                        className={`  ${index === subcategories.length - 1 ? "border-0 pb-0" : "border-b pb-1"}`}
+                      >
+                        <Link
+                          to={`${PublicRoutes.GETPRODUCTBYCATEGORY}/${item.name}/${subItem.name}`}
+                          state={{ categoryId: subItem._id }}
+                        >
+                          {subItem.name}
+                        </Link>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               )}
             </li>
           ))}
-          <li
-            className="relative group cursor-pointer transition text-base font-semibold"
-           
-          >
+          <li className="relative group cursor-pointer transition text-base font-semibold">
             <Link
               // to={item.link}
               className={`transition after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px]  after:rounded-full after:transition-all after:duration-300 group-hover:after:w-full flex  items-center space-x-2 uppercase`}
@@ -69,10 +72,7 @@ function NavItem() {
               ON sale{" "}
             </Link>
           </li>
-          <li
-            className="relative group cursor-pointer transition text-base font-semibold"
-         
-          >
+          <li className="relative group cursor-pointer transition text-base font-semibold">
             <Link
               // to={item.link}
               className={`transition after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px]  after:rounded-full after:transition-all after:duration-300 group-hover:after:w-full flex  items-center space-x-2 uppercase`}

@@ -27,9 +27,12 @@ function AddEditProduct() {
   formData.append("price", data.productPrice);
   formData.append("stock", data.productStock);
   formData.append("thumbnail", data.thumbnailFile[0]);
+   Array.from(data.galleryFiles).forEach((file) => {
+    formData.append("galleryImages", file);
+  });
   formData.append("category", data.categoryId);
   formData.append("discountPrice", data.productDiscount);
-
+  console.log(data)
   createProduct(formData, {
     onSuccess: () => {
       console.log("created");
@@ -108,12 +111,23 @@ function AddEditProduct() {
                 rules={{ required: "Thumbnail is required" }}
                 render={({ field }) => (
                   <>
-                    <FileUpload {...field} />
+                    <FileUpload {...field} title='Images' />
                     {errors.thumbnailFile && (
                       <p className="text-red-500 text-sm mt-1">
                         {errors.thumbnailFile.message}
                       </p>
                     )}
+                  </>
+                )}
+              />
+              <Controller
+                name="galleryFiles"
+                control={control}
+                defaultValue={[]}
+                 render={({ field }) => (
+                  <>
+                    <FileUpload {...field} title='Gallery images'  max_image={10}/>
+                   
                   </>
                 )}
               />
