@@ -6,91 +6,143 @@ import CategorySelector from "../../../components/common/CategorySelector/index.
 import { useForm, Controller } from "react-hook-form";
 import { productServices } from "../../../services/product.service.js";
 import { useMutation } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { use, useEffect, useMemo, useState } from "react";
 import { useGetProductById } from "../../../hooks/useProducts.js";
+import { notification, Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 function AddEditProduct() {
   const {
-    register, 
+    register,
     handleSubmit,
     control,
     watch,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm();
   const { id } = useParams();
-    const { data: getProductDataById } = useGetProductById(id);
-    const productDetails = getProductDataById?.data?.data ?? [];
+  const { data: getProductDataById } = useGetProductById(id);
+  const productDetails = useMemo(
+    () => getProductDataById?.data?.data ?? null,
+    [getProductDataById],
+  );
+    const [api, contextHolder] = notification.useNotification();
+ 
+  const openNotificationWithIcon = (type, message) => {
+    api[type]({
+      description: message,
+      icon: false,
+      style: {
+        backgroundColor: "#fff",
+      },
+    });
+  };
+  // console.log("add edit product page ", productDetails?._id);
 
-    const [editMode, setEditMode] = useState(false);
-
-   useEffect(() => {
+  const [editMode, setEditMode] = useState(false);
+  // console.log(productDetails?.category?._id)
+  // console.log(editMode)
+  useEffect(() => {
     if (id) {
-
       setEditMode(true);
     }
   }, [id]);
-    useEffect(() => {
+  useEffect(() => {
     if (editMode && productDetails) {
       reset({
-        productName: productDetails.name,
-        productDescription: productDetails.description,
-        productPrice: productDetails.price,
-        productStock: productDetails.stock,
-        productDiscount: productDetails.discountPrice,
-        categoryId: productDetails.category,
+        productName: productDetails?.name,
+        productDescription: productDetails?.description,
+        productPrice: productDetails?.price,
+        productStock: productDetails?.stock,
+        productDiscount: productDetails?.discountPrice,
+        categoryId: productDetails?.category?._id,
       });
     }
-  }, [editMode, productDetails, reset]);
-    // add product request 
+  }, [productDetails, reset, editMode]);
+  // add product request
   const { mutate: createProduct, isPending: createProductLoading } =
-    useMutation({mutationFn :productServices.addProduct});
- const onSubmit = (data) => {
-  const formData = new FormData();
-    if (!editMode || data.productName !== original?.name) {
+    useMutation({ mutationFn: productServices.addProduct });
+  const { mutate: updateProduct, isPending: updateProductLoading } =
+    useMutation({
+      mutationFn: ({ productId, payload }) =>
+        productServices.updateProduct(productId, payload),
+    });
+
+  const onSubmit = (data) => {
+    // console.log("Form data:", data);
+    const formData = new FormData();
+    if (!editMode || data.productName !== productDetails?.name) {
       formData.append("name", data.productName);
     }
 
-  if (!editMode || data.productDescription !== original?.description) {
-    formData.append("description", data.productDescription);
-  }
+    if (!editMode || data.productDescription !== productDetails?.description) {
+      formData.append("description", data.productDescription);
+    }
 
-  if (!editMode || data.productPrice !== original?.price) {
-    formData.append("price", data.productPrice);
-  }
+    if (
+      !editMode ||
+      Number(data.productPrice) !== Number(productDetails?.price)
+    ) {
+      formData.append("price", data.productPrice);
+    }
 
-  if (!editMode || data.productStock !== original?.stock) {
-    formData.append("stock", data.productStock);
-  }
+    if (
+      !editMode ||
+      Number(data.productStock) !== Number(productDetails?.stock)
+    ) {
+      formData.append("stock", data.productStock);
+    }
 
-  if (!editMode || data.productDiscount !== original?.discountPrice) {
-    formData.append("discountPrice", data.productDiscount);
-  }
+    if (
+      !editMode ||
+      Number(data.productDiscount) !== Number(productDetails?.discountPrice)
+    ) {
+      formData.append("discountPrice", data.productDiscount);
+    }
 
-  if (!editMode || data.categoryId !== original?.category) {
-    formData.append("category", data.categoryId);
-  }
+    if (!editMode || data.categoryId !== productDetails?.category?._id) {
+      console.log(data.categoryId, productDetails?.category?._id);
+      formData.append("category", data.categoryId);
+    }
 
-   if (data.thumbnailFile?.[0]) {
-    formData.append("thumbnail", data.thumbnailFile[0]);
-  }
+    if (data.thumbnailFile?.[0]) {
+      formData.append("thumbnail", data.thumbnailFile[0]);
+    }
 
-   if (data.galleryFiles?.length > 0) {
-    Array.from(data.galleryFiles).forEach((file) => {
-      formData.append("galleryImages", file);
-    });
-  }
+    if (data.galleryFiles?.length > 0) {
+      Array.from(data.galleryFiles).forEach((file) => {
+        formData.append("galleryImages", file);
+      });
+    }
 
-   console.log(data)
-  createProduct(formData, {
-    onSuccess: () => {
-      console.log("created");
-    },
-  });
-};
+    for (let pair of formData.entries()) {
+      console.log(pair[0], pair[1]);
+    }
+
+    if (editMode) {
+      updateProduct(
+        { productId: productDetails?._id, payload: formData },
+        {
+          onSuccess: () => {
+openNotificationWithIcon("success", "Product updated successfully!");       },
+          onError: (err) => {
+openNotificationWithIcon("error", "Failed to update product. Please try again.");         
+},
+        },
+      );
+    } else {
+      createProduct(formData, {
+        onSuccess: () => {
+openNotificationWithIcon("success", "Product created successfully!");        },
+        onError: (err) => {
+openNotificationWithIcon("error", "Failed to create product. Please try again.") },
+      });
+    }
+  };
 
   return (
     <div className="container">
+      {contextHolder}
       <div className="mb-10 flex items-center ">
         <div className="space-y-5 ">
           <h1 className="text-2xl font-bold mt-5">List</h1>
@@ -103,10 +155,13 @@ function AddEditProduct() {
               <Link to={AdminRoutes.FETCHPRODUCTS}>Product</Link>
             </span>{" "}
             <span className="h-[2px] w-[2px] p-[2px] bg-gray-400 rounded-full"></span>
-            <span className="text-sm text-gray-400  "> {editMode ? 'Upadate' :  'Create'}</span>{" "}
+            <span className="text-sm text-gray-400  ">
+              {" "}
+              {editMode ? "Upadate" : "Create"}
+            </span>{" "}
           </div>
         </div>
-     
+
         <div></div>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -156,11 +211,17 @@ function AddEditProduct() {
               <Controller
                 name="thumbnailFile"
                 control={control}
-                defaultValue={[]}
-                rules={{     required: !editMode ? "Thumbnail is required" : false }}
+                // defaultValue={[]}
+                rules={{
+                  required: !editMode ? "Thumbnail is required" : false,
+                }}
                 render={({ field }) => (
                   <>
-                    <FileUpload {...field} title='Images' />
+                    <FileUpload
+                      {...field}
+                      title="Images"
+                      productImages={productDetails?.thumbnail}
+                    />
                     {errors.thumbnailFile && (
                       <p className="text-red-500 text-sm mt-1">
                         {errors.thumbnailFile.message}
@@ -172,11 +233,15 @@ function AddEditProduct() {
               <Controller
                 name="galleryFiles"
                 control={control}
-                defaultValue={[]}
-                 render={({ field }) => (
+                // defaultValue={[]}
+                render={({ field }) => (
                   <>
-                    <FileUpload {...field} title='Gallery images'  max_image={10}/>
-                   
+                    <FileUpload
+                      {...field}
+                      title="Gallery images"
+                      max_image={10}
+                      productImages={productDetails?.galleryImages}
+                    />
                   </>
                 )}
               />
@@ -194,6 +259,8 @@ function AddEditProduct() {
                       <CategorySelector
                         value={field.value}
                         onChange={field.onChange}
+                        ancestorCategory={productDetails?.category?.ancestors}
+                        categoryName={productDetails?.category?.name}
                       />
                       {errors.categoryId && (
                         <p className="text-red-500 text-sm mt-1">
@@ -287,9 +354,31 @@ function AddEditProduct() {
           <div>
             <button
               type="submit"
-              className="bg-primary-button-gradient ml-auto flex justify-center items-center  px-5 py-3 text-base font-bold text-white  rounded-md"
+              className={`bg-primary-button-gradient ml-auto flex justify-center items-center  px-5 py-3 text-base font-bold text-white  rounded-md  ${!isDirty && " disabled:cursor-not-allowed"}`}
+              disabled={
+                (editMode ? !isDirty : false) ||
+                createProductLoading ||
+                updateProductLoading
+              }
             >
-             {editMode ? 'Update product' : 'Create product'} {" "}
+              {(createProductLoading || updateProductLoading) && (
+                <Spin
+                  indicator={
+                    <LoadingOutlined
+                      style={{
+                        fontSize: 15,
+                        color: "white",
+                        marginRight: "10px",
+                      }}
+                      spin
+                    />
+                  }
+                  // size="small  "
+                  dotsizesm={50}
+                  spinning={createProductLoading || updateProductLoading}
+                />
+              )}
+              {editMode ? "Update product" : "Create product"}
             </button>
           </div>
         </div>

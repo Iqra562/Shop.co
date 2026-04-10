@@ -15,6 +15,11 @@ const addProduct = (payload)=>{
     return response;
 }
 
+const updateProduct = (productId,payload)=>{
+     const response = ApiService.put(`${productServiceUrl.products}/update-product/${productId}`,payload);
+    return response; 
+}
+
 const getProductsOnSale = ()=>{
     const response = ApiService.get(`${productServiceUrl.products}/product-on-sale`);
     return response;
@@ -28,5 +33,6 @@ export const productServices = {
     getProducts,
     getProductById,
     getProductsOnSale,
-    addProduct
+    addProduct,
+    updateProduct
 }

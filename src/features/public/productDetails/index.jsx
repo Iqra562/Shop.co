@@ -37,6 +37,7 @@ function ProductDetails() {
   const findProductInCart = cart.find((item) => item.product._id === productId);
   //  const products = productsData.data
   const product = getProductDataById?.data?.data ?? [];
+  console.log(product)
   // console.log(findProductInCart);
   const increaseQuantity = () => {
     setProductQuantity((prev) => (prev >= 15 ? prev : prev + 1));

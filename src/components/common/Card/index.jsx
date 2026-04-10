@@ -14,7 +14,7 @@ function Card({
 }) {
   return (
     <>
-      <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-lg ">
+      <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-lg h-full flex flex-col justify-between">
         <div className="p-2">
           <div className="h-28  md:h-60 lg:h-60 overflow-hidden  rounded-3xl relative">
             {onsale &&
@@ -29,9 +29,9 @@ function Card({
             </Link>
           </div>
         </div>
-        <div className="pt-3 space-y-6 p-2 md:p-4 py-3">
-          <div>
-            <div className="flex justify-between items-center pr-2">
+        <div className=" flex flex-1 flex-col justify-between pt-3 space-y-6 p-2 md:p-4 py-3 ">
+          <div className="">
+            <div className="flex justify-between items-baseline ">
               <p className="font-bold text-lg md:text-2xl capitalize text-paragraphDark">
                 {productName}{" "}
               </p>

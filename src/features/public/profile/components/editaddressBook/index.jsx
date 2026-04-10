@@ -4,72 +4,92 @@ import {
   useAddUserAddress,
   useUpdateAddressMutation,
 } from "@hooks/useUser.js";
-  import { useNavigate, useParams } from "react-router-dom";
-import { useState,useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin, notification } from "antd";
 function EditAddressBook() {
   const { getUserData } = useFetchUserData();
   const { id: addressId } = useParams();
-  const { addUserAddress,addAddressLoading } = useAddUserAddress();
-  const { updateUserAddress,updateAddressLoading } = useUpdateAddressMutation(addressId);
+  const { addUserAddress, addAddressLoading } = useAddUserAddress();
+  const { updateUserAddress, updateAddressLoading } =
+    useUpdateAddressMutation(addressId);
   const [editMode, setEditMode] = useState(false);
-   const [api, contextHolder] = notification.useNotification();
+  const [api, contextHolder] = notification.useNotification();
   const navigate = useNavigate();
 
-   const openNotificationWithIcon = (type, message) => {
-    api[type]({ 
+  const openNotificationWithIcon = (type, message) => {
+    api[type]({
       description: message,
       icon: false,
-       style: {
-        backgroundColor: '#fff', 
-       },
-    }); 
-  };
-const { register, handleSubmit, reset, formState: { errors, isDirty } } = useForm({
-  defaultValues: { fullName: "", phone: "" ,street:"",city:"",state:"",postalCode:""},  
-});
-
-useEffect(() => {
-  if (getUserData && editMode) {
-    const selectedAddress = getUserData.address.find(
-  addr => addr._id === addressId
-);
-
- 
-    reset({
-      fullName: selectedAddress.fullName || "",
-      phone: selectedAddress.phone || "",
-      street: selectedAddress.street || "",
-      city: selectedAddress.city || "",
-      state: selectedAddress.state || "",
-      postalCode: selectedAddress.postalCode || "",
+      style: {
+        backgroundColor: "#fff",
+      },
     });
-  }
-}, [getUserData, reset,editMode]);
-// console.log(getUserData.address._id[addressId])
+  };
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isDirty },
+  } = useForm({
+    defaultValues: {
+      fullName: "",
+      phone: "",
+      street: "",
+      city: "",
+      state: "",
+      postalCode: "",
+    },
+  });
+
+  useEffect(() => {
+    if (getUserData && editMode) {
+      const selectedAddress = getUserData.address.find(
+        (addr) => addr._id === addressId,
+      );
+
+      reset({
+        fullName: selectedAddress.fullName || "",
+        phone: selectedAddress.phone || "",
+        street: selectedAddress.street || "",
+        city: selectedAddress.city || "",
+        state: selectedAddress.state || "",
+        postalCode: selectedAddress.postalCode || "",
+      });
+    }
+  }, [getUserData, reset, editMode]);
+  // console.log(getUserData.address._id[addressId])
   const onSubmit = (data) => {
     if (editMode) {
       updateUserAddress(data, {
-   onSuccess:()=>{
-    openNotificationWithIcon("success","Address updated!");
-    navigate('/profile')
-  },
-  onError:()=>{
-    openNotificationWithIcon("error","Something went wrong!, Please try again")
-  }
-});
-} else {
-  addUserAddress(data, {
-    onSuccess:()=>{
-      openNotificationWithIcon("success","Address added to adress book successfuly !");
-      navigate('/profile ')
-     
-   },
-   onError:(err)=>{
-    openNotificationWithIcon("error","Something went wrong!, Please try again")
-    console.log(err)
-   }
+        onSuccess: () => {
+          openNotificationWithIcon("success", "Address updated!");
+          navigate("/profile");
+        },
+        onError: () => {
+          openNotificationWithIcon(
+            "error",
+            "Something went wrong!, Please try again",
+          );
+        },
+      });
+    } else {
+      addUserAddress(data, {
+        onSuccess: () => {
+          openNotificationWithIcon(
+            "success",
+            "Address added to adress book successfuly !",
+          );
+          navigate("/profile ");
+        },
+        onError: (err) => {
+          openNotificationWithIcon(
+            "error",
+            "Something went wrong!, Please try again",
+          );
+          console.log(err);
+        },
       });
     }
   };
@@ -83,10 +103,7 @@ useEffect(() => {
       {contextHolder}
       <div className="border-b pb-4 w-full h-fit">
         <h1 className="text-3xl font-bold">
-          {editMode
-            ? "Edit"
-            : "Add"}{" "}
-          Address
+          {editMode ? "Edit" : "Add"} Address
         </h1>
       </div>
       <div className="">
@@ -194,7 +211,7 @@ useEffect(() => {
                 placeholder="Enter Postal Code"
                 {...register("postalCode", {
                   required: "Please provide street",
-                })} 
+                })}
               />
               {errors.postalCode && (
                 <p className="text-red-600 text-sm">
@@ -204,13 +221,13 @@ useEffect(() => {
             </div>
 
             <div className="flex">
-                <button
+              <button
                 className="bg-primary-button-gradient  text-white py-2 rounded-md bg-black ml-auto px-6"
-disabled={
-  (editMode ? !isDirty : false) ||
-  addAddressLoading ||
-  updateAddressLoading
-}
+                disabled={
+                  (editMode ? !isDirty : false) ||
+                  addAddressLoading ||
+                  updateAddressLoading
+                }
                 type="submit"
               >
                 {addAddressLoading || updateAddressLoading ? (

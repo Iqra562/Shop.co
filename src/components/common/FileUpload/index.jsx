@@ -1,17 +1,29 @@
-import React, { useRef, useState, useEffect,forwardRef } from "react";
+import React, { useRef, useState, useEffect,forwardRef, useMemo } from "react";
 import { RxCross2 } from "react-icons/rx";
 
-const FileUpload = forwardRef(function FileUpload({ value = [], onChange,title, max_image = 1 }, ref) {
+const FileUpload = forwardRef(function FileUpload({ value = [], onChange,title, max_image = 1 ,productImages =[]}, ref) {
   const inputRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const [images, setImages] = useState([]);
-
-  const MAX_IMAGES = max_image;
-
+  const imagesToRender = useMemo(() => {
+    return Array.isArray(productImages)
+      ? productImages
+      : productImages
+      ? [productImages]
+      : [];
+  }, [productImages]);
+  console.log(imagesToRender)
+  
+  const MAX_IMAGES = max_image - imagesToRender.length ; 
+  console.log(MAX_IMAGES  )
+  useEffect(() => {
+    if (images.length >= MAX_IMAGES) setIsDisabled(true);
+  }, [images, MAX_IMAGES]);
+ 
   // initialize local state from RHF value
   useEffect(() => {
-    if (value.length) {
+     if (value.length) {
       const previewImages = value.map((file) => ({
         id: crypto.randomUUID(),
         file,
@@ -20,6 +32,7 @@ const FileUpload = forwardRef(function FileUpload({ value = [], onChange,title, 
       setImages(previewImages);
       if (previewImages.length >= MAX_IMAGES) setIsDisabled(true);
     }
+console.log('useEffect ran with value change', value)
   }, []);
 
   const handleClick = () => {
@@ -31,7 +44,7 @@ const FileUpload = forwardRef(function FileUpload({ value = [], onChange,title, 
     setIsDragging(false);
     const files = Array.from(e.dataTransfer.files);
     handleFiles(files);
-  };
+  }; 
 
   const handleChangeFiles = (e) => {
     const files = Array.from(e.target.files);
@@ -48,7 +61,7 @@ const FileUpload = forwardRef(function FileUpload({ value = [], onChange,title, 
       file,
       preview: URL.createObjectURL(file),
     }));
-
+    
     const newImages = [...images, ...previewImages];
     setImages(newImages);
 
@@ -74,10 +87,12 @@ const FileUpload = forwardRef(function FileUpload({ value = [], onChange,title, 
   };
 
    useEffect(() => {
+     console.log('useEffect ran for cleanup with images change', images)
     return () => {
       images.forEach((img) => URL.revokeObjectURL(img.preview));
     };
-  }, [images]);
+
+  }, []);
 
   return (
     <div className="w-full">
@@ -135,19 +150,38 @@ const FileUpload = forwardRef(function FileUpload({ value = [], onChange,title, 
         </div>
       )}
 
-      {images.length > 0 && (
+      {(images.length > 0 || imagesToRender.length > 0) && (
         <div className="mt-3 flex flex-wrap gap-3">
-          {images.map((img) => (
-            <div key={img.id} className="relative group w-20">
+         
+          {imagesToRender?.map((img,i) => (
+            <div key={i}   className="relative group w-20">
+              <img
+                src={img.url}
+                alt="preview"
+                className="w-20 h-20 object-cover rounded-lg border"
+              />
+ 
+              <button
+                onClick={() => removeImage(img._id)}
+                type="button"
+                className="absolute top-1 right-1 bg-black/60 text-white text-xs px-1 py-1 rounded-full transition"
+              >
+                <RxCross2 className="text-sm" />
+              </button>
+            </div>
+          ))}
+          {images?.map((img,i) => (
+            <div key={i} className="relative group w-20">
               <img
                 src={img.preview}
                 alt="preview"
                 className="w-20 h-20 object-cover rounded-lg border"
               />
-
+ 
               <button
                 onClick={() => removeImage(img.id)}
                 className="absolute top-1 right-1 bg-black/60 text-white text-xs px-1 py-1 rounded-full transition"
+                type="button"
               >
                 <RxCross2 className="text-sm" />
               </button>

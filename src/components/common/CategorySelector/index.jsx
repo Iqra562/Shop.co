@@ -3,11 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import { categoryServices } from "@services/category.service";
 import { ConfigProvider, Select } from "antd";
 import "./style.css";
-const CategorySelector = ({ value, onChange }) => {
+const CategorySelector = ({ value, onChange,ancestorCategory=[],categoryName }) => {
   const [selectedLevel1, setSelectedLevel1] = useState("");
   const [selectedLevel2, setSelectedLevel2] = useState("");
   const [selectedLevel3, setSelectedLevel3] = useState("");
-
+  // console.log(ancestorCategory[0]._id)
   // Level 1 —  fetch root category
   const { data: level1Data, isLoading: loadingL1 } = useQuery({
     queryKey: ["categories", null],
@@ -60,9 +60,16 @@ const CategorySelector = ({ value, onChange }) => {
     onChange(value);
   };
 
+  // useEffect(() => {
+  //   if (value) setSelectedLevel3(value);
+  // }, [value]);
   useEffect(() => {
-    if (value) setSelectedLevel3(value);
-  }, [value]);
+  if (ancestorCategory?.length) {
+    setSelectedLevel1(ancestorCategory[0]?._id);
+    setSelectedLevel2(ancestorCategory[1]?._id || "");
+    setSelectedLevel3(categoryName || "" )
+   }
+}, [ancestorCategory]);
 
   const selectTheme = {
     components: {
@@ -85,11 +92,12 @@ const CategorySelector = ({ value, onChange }) => {
       {/* Level 1 */}
 
       <ConfigProvider theme={selectTheme}>
-        <Select
-          key={level1Options}
-          placeholder="Select category"
+        <Select 
+          value={selectedLevel1 || undefined}
+
+           placeholder="Select category"
           onChange={handleLevel1Change}
-          options={level1Options}
+           options={level1Options}
           className="category-select"
           style={{ minWidth: 200 }}
           disabled={loadingL1}
@@ -105,8 +113,9 @@ const CategorySelector = ({ value, onChange }) => {
       {selectedLevel1 && (
         <ConfigProvider theme={selectTheme}>
           <Select
-            key={level2Options}
-            placeholder="Select Sub category"
+                    value={selectedLevel2 || undefined}
+
+             placeholder="Select Sub category"
             onChange={handleLevel2Change}
             options={level2Options}
             className="category-select"
@@ -125,8 +134,9 @@ const CategorySelector = ({ value, onChange }) => {
       {selectedLevel2 && (
         <ConfigProvider theme={selectTheme}>
           <Select
-            key={level3Options}
-            placeholder="Select Sub-subcategory"
+                    value={selectedLevel3 || undefined}
+
+             placeholder="Select Sub-subcategory"
             onChange={handleLevel3Change}
             options={level3Options}
             className="category-select"
