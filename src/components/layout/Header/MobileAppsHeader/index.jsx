@@ -3,6 +3,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
 import NavItem from "../NavItem";
+import logo from "@assets/images/logo.png";
 
 // import { routes } from "../../../config/utilities/utils.constant";
 
@@ -100,7 +101,7 @@ useEffect(() => {
             style={{ height: `${windowHeight}px` }}
           > 
           <div
-            className={`flex  justify-end items-center mb-6 absolute top-4 right-10  z-10 ${
+            className={`flex  justify-end items-center mb-6 absolute top-4 right-6  z-10 ${
               isMenuOpen ? "animate-slideInLeft" : "animate-slideOutLeft"
             }  `}
           >
@@ -114,8 +115,12 @@ useEffect(() => {
               <nav>
                 <div className="mb-10">
 
-            <span className="text-3xl font-bold">Shop.co</span>
-                </div>
+ <div className="flex items-center space-x-2 mt-2">
+            <img src={logo} alt="" className="w-10 " />
+            <span className="text-3xl  uppercase font-extrabold">
+              Shop.co
+            </span>
+          </div>                </div>
  <NavItem className=""/>
      
      </nav>

@@ -7,6 +7,7 @@ import EmptyPageLayout from "@components/common/EmptyPageLayout";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { PublicRoutes } from "../../../utils/util.constant";
 import { TiArrowRight } from "react-icons/ti";
+import { FiHeart } from "react-icons/fi";
 
 function Wishlist({ isSidebar, onClose }) {
   const { getUserWishlistData, wishlistLoading } = useWishlist();
@@ -23,7 +24,7 @@ function Wishlist({ isSidebar, onClose }) {
           <WishlistSkeleton />
         ) : !getUserWishlistData || getUserWishlistData.length === 0 ? (
           <EmptyPageLayout 
-            icon={HiOutlineShoppingBag}
+            icon={FiHeart} 
             title="Your wishlist is empty"
 text="Looks like you haven't added anything to your wishlist yet. Start exploring and save your favorite items!"
             btnText="Browse Products"
@@ -41,16 +42,16 @@ text="Looks like you haven't added anything to your wishlist yet. Start explorin
       </div>
           <WishlistCard isSidebar={isSidebar} data={getUserWishlistData}/>
           </>
-        )
+        ) 
       ) : (
         <EmptyPageLayout
-          icon={HiOutlineShoppingBag}
+          icon={FiHeart}
           title="You’re not logged in"
           text="Sign in to view your wishlist and continue shopping your favorite items."
           btnText="Login"
           link={PublicRoutes.LOGIN}
           btnIcon={TiArrowRight}
-          onCloseDrawer={onClose}
+          onCloseDrawer={onClose} 
         />
       )}
     </div>
