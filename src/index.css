@@ -34,6 +34,7 @@
   @media (min-width: 0px) and (max-width: 666px) {
     .container {
       width: 100%;
+      padding: 0 20px;
 
     }
   }

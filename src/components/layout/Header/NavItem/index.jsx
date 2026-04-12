@@ -45,18 +45,20 @@ function NavItem() {
               </Link>
               {activeCategory === item._id && (
                 <div className="absolute top-5  left-0 ">
-                  <ul className="relative top-4 bg-white w-56 px-3 py-3 rounded-md border space-y-2 shadow-lg capitalize">
+                  <ul className="relative top-4 bg-white w-56 px-3 py-3 rounded-md border shadow-lg capitalize">
                     {subcategories.map((subItem, index) => (
                       <li
                         key={index}
-                        className={`  ${index === subcategories.length - 1 ? "border-0 pb-0" : "border-b pb-1"}`}
+                        className={` ${index === subcategories.length - 1 ? "border-0 pb-0" : "border-b pb-1"} py-1`}
                       >
                         <Link
-                          to={`${PublicRoutes.GETPRODUCTBYCATEGORY}/${item.name}/${subItem.name}`}
-                          state={{ categoryId: subItem._id }}
+                          to={`${PublicRoutes.GETPRODUCTBYCATEGORY}/${item.name.toLowerCase()}/${subItem.name.toLowerCase()}`}
+                          state={{ categoryId: subItem._id }} 
+                          className="block"
                         >
+ 
                           {subItem.name}
-                        </Link>
+                         </Link>
                       </li>
                     ))}
                   </ul>

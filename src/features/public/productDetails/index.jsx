@@ -34,7 +34,7 @@ function ProductDetails() {
   };
 
   const cart = cartData?.data?.data.items ?? [];
-  const findProductInCart = cart.find((item) => item.product._id === productId);
+  const findProductInCart = cart.find((item) => item.product?._id === productId);
   //  const products = productsData.data
   const product = getProductDataById?.data?.data ?? [];
   console.log(product)

@@ -56,9 +56,10 @@ const sharedProps = {
 
       <Swiper
         breakpoints={{
-          320: { slidesPerView: 2 },
-          768: { slidesPerView: 3.5 },
-          1024: { slidesPerView: 4 },
+          320: { slidesPerView: 1 },
+          768: { slidesPerView: 3 },
+          1024: { slidesPerView: 3.5 },
+          1440:{slidesPerView: 4.5}
         }}
         spaceBetween={20}
         freeMode={true}
@@ -76,12 +77,12 @@ const sharedProps = {
         className="swiper-slide"
       >
         {products.map((product, i) => (
-            <div>
+            <div             key={i}
+>
 
           <SwiperSlide
-            key={i}
-            className="shadow-none pb-10"
-            freeMode={false} 
+             className="shadow-none pb-10"
+            // freeMode={false} 
           >
             
 
@@ -92,6 +93,9 @@ const sharedProps = {
               description={product.description}
               price={product.price}
               img={product.thumbnail.url}
+              onsale={product.onsale}
+              discount={product.discountPrice}
+             
              
               />
               

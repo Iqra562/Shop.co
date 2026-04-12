@@ -10,7 +10,7 @@ import { use, useEffect, useMemo, useState } from "react";
 import { useGetProductById } from "../../../hooks/useProducts.js";
 import { notification, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
-
+import { useNavigate } from "react-router-dom";
 function AddEditProduct() {
   const {
     register,
@@ -21,13 +21,14 @@ function AddEditProduct() {
     formState: { errors, isDirty },
   } = useForm();
   const { id } = useParams();
+  const navigate = useNavigate();
   const { data: getProductDataById } = useGetProductById(id);
   const productDetails = useMemo(
     () => getProductDataById?.data?.data ?? null,
     [getProductDataById],
   );
-    const [api, contextHolder] = notification.useNotification();
- 
+  const [api, contextHolder] = notification.useNotification();
+
   const openNotificationWithIcon = (type, message) => {
     api[type]({
       description: message,
@@ -37,7 +38,7 @@ function AddEditProduct() {
       },
     });
   };
-  // console.log("add edit product page ", productDetails?._id);
+  // console.log("add edit product page ", productDetails);
 
   const [editMode, setEditMode] = useState(false);
   // console.log(productDetails?.category?._id)
@@ -66,6 +67,18 @@ function AddEditProduct() {
     useMutation({
       mutationFn: ({ productId, payload }) =>
         productServices.updateProduct(productId, payload),
+    });
+  const { mutate: removeGalleryImage, isPending: isRemovingGalleryImage } =
+    useMutation({
+      mutationFn: ({ productId, imageId }) =>
+        productServices.removeGalleryImage(productId, imageId),
+      onSuccess: () => {
+        // queryClient.invalidateQueries({ queryKey: ["products"] });
+        console.error("image removed:");
+      },
+      onError: (error) => {
+        console.error("Failed to remove image:", error);
+      },
     });
 
   const onSubmit = (data) => {
@@ -101,7 +114,7 @@ function AddEditProduct() {
     }
 
     if (!editMode || data.categoryId !== productDetails?.category?._id) {
-      console.log(data.categoryId, productDetails?.category?._id);
+      // console.log(data.categoryId, productDetails?.category?._id);
       formData.append("category", data.categoryId);
     }
 
@@ -115,27 +128,49 @@ function AddEditProduct() {
       });
     }
 
-    for (let pair of formData.entries()) {
-      console.log(pair[0], pair[1]);
-    }
+    // for (let pair of formData.entries()) {
+    //   console.log(pair[0], pair[1]);
+    // }
 
     if (editMode) {
       updateProduct(
         { productId: productDetails?._id, payload: formData },
         {
           onSuccess: () => {
-openNotificationWithIcon("success", "Product updated successfully!");       },
+            openNotificationWithIcon(
+              "success",
+              "Product updated successfully!",
+            );
+             setTimeout(() => {
+              navigate(`${AdminRoutes.FETCHPRODUCTS}`);
+            }, 1000);
+
+          },
           onError: (err) => {
-openNotificationWithIcon("error", "Failed to update product. Please try again.");         
-},
+            openNotificationWithIcon(
+              "error",
+              "Failed to update product. Please try again.",
+            );
+            reset();
+          },
         },
       );
     } else {
       createProduct(formData, {
         onSuccess: () => {
-openNotificationWithIcon("success", "Product created successfully!");        },
+          openNotificationWithIcon("success", "Product created successfully!");
+          reset();
+          setTimeout(() => {
+            navigate(`${AdminRoutes.FETCHPRODUCTS}`);
+          }, 1000);
+        },
         onError: (err) => {
-openNotificationWithIcon("error", "Failed to create product. Please try again.") },
+          openNotificationWithIcon(
+            "error",
+            "Failed to create product. Please try again.",
+          );
+          reset();
+        },
       });
     }
   };
@@ -220,6 +255,8 @@ openNotificationWithIcon("error", "Failed to create product. Please try again.")
                     <FileUpload
                       {...field}
                       title="Images"
+                      max_image={1}
+                      thumbnailMode={true}
                       productImages={productDetails?.thumbnail}
                     />
                     {errors.thumbnailFile && (
@@ -240,7 +277,9 @@ openNotificationWithIcon("error", "Failed to create product. Please try again.")
                       {...field}
                       title="Gallery images"
                       max_image={10}
+                      removeGalleryImage={removeGalleryImage}
                       productImages={productDetails?.galleryImages}
+                      productId={productDetails?._id}
                     />
                   </>
                 )}
@@ -361,7 +400,9 @@ openNotificationWithIcon("error", "Failed to create product. Please try again.")
                 updateProductLoading
               }
             >
-              {(createProductLoading || updateProductLoading) && (
+              {(createProductLoading ||
+                updateProductLoading ||
+                isRemovingGalleryImage) && (
                 <Spin
                   indicator={
                     <LoadingOutlined
@@ -375,7 +416,11 @@ openNotificationWithIcon("error", "Failed to create product. Please try again.")
                   }
                   // size="small  "
                   dotsizesm={50}
-                  spinning={createProductLoading || updateProductLoading}
+                  spinning={
+                    createProductLoading ||
+                    updateProductLoading ||
+                    isRemovingGalleryImage
+                  }
                 />
               )}
               {editMode ? "Update product" : "Create product"}

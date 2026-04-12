@@ -7,50 +7,50 @@ function BrowsByStyle() {
   return (
     <div className=" container  mt-10">
              
-      <div class="bg-[#F0F0F0] sm:px-4 md:px-10 py-10  rounded-3xl ">
-        <p class="text-3xl md:text-5xl font-extrabold text-center pb-8">
+      <div className="bg-[#F0F0F0] sm:px-4 md:px-10 py-10  rounded-3xl ">
+        <p className="text-3xl md:text-5xl font-extrabold text-center pb-8">
           BROWSE BY DRESS STYLE
         </p>
-        <div class="flex flex-col md:flex-row mb-4 px-4 md:px-0">
-          <div class="relative w-auto md:w-2/3 h-60 md:mr-4">
+        <div className="flex flex-col md:flex-row mb-4 px-4 md:px-0">
+          <div className="relative w-auto md:w-2/3 h-60 md:mr-4">
             <img
               src={img1}
-              class="rounded-3xl h-full w-full object-cover transform scale-x-[-1]"
+              className="rounded-3xl h-full w-full object-cover transform scale-x-[-1]"
               alt="Style Image"
             />
-            <p class="absolute left-2 top-2 font-bold text-2xl text-black">
+            <p className="absolute left-2 top-2 font-bold text-2xl text-black">
               Casual
             </p>
           </div>
-          <div class="relative w-auto mt-4 md:mt-1 md:w-2/5 h-60 md:mr-4">
+          <div className="relative w-auto mt-4 md:mt-1 md:w-2/5 h-60 md:mr-4">
             <img
               src={img2}
-              class="rounded-3xl h-full w-full object-cover transform scale-x-[-1]"
+              className="rounded-3xl h-full w-full object-cover transform scale-x-[-1]"
               alt="Style Image"
             />
-            <p class="absolute left-2 top-2 font-bold text-2xl text-black">
+            <p className="absolute left-2 top-2 font-bold text-2xl text-black">
               Formal
             </p>
           </div>
         </div>
-        <div class="flex flex-col md:flex-row px-4 md:px-0">
-          <div class="relative w-auto md:w-2/5 h-60 md:mr-4">
+        <div className="flex flex-col md:flex-row px-4 md:px-0">
+          <div className="relative w-auto md:w-2/5 h-60 md:mr-4">
             <img
               src={img3}
-              class="rounded-3xl h-full w-full object-cover"
+              className="rounded-3xl h-full w-full object-cover"
               alt="Style Image"
             />
-            <p class="absolute left-2 top-2 font-bold text-2xl text-black">
+            <p className="absolute left-2 top-2 font-bold text-2xl text-black">
               Party
             </p>
           </div>
-          <div class="relative w-auto mt-4 md:mt-1 md:w-2/3 h-60 md:mr-4">
+          <div className="relative w-auto mt-4 md:mt-1 md:w-2/3 h-60 md:mr-4">
             <img
               src={img4}
-              class="rounded-3xl h-full w-full object-cover"
+              className="rounded-3xl h-full w-full object-cover"
               alt="Style Image"
             />
-            <p class="absolute left-2 top-2 font-bold text-2xl text-black">
+            <p className="absolute left-2 top-2 font-bold text-2xl text-black">
               Gym
             </p>
           </div>

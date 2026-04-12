@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect,forwardRef, useMemo } from "react";
 import { RxCross2 } from "react-icons/rx";
 
-const FileUpload = forwardRef(function FileUpload({ value = [], onChange,title, max_image = 1 ,productImages =[]}, ref) {
+const FileUpload = forwardRef(function FileUpload({ value = [], onChange,title, max_image = 1 ,productImages =[],thumbnailMode,productId,removeGalleryImage}, ref) {
   const inputRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -13,12 +13,14 @@ const FileUpload = forwardRef(function FileUpload({ value = [], onChange,title, 
       ? [productImages]
       : [];
   }, [productImages]);
-  console.log(imagesToRender)
   
-  const MAX_IMAGES = max_image - imagesToRender.length ; 
-  console.log(MAX_IMAGES  )
+
+  console.log(productImages)
+  
+  const MAX_IMAGES =thumbnailMode ?1 : max_image - imagesToRender.length ; 
+  // console.log(MAX_IMAGES  )
   useEffect(() => {
-    if (images.length >= MAX_IMAGES) setIsDisabled(true);
+    if ( !thumbnailMode && images.length >= MAX_IMAGES) setIsDisabled(true);
   }, [images, MAX_IMAGES]);
  
   // initialize local state from RHF value
@@ -32,7 +34,7 @@ const FileUpload = forwardRef(function FileUpload({ value = [], onChange,title, 
       setImages(previewImages);
       if (previewImages.length >= MAX_IMAGES) setIsDisabled(true);
     }
-console.log('useEffect ran with value change', value)
+// console.log('useEffect ran with value change', value)
   }, []);
 
   const handleClick = () => {
@@ -87,7 +89,7 @@ console.log('useEffect ran with value change', value)
   };
 
    useEffect(() => {
-     console.log('useEffect ran for cleanup with images change', images)
+    //  console.log('useEffect ran for cleanup with images change', images)
     return () => {
       images.forEach((img) => URL.revokeObjectURL(img.preview));
     };
@@ -138,7 +140,7 @@ console.log('useEffect ran with value change', value)
       {images.length > 0 && (
         <div className="flex justify-between items-center mt-4">
           <p className="text-sm font-semibold text-gray-600">
-            Selected Images ({images.length})
+            Selected Images ({productImages.length + images.length })
           </p>
 
           <button
@@ -153,7 +155,7 @@ console.log('useEffect ran with value change', value)
       {(images.length > 0 || imagesToRender.length > 0) && (
         <div className="mt-3 flex flex-wrap gap-3">
          
-          {imagesToRender?.map((img,i) => (
+          { !(thumbnailMode && images.length >0) && imagesToRender?.map((img,i) => (
             <div key={i}   className="relative group w-20">
               <img
                 src={img.url}
@@ -162,7 +164,7 @@ console.log('useEffect ran with value change', value)
               />
  
               <button
-                onClick={() => removeImage(img._id)}
+                onClick={() => removeGalleryImage({ productId, imageId: img.public_id })}
                 type="button"
                 className="absolute top-1 right-1 bg-black/60 text-white text-xs px-1 py-1 rounded-full transition"
               >
@@ -170,7 +172,7 @@ console.log('useEffect ran with value change', value)
               </button>
             </div>
           ))}
-          {images?.map((img,i) => (
+          { images?.map((img,i) => (
             <div key={i} className="relative group w-20">
               <img
                 src={img.preview}

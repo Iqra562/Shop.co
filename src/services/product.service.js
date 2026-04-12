@@ -28,11 +28,23 @@ const getProductById  = (productId)=>{
     const response  = ApiService.get(`${productServiceUrl.products}/get-product-by-id/${productId}`);
     return response;
 }
- 
+
+const removeGalleryImage = (productId,imageId)=>{
+    const response  = ApiService.put(`${productServiceUrl.products}/remove-gallery-image/${productId}/${imageId}`);
+    return response;
+}
+
+const deleteProduct = (productId)=>{
+    const response  = ApiService.delete(`${productServiceUrl.products}/delete-product/${productId}`);
+    return response;
+}
+
 export const productServices = {
     getProducts,
     getProductById,
     getProductsOnSale,
     addProduct,
-    updateProduct
+    updateProduct,
+    removeGalleryImage,
+    deleteProduct
 }

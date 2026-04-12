@@ -16,7 +16,7 @@ function Card({
     <>
       <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-lg h-full flex flex-col justify-between">
         <div className="p-2">
-          <div className="h-28  md:h-60 lg:h-60 overflow-hidden  rounded-3xl relative">
+          <div className="h-60  md:h-60 lg:h-60 overflow-hidden  rounded-3xl relative">
             {onsale &&
                <div className="absolute z-10 px-2 py-1 bg-red-800 text-white left-2 top-3 rounded-md text-xs font-bold uppercase">on sale</div>
             }
@@ -29,10 +29,10 @@ function Card({
             </Link>
           </div>
         </div>
-        <div className=" flex flex-1 flex-col justify-between pt-3 space-y-6 p-2 md:p-4 py-3 ">
+        <div className=" flex flex-1 flex-col justify-between pt-3 space-y-6  px-5 md:p-4 py-3 ">
           <div className="">
             <div className="flex justify-between items-baseline ">
-              <p className="font-bold text-lg md:text-2xl capitalize text-paragraphDark">
+              <p className="font-bold text-xl md:text-2xl capitalize text-paragraphDark">
                 {productName}{" "}
               </p>
 
@@ -46,13 +46,13 @@ function Card({
               voluptate placeat! Sint, sed sequi.
             </p>
           </div>
-          <div className="flex flex-col md:flex-row justify-between space-y-2 md:space-y-0 ">
+          <div className="flex flex-row justify-between space-y-2 md:space-y-0 ">
             <div className="flex items-center space-x-2">
              {
-                onsale && <span className={`block text-secondary font-bold text-base md:text-lg`}>${ price - (price * discount / 100)}</span>
+                onsale && <span className={`block text-secondary font-bold text-lg`}>${ price - (price * discount / 100)}</span>
               }
 
-            <span className={`block  font-bold ${onsale ? 'line-through text-red-700 text-sm md:text-base':'text-secondary  text-base md:text-lg'}`}>
+            <span className={`block  font-bold ${onsale ? 'line-through text-red-700 text-base':'text-secondary text-lg'}`}>
               ${price}
             </span >
               </div>

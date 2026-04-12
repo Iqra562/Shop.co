@@ -20,7 +20,7 @@ function ProductsCard({onsale, limit,useQueryHook }) {
   return (
     <>
      
-        <div className=" grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-y-8 gap-x-3 md:gap-y-8 md:gap-x-4">
+        <div className=" grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-y-8 gap-x-3 md:gap-y-8 md:gap-x-4">
           {products.map((data, i) => (
             <Card
               key={data._id}
