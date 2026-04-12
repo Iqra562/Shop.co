@@ -40,10 +40,7 @@ function Card({
             </div>
             {/* <p className='text-base capitalize'>{description}</p> */}
             <p className="text-sm font-semibold capitalize my-2 line-clamp-2 text-gray-500">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus,
-              voluptatem a cum fugit at nesciunt aperiam sit nisi minima
-              repellat, molestiae, aspernatur debitis tenetur perspiciatis
-              voluptate placeat! Sint, sed sequi.
+              {description}
             </p>
           </div>
           <div className="flex flex-row justify-between space-y-2 md:space-y-0 ">
