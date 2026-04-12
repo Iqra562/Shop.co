@@ -28,8 +28,8 @@ function NavItem() {
   return (
     <>
       {/*  Nav Links */}
-      <nav className="hidden lg:flex  text-black relative">
-        <ul className="flex space-x-4 xl:space-x-6">
+      <nav className="flex flex-col lg:flex lg:flex-row  text-black relative">
+        <ul className="flex flex-col   lg:flex-row space-y-5 lg:space-y-0  lg:space-x-4 xl:space-x-6">
           {maincategories.map((item, index) => (
             <li
               key={index}
@@ -44,12 +44,12 @@ function NavItem() {
                 {item.name}
               </Link>
               {activeCategory === item._id && (
-                <div className="absolute top-5  left-0 ">
-                  <ul className="relative top-4 bg-white w-56 px-3 py-3 rounded-md border shadow-lg capitalize">
+                <div className=" lg:absolute md:top-5  left-0 ">
+                  <ul className="relative lg:top-4 bg-white w-56 px-3 lg:py-3 rounded-md lg:border lg:shadow-lg capitalize">
                     {subcategories.map((subItem, index) => (
                       <li
                         key={index}
-                        className={` ${index === subcategories.length - 1 ? "border-0 pb-0" : "border-b pb-1"} py-1`}
+                        className={` ${index === subcategories.length - 1 ? "border-0 pb-0" : "lg:border-b pb-1"} py-1`}
                       >
                         <Link
                           to={`${PublicRoutes.GETPRODUCTBYCATEGORY}/${item.name.toLowerCase()}/${subItem.name.toLowerCase()}`}

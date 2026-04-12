@@ -120,8 +120,10 @@ function DesktopHeader({
             </span>
           </div>
             </Link>
+ <div className="hidden lg:flex">
 
           <NavItem/>
+ </div>
 
           <div className="flex items-center space-x-3   ">
             <span

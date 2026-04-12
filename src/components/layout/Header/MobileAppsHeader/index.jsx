@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
+import NavItem from "../NavItem";
+
 // import { routes } from "../../../config/utilities/utils.constant";
 
 function MobileHeader({ toggleMenuClose,shouldRender,isMenuOpen,isSubMenuOpen,setIsSubMenuOpen,openSubmenuIndex,setOpenSubmenuIndex}) {
@@ -78,7 +80,7 @@ useEffect(() => {
     <>
       {shouldRender && (
         <div
-          className={`lg:hidden  fixed  top-0 left-0 right-0  w-screen transition-all   z-50 shadow-lg  ${
+          className={`lg:hidden  fixed  top-0 left-0 right-0  w-screen transition-all  z-50 shadow-lg  ${
             isMenuOpen
               ? "animateslideInLeft bg-opacity-60  bg-[#000]"
               : "animateslideOutLeft bg-opacity-60  bg-[#000] "
@@ -88,8 +90,17 @@ useEffect(() => {
 
           
           {/* Menu Header with Close Button */}
+          
+            
           <div
-            className={`flex  justify-end items-center mb-6 fixed top-4 right-10 md:right-auto md:left-64 z-10 ${
+            className={` mx-auto relative pt-3 px-4 pb-8 float-start bg-white  overflow-y-auto w-[300px] min[425px]:w-[70%] md:w-[40%] min[880px]:w[35%]  ${
+              isMenuOpen ? "animate-slideInLeft" : "animate-slideOutLeft"
+            } `}
+            onClick={(e) => e.stopPropagation()}
+            style={{ height: `${windowHeight}px` }}
+          > 
+          <div
+            className={`flex  justify-end items-center mb-6 absolute top-4 right-10  z-10 ${
               isMenuOpen ? "animate-slideInLeft" : "animate-slideOutLeft"
             }  `}
           >
@@ -100,23 +111,13 @@ useEffect(() => {
               <IoClose />
             </button>
           </div>
-            
-          <div
-            className={` mx-auto  pt-3 px-4 pb-8 float-start bg-white  overflow-y-auto w-[300px] min[425px]:w-[70%] md:w-[40%] min[880px]:w[35%]  ${
-              isMenuOpen ? "animate-slideInLeft" : "animate-slideOutLeft"
-            } `}
-            onClick={(e) => e.stopPropagation()}
-            style={{ height: `${windowHeight}px` }}
-          > 
               <nav>
-            <span className="text-3xl font-bold">Shop.co</span>
+                <div className="mb-10">
 
-         <ul className=" space-x-0 mt-10 space-y-2 ">
-            <li className="text-lg font-semibold">Home</li>
-            <li className="text-lg font-semibold">About</li>
-            <li className="text-lg font-semibold">Contact</li>
-            <li className="text-lg font-semibold"></li>
-        </ul>
+            <span className="text-3xl font-bold">Shop.co</span>
+                </div>
+ <NavItem className=""/>
+     
      </nav>
           </div>
         </div>
