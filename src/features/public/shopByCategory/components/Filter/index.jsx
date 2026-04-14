@@ -38,13 +38,14 @@ function Filter({ category, setCategory ,categoryId}) {
     setValue(value);
     setCategory(value);
    const segments = location.pathname.split("/").filter(Boolean);
-   console.log(segments)
+  //  console.log(segments)
     //  segments[segments.length - 1] = value;
-  navigate(`${PublicRoutes.GETPRODUCTBYCATEGORY}/${segments[1]}/${segments[2]}/${value}`,
+    const subcategory= options.find(option => option.value === value)?.label || '';
+  navigate(`${PublicRoutes.GETPRODUCTBYCATEGORY}/${segments[1]}/${segments[2]}/${subcategory}`,
         { state: { categoryId: categoryId } } 
 
   );
-console.log(segments)
+// console.log(segments)
   };
   return (
     <div className="border rounded-full px-5 py-4">
