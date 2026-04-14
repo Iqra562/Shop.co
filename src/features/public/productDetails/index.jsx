@@ -13,6 +13,7 @@ import { Alert } from "antd";
 import { AuthContext } from "../../../context/AuthContext";
 import AddToCart from "../../../components/common/CartComponent/AddToCart/index.jsx";
 import WishlistToggle from "../../../components/common/WishlistToggle/index.jsx";
+import ProductSwiper from "../../../components/common/ProductSwiper/index.jsx";
 
 function ProductDetails() {
   const { data: cartData } = useGetCart();
@@ -38,7 +39,10 @@ function ProductDetails() {
   //  const products = productsData.data
   const product = getProductDataById?.data?.data ?? [];
   console.log(product)
-  // console.log(findProductInCart);
+console.log(
+  ...(product?.galleryImages?.map(image => image.url) || []),
+  product?.thumbnail?.url
+);  // console.log(findProductInCart);
   const increaseQuantity = () => {
     setProductQuantity((prev) => (prev >= 15 ? prev : prev + 1));
   };
@@ -54,21 +58,23 @@ function ProductDetails() {
     <section className="container ">
       {contextHolder}
 
-      <div className="flex flex-col  md:flex-row pt-10">
-        <div className="w-full md:w-8/12 md:border-r-2 md:pr-2 lg:pr-20">
+      <div className="flex flex-col  md:flex-row pt-10 space-y-10 md:space-y-0">
+        <div className="w-full md:w-6/12 md:border-r-2 md:pr-2 lg:pr-20 xl:pr-32">
           <div className=" rounded-md overflow-hidden">
-            <img
-              src={product.thumbnail?.url}
+            {/* <img
+              src={product?.thumbnail?.url}
               className="w-full h-auto  "
               alt=""
-            />
+            /> */}
+            <ProductSwiper product={[ product?.thumbnail?.url, ...(product?.galleryImages?.map(image => image.url) || []),
+ ]} />
           </div>
         </div>
-        <div className="md:pl-8 pt-2 md:pt-0 space-y-4 md:space-y-14 w-full md:w-5/12">
+        <div className="md:pl-8 pt-2 md:pt-0 space-y-4 md:space-y-14 w-full md:w-6/12">
           <div className="space-y-4">
             <div className="flex justify-between items-center ">
               <h2 className="text-3xl font-bold capitalize text-paragraphDark">
-                {product.name}
+                {product?.name}
               </h2>
               <WishlistToggle productId={productId} />
             </div>
@@ -76,23 +82,23 @@ function ProductDetails() {
             <div className="flex flex-col-reverse items-start ">
               <div className="flex space-x-1 items-center">
                 <span
-                  className={`block  ${product.onsale ? "line-through text-red-600 text-sm md:text-base font-semibold " : "text-secondary  text-lg md:text-xl  font-bold"}`}
+                  className={`block  ${product?.onsale ? "line-through text-red-600 text-sm md:text-base font-semibold " : "text-secondary  text-lg md:text-2xl  font-bold"}`}
                 >
                   ${product.price}
                 </span>
-                {product.onsale && (
+                {product?.onsale && (
                   <span className="text-gray-500 text-xs font-semibold">
-                    -{product.discountPrice}%
+                    -{product?.discountPrice}%
                   </span>
                 )}{" "}
               </div>
               {product.onsale && (
                 <span
-                  className={`block text-secondary font-bold text-lg md:text-xl`}
+                  className={`block text-secondary font-bold text-lg md:text-2xl`}
                 >
                   $
-                  {product.price -
-                    (product.price * product.discountPrice) / 100}{" "}
+                  {product?.price -
+                    (product?.price * product?.discountPrice) / 100}{" "}
                   <span></span>
                 </span>
               )}
@@ -100,7 +106,7 @@ function ProductDetails() {
           </div>
           <div>
             <h3 className="text-base font-bold">Description:</h3>
-            <p className="text-gray-600 capitalize">{product.description}</p>
+            <p className="text-gray-600 capitalize">{product?.description}</p>
           </div>
           <div>
             <div className="flex space-x-4 items-center">
@@ -125,7 +131,7 @@ function ProductDetails() {
             {showMaxQuantityError && (
               <p className="text-red-500 text-sm mt-2">
                 Limit reached: The maximum quantity per product is 15. You
-                already have {findProductInCart.quantity} units in your cart.
+                already have {findProductInCart?.quantity} units in your cart.
               </p>
             )}
           </div>

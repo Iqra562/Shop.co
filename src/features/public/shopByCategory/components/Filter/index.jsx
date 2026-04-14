@@ -16,8 +16,8 @@ function Filter({ category, setCategory ,categoryId}) {
     queryFn: () => categoryServices.getSubCategories(category),
     enabled: !!category,
   });
-  console.log(subCategories, "sub");
-  console.log(category, "cat id");
+  // console.log(subCategories, "sub");
+  // console.log(category, "cat id");
   useEffect(() => {
     setValue(category);
   }, [category]);
@@ -34,7 +34,7 @@ function Filter({ category, setCategory ,categoryId}) {
     })) || []),
   ];
   const handleChange = (value) => {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
     setValue(value);
     setCategory(value);
    const segments = location.pathname.split("/").filter(Boolean);
