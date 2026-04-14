@@ -34,7 +34,7 @@ function Card({
             <div className="flex justify-between items-baseline ">
               <p className="font-bold text-xl md:text-2xl capitalize text-paragraphDark">
                 {productName}{" "}
-              </p>
+              </p> 
 
               <WishlistToggle productId={id} />
             </div>

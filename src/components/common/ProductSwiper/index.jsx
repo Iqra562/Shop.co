@@ -27,7 +27,10 @@ export default function ProductSwiper({product}) {
   return (
     <>
       <div>
-        <img src={imgRef} alt="" className="rounded-md h-[70vh]  xl:h-full w-full object-cover object-top"/>
+        <div className="h-[30rem]">
+
+        <img src={imgRef} alt="" className="rounded-md h-full  xl:h-full w-full object-cover object-top"/>
+        </div>
         <div className="grid grid-cols-3 md:grid-cols-5 gap-2 mt-4">
             {allImages?.map((image, index) => (  
                 <img    

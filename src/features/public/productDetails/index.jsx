@@ -35,14 +35,16 @@ function ProductDetails() {
   };
 
   const cart = cartData?.data?.data.items ?? [];
-  const findProductInCart = cart.find((item) => item.product?._id === productId);
+  const findProductInCart = cart.find(
+    (item) => item.product?._id === productId,
+  );
   //  const products = productsData.data
   const product = getProductDataById?.data?.data ?? [];
-  console.log(product)
-console.log(
-  ...(product?.galleryImages?.map(image => image.url) || []),
-  product?.thumbnail?.url
-);  // console.log(findProductInCart);
+  console.log(product);
+  console.log(
+    ...(product?.galleryImages?.map((image) => image.url) || []),
+    product?.thumbnail?.url,
+  ); // console.log(findProductInCart);
   const increaseQuantity = () => {
     setProductQuantity((prev) => (prev >= 15 ? prev : prev + 1));
   };
@@ -66,8 +68,12 @@ console.log(
               className="w-full h-auto  "
               alt=""
             /> */}
-            <ProductSwiper product={[ product?.thumbnail?.url, ...(product?.galleryImages?.map(image => image.url) || []),
- ]} />
+            <ProductSwiper
+              product={[
+                product?.thumbnail?.url,
+                ...(product?.galleryImages?.map((image) => image.url) || []),
+              ]}
+            />
           </div>
         </div>
         <div className="md:pl-8 pt-2 md:pt-0 space-y-4 md:space-y-14 w-full md:w-6/12">
@@ -82,7 +88,7 @@ console.log(
             <div className="flex flex-col-reverse items-start ">
               <div className="flex space-x-1 items-center">
                 <span
-                  className={`block  ${product?.onsale ? "line-through text-red-600 text-sm md:text-base font-semibold " : "text-secondary  text-lg md:text-2xl  font-bold"}`}
+                  className={`block  ${product?.onsale ? "line-through text-red-600 text-sm md:text-lg font-semibold " : "text-secondary  text-lg md:text-2xl  font-bold"}`}
                 >
                   ${product.price}
                 </span>
@@ -92,13 +98,13 @@ console.log(
                   </span>
                 )}{" "}
               </div>
-              {product.onsale && (
+              {product.onsale && ( 
                 <span
                   className={`block text-secondary font-bold text-lg md:text-2xl`}
                 >
                   $
                   {product?.price -
-                    (product?.price * product?.discountPrice) / 100}{" "}
+                    (product?.price * product?.discountPrice / 100).toFixed(2) }
                   <span></span>
                 </span>
               )}
