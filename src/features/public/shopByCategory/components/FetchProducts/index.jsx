@@ -5,11 +5,11 @@ import { useQuery } from "@tanstack/react-query";
 import { useGetProductsByCategory } from "../../../../../hooks/useProducts";
 import { useLocation } from "react-router-dom";
 
-function FetchProducts({categoryId}) {
+function FetchProducts({category}) {
 //   console.log(categoryId);
 
   return (
-    <ProductsCard useQueryHook={() => useGetProductsByCategory(categoryId)} />
+    <ProductsCard useQueryHook={() => useGetProductsByCategory(category)} />
   );
 }
 

@@ -46,7 +46,7 @@ function Card({
           <div className="flex flex-row justify-between space-y-2 md:space-y-0 ">
             <div className="flex items-center space-x-2">
              {
-                onsale && <span className={`block text-secondary font-bold text-lg`}>${ price - (price * discount / 100)}</span>
+                onsale && <span className={`block text-secondary font-bold text-lg`}>${ price - (price * discount / 100).toFixed(2)}</span>
               }
 
             <span className={`block  font-bold ${onsale ? 'line-through text-red-700 text-base':'text-secondary text-lg'}`}>

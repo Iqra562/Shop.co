@@ -2,7 +2,7 @@ import Card from "@components/common/Card";
 import ProductCardSkeleton from "../ProductCardSkeleton";
 import { FaBasketShopping } from "react-icons/fa6";
 
-function ProductsCard({onsale, limit,useQueryHook }) {
+function ProductsCard({limit,useQueryHook }) {
   const { data: productsData, isPending, error } = useQueryHook();
   const getProducts = productsData?.data?.data ?? [];
   const products = limit ? getProducts.slice(0, limit) : getProducts;

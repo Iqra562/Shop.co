@@ -8,12 +8,13 @@ import { useLocation } from "react-router-dom";
   const categoryId = location.state?.categoryId;
    useEffect(()=>{
  setCategory(categoryId)
+
    },[categoryId])
   return (
     <section className="container space-y-10 min-h-screen">
       <Banner />
-      {/* <Filter/> */}
-      <FetchProducts categoryId={category}/>{" "}
+      <Filter categoryId={categoryId} category={categoryId} setCategory={setCategory}/>
+      <FetchProducts category={category}/>{" "}
     </section>
   );
 }

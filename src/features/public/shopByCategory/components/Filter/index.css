@@ -23,10 +23,17 @@ color: #3f5a48 !important;
 .custom-dropdown  .ant-select-item-option-selected:hover{
 background: #55795f79 !important;
 }
-
+.ant-select-selector 
+.ant-select-prefix{
+  color: white !important;
+  text-transform: uppercase;
+  font-weight: 800 !important;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
 
 .ant-select-selection-item {
-    padding: 15px !important;
+    /* padding: 15px !important; */
   color: #fff !important;
 letter-spacing: 1px;
   text-transform: uppercase;

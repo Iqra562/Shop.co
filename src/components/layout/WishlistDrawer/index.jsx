@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Drawer } from "antd";
-import { FiHeart } from "react-icons/fi";
 import EmptyPageLayout from "../../common/EmptyPageLayout";
 import { PublicRoutes } from "@utils/util.constant";
 import { AuthContext } from "@context/AuthContext";
 import { TiArrowRight } from "react-icons/ti";
 import Wishlist from "../../../features/public/wishlist";
-
+ 
 function WishlistDrawer({ open, onClose }) {
   const { isAuthenticated } = useContext(AuthContext);
 
