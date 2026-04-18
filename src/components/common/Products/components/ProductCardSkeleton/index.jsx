@@ -2,7 +2,7 @@
 
     function ProductCardSkeleton(){
         return( 
-               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 w-full">
+               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
                    {Array.from({ length: 4 }).map((_, i) => (
 
           <div key={i} className="border border-gray-100 rounded-lg p-4 flex flex-col space-y-3 w-full">

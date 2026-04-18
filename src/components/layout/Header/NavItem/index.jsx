@@ -52,7 +52,7 @@ function NavItem() {
                         className={` ${index === subcategories.length - 1 ? "border-0 pb-0" : "lg:border-b pb-1"} py-1`}
                       >
                         <Link
-                          to={`${PublicRoutes.GETPRODUCTBYCATEGORY}/${item.name.toLowerCase()}/${subItem.name.toLowerCase()}`}
+                          to={`${PublicRoutes.GETPRODUCTBYCATEGORY}/${item.name.toLowerCase()}/${subItem.name.toLowerCase()}/all`}
                           state={{ categoryId: subItem._id }} 
                           className="block"
                         >

@@ -6,9 +6,9 @@ export const useGetProducts = ()=> useQuery({
     queryKey: ["products"], 
     queryFn: productServices.getProducts,
   });
-export const useGetProductsByCategory = (categoryId)=> useQuery({
-    queryKey: ["productsByCategory",categoryId], 
-    queryFn: ()=>categoryServices.getProductsByCategory(categoryId),
+export const useGetProductsByCategory = (categoryId,filters={})=> useQuery({
+    queryKey: ["productsByCategory",categoryId,filters], 
+    queryFn: ()=>categoryServices.getProductsByCategory(categoryId, filters),
       enabled: Boolean(categoryId),
 
   });
