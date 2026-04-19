@@ -10,6 +10,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 function Filter({ category, setCategory, categoryId }) {
   const [value, setValue] = useState(category);
+  const [sortingvalue, setSortingValue] = useState("default");
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -92,6 +93,7 @@ const handleOnSaleParam = () => {
 const handleChangeSorting = (value) => {
   const searchParams = new URLSearchParams(location.search);      
   searchParams.set("sortBy", value);  
+  setSortingValue(value);
    if (value === "default") {
       searchParams.delete("sortBy");  
    }
@@ -109,9 +111,13 @@ const handleChangeSorting = (value) => {
   );
 }
 
+useEffect(() => { 
+  setSortingValue(searchParams.get("sortBy") || "default");
+}, [location.search]);
+
   return (
     <div className="border rounded-xl  md:rounded-full px-5 py-4 flex flex-col md:flex-row space-y-2  md:items-center justify-between">
-      <div className="flex space-x-4 ">
+      <div className="flex flex-col md:flex-row md:space-x-4 space-y-3 md:space-y-0">
 
       <Select
         onChange={handleChange}
@@ -134,10 +140,10 @@ const handleChangeSorting = (value) => {
         // value={{ value, label: `collection: ${value}` }}
         popupClassName="custom-dropdown"
       />
-        {/* <Select
+        <Select
         defaultValue='default'
         onChange={handleChangeSorting}
-        // value={value}
+        value={sortingvalue}
         options={priceOptions}
         style={{ minWidth: 200 }}
         styles={{
@@ -155,16 +161,16 @@ const handleChangeSorting = (value) => {
         prefix="Sort by:"
         // value={{ value, label: `collection: ${value}` }}
         popupClassName="custom-dropdown"
-      /> */}
+      />
       </div>
 
  
 
-      <div className="flex space-x-2 md:justify-center  md:items-center">
+      <div className="flex space-x-2 md:justify-center  md:items-center ml-2 md:ml-0">
         <input
           type="checkbox"
           checked={isOnSale}
-          className="border border-gray-900 accent-[#55795f79]"
+          className="border border-gray-900 accent-[#55795f79] cursor-pointer w-3 h-3"
           onChange={handleOnSaleParam}
         />
         <span className="uppercase text-sm font-bold">On Sale</span>

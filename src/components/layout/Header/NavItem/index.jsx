@@ -67,20 +67,20 @@ function NavItem() {
             </li>
           ))}
           <li className="relative group cursor-pointer transition text-base font-semibold uppercase">
-            {/* <Link
-              // to={item.link}
+            <Link
+              to={PublicRoutes.PRODUCTS + "?type=onsale"}
               className={`transition after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px]  after:rounded-full after:transition-all after:duration-300 group-hover:after:w-full flex  items-center space-x-2 uppercase`}
-            > */}
+            >
               ON sale{" "}
-            {/* </Link> */}
+            </Link>
           </li>
           <li className="relative group cursor-pointer transition text-base font-semibold uppercase">
-            {/* <Link
-              // to={item.link}
+            <Link
+              to={PublicRoutes.PRODUCTS + "?type=newArrivals"}
               className={`transition after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px]  after:rounded-full after:transition-all after:duration-300 group-hover:after:w-full flex  items-center space-x-2 uppercase`}
-            > */}
+            >
               New arrivals{" "}
-            {/* </Link> */}
+            </Link>
           </li>
         </ul>
       </nav>

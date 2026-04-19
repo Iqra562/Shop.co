@@ -14,7 +14,7 @@ import { useGetProducts } from "@hooks/useProducts";
 import Card from "../../../../../components/common/Card";
 import Spiner from "../../../../../components/spiner";
 
-export function ProductCarousal({ limit }) {
+export function ProductCarousal({ limit =21 }) {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const { data: productsData, isPending, error } = useGetProducts();

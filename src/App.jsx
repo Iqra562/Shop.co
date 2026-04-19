@@ -16,6 +16,7 @@ import { Orders } from "./features/public/orders";
 import { AdminRoutes, PublicRoutes } from "./utils/util.constant";
 import AppRoutes from "./routes/AppRoutes";
 import { VerifyOTP } from "./features/auth/VerifyOTP";
+import ScrollToTop from "./components/common/ScrollToTop";
 
 export default function App() {
   const { isAuthenticated , user} = useContext(AuthContext);
@@ -33,7 +34,7 @@ export default function App() {
         <Route element={<DashboardLayout />}>
           <Route path={AdminRoutes.DASHBOARD} element={<Dashboard />} />
         </Route> */}
-
+        <ScrollToTop />
         <AppRoutes/>
         {!isAuthenticated && (
           <Routes>

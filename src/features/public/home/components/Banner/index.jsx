@@ -7,6 +7,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { productServices } from "../../../../../services/product.service";
 import { Link } from "react-router-dom";
 import { RatingCard } from "../RatingCard";
+import { PublicRoutes } from "../../../../../utils/util.constant";
 
 function Banner() {
   const {
@@ -33,12 +34,16 @@ function Banner() {
               something for every moment.{" "}
             </p>
             <div className="mt-10 flex flex-col space-y-4 lg:space-y-0 lg:flex-row lg:space-x-3">
+              <Link to={PublicRoutes.PRODUCTS }>
               <button className="bg-primary-button-gradient w-full lg:w-fit px-10 py-3 text-base font-bold text-white uppercase rounded-md">
                 Shop Now
               </button>
+              </Link>
+              <Link to={PublicRoutes.PRODUCTS  + "?type=newArrivals"}>
               <button className=" border-gradient  w-full lg:w-fit px-10 py-3 text-base font-bold text-secondary uppercase rounded-md">
                 View collections{" "}
               </button>
+              </Link>
             </div>
 
                               <RatingCard />

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { RatingCard } from "../RatingCard";
 import { ProductsCard } from "@components/common/Products";
 import { useGetSaleProducts } from "@hooks/useProducts";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 function ProductOnSale() {
   
@@ -17,8 +18,10 @@ function ProductOnSale() {
           <h2 className="text-2xl font-extrabold   mb-4 uppercase">
             On Sale
           </h2> 
-<Link to="/products?type=sale">
-            <span className="text-sm underline">View all </span>
+<Link to="/products?type=onsale">
+            <span className="text-sm  flex justify-center items-center space-x-2 font-semibold"><span>
+              View all</span>  <FaArrowRightLong />
+  </span>
           </Link>
         </div>
         <ProductsCard onsale={true} limit={4} useQueryHook={useGetSaleProducts}/>

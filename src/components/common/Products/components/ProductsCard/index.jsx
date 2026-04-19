@@ -11,7 +11,7 @@ function ProductsCard({limit,useQueryHook }) {
   }
     if (error || products.length === 0) {
     return (
-    <div className="w-full flex flex-col justify-center items-center pt-16 ">
+    <div className="w-full flex flex-col justify-center items-center md:pt-16 ">
   <FaBasketShopping className="text-9xl text-gray-300" />
 <h2 className="text-gray-300 text-2xl md:text-4xl font-bold  text-center">No products available right now.</h2></div>
     );

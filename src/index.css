@@ -77,6 +77,12 @@
     }
   }
 }
+
+::selection {
+  background: #314437;  
+  color: #fff;        
+}
+
 .ul-list {
   position: relative; /* needed so ::before positions relative to ul */
   list-style: none;   /* remove default bullets */

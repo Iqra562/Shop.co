@@ -14,13 +14,16 @@ import { AuthContext } from "../../../context/AuthContext";
 import AddToCart from "../../../components/common/CartComponent/AddToCart/index.jsx";
 import WishlistToggle from "../../../components/common/WishlistToggle/index.jsx";
 import ProductSwiper from "../../../components/common/ProductSwiper/index.jsx";
+import { get } from "react-hook-form";
+import DetailSkeleton from "./DetailSkeleton.jsx";
+import NotFoundDetail from "./NotFoundDetail.jsx";
 
 function ProductDetails() {
   const { data: cartData } = useGetCart();
   const { data: productsData, isPending, error } = useGetProducts();
   const [productQuantity, setProductQuantity] = useState(1);
   const { id: productId } = useParams();
-  const { data: getProductDataById } = useGetProductById(productId);
+  const { data: getProductDataById , isPending: getProductDataByIdPending ,isError : getProductDataByIdError } = useGetProductById(productId);
   const [api, contextHolder] = notification.useNotification();
   const [showMaxQuantityError, setShowMaxQuantityError] = useState(false);
   const { isAuthenticated } = useContext(AuthContext);
@@ -57,10 +60,16 @@ function ProductDetails() {
   }, [productId]);
 
   return (
-    <section className="container ">
+    <section className="container h-screen">
       {contextHolder}
-
-      <div className="flex flex-col  md:flex-row pt-10 space-y-10 md:space-y-0">
+  {
+    getProductDataByIdPending ? (
+      <DetailSkeleton/>
+    ):getProductDataByIdError ? (
+     <NotFoundDetail/>
+    ) : (
+      <>
+        <div className="flex flex-col  md:flex-row pt-10 space-y-10 md:space-y-0 ">
         <div className="w-full md:w-6/12 md:border-r-2 md:pr-2 lg:pr-20 xl:pr-32">
           <div className=" rounded-md overflow-hidden">
             {/* <img
@@ -161,6 +170,11 @@ function ProductDetails() {
           </div>
         </div>
       </div>
+      </>
+
+    )
+  }
+     
     </section>
   );
 }
