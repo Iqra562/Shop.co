@@ -121,7 +121,7 @@ useEffect(() => {
               Shop.co
             </span>
           </div>                </div>
- <NavItem className=""/>
+ <NavItem className="" toggleMenuClose={toggleMenuClose}/>
      
      </nav>
           </div>

@@ -15,16 +15,16 @@ import { BiUser } from "react-icons/bi";
 
 export const SubLayout = () => {
   return (
-    <div className="flex container min-h-[90vh] ">
-      <div className="w-2/12 border-r hidden lg:block pr-2 ">
-        <div className="  py-2 space-y-2 rounded-md">
-          <ul className="space-y-1" >
-            <li className="text-base capitalize font-semibold"><Link to={AuthenticatedUserRoutes.PROFILE}> profile </Link>  </li>
+    <div className="flex container min-h-[90vh]  ">
+      <div className="w-2/12 border-r hidden lg:block pr-2  ">
+        <div className="  py-2 space-y-2 rounded-md  min-h-96">
+          <ul className="space-y-2 min-h-96 pt-5" >
+            <li className="text-lg capitalize font-semibold"><Link to={AuthenticatedUserRoutes.PROFILE}> profile </Link>  </li>
  
-            <li className="text-base capitalize font-semibold"><Link to={AuthenticatedUserRoutes.ORDERS}>
+            <li className="text-lg capitalize font-semibold"><Link to={AuthenticatedUserRoutes.ORDERS}>
               Orders
             </Link></li>
-            <li className="text-base capitalize font-semibold "><Link to={AuthenticatedUserRoutes.WISHLIST}>  Wishlist </Link></li>
+            <li className="text-lg capitalize font-semibold "><Link to={AuthenticatedUserRoutes.WISHLIST}>  Wishlist </Link></li>
           </ul>
         </div>
       </div>

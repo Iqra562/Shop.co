@@ -10,7 +10,7 @@ const subItems = [
   { label: "Contact Us", link: "/" },
 ];
 
-function NavItem() {
+function NavItem({toggleMenuClose}) {
   const [activeCategory, setActiveCategory] = useState(null);
   const { data: getMainCategories, isPending: categoriesLoading } = useQuery({
     queryKey: ["main-category"],
@@ -49,7 +49,8 @@ function NavItem() {
                     {subcategories.map((subItem, index) => (
                       <li
                         key={index}
-                        className={` ${index === subcategories.length - 1 ? "border-0 pb-0" : "lg:border-b pb-1"} py-1`}
+                        className={`${index === subcategories.length - 1 ? "border-0 pb-0" : "lg:border-b pb-1"} py-1`}
+                        onClick={toggleMenuClose}
                       >
                         <Link
                           to={`${PublicRoutes.GETPRODUCTBYCATEGORY}/${item.name.toLowerCase()}/${subItem.name.toLowerCase()}/all`}
@@ -66,7 +67,8 @@ function NavItem() {
               )}
             </li>
           ))}
-          <li className="relative group cursor-pointer transition text-base font-semibold uppercase">
+          <li className="relative group cursor-pointer transition text-base font-semibold uppercase"                         onClick={toggleMenuClose}
+>
             <Link
               to={PublicRoutes.PRODUCTS + "?type=onsale"}
               className={`transition after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px]  after:rounded-full after:transition-all after:duration-300 group-hover:after:w-full flex  items-center space-x-2 uppercase`}
@@ -74,7 +76,8 @@ function NavItem() {
               ON sale{" "}
             </Link>
           </li>
-          <li className="relative group cursor-pointer transition text-base font-semibold uppercase">
+          <li className="relative group cursor-pointer transition text-base font-semibold uppercase"                         onClick={toggleMenuClose}
+>
             <Link
               to={PublicRoutes.PRODUCTS + "?type=newArrivals"}
               className={`transition after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px]  after:rounded-full after:transition-all after:duration-300 group-hover:after:w-full flex  items-center space-x-2 uppercase`}

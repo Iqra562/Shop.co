@@ -7,10 +7,11 @@ import { useMutation } from "@tanstack/react-query";
 import { orderServices } from "../../../services/order.service";
 import { Spin, notification } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
+import GetUserAddress from "./GetUserAddress";
 
 function OrderSummary() {
   const { isAuthenticated } = useContext(AuthContext);
-  const { products, setProducts } = useContext(OrderContext);
+  const { products, setProducts,address } = useContext(OrderContext);
   const [subTotal, setSubTotal] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
   const [total, setTotal] = useState(0);
@@ -58,7 +59,12 @@ function OrderSummary() {
     });
   const createOrderHandler = () => {
     // console.log(products,'1244');
-    createOrderRequest({ itemDetails: products });
+     if(!address){
+      openNotificationWithIcon("error", "Please select a shipping address!");
+      return;
+     }
+
+    createOrderRequest({ itemDetails: products, shippingAddress: address } );
   };
   
 if(!products.length){
@@ -90,7 +96,8 @@ if(!products.length){
             </div>
           ) : (
             <div className="flex flex-col md:flex-row pt-3">
-              <div className="w-full md:w-8/12 border-b-2 pb-10 mb-10 md:border-b-0 md:border-r-2 md:pr-4 lg:pr-5 xl:pr-20  space-y-4 md:min-h-80 ">
+              <div className="w-full md:w-8/12 border-b-2 pb-10 mb-10 md:border-b-0 md:border-r-2 md:pr-4 lg:pr-5 xl:pr-20  space-y-4 md:min-h-screen ">
+              <GetUserAddress/>
                 {products.map((item, i) => (
                   <div
                     key={i}
@@ -190,7 +197,7 @@ if(!products.length){
           )}
         </div>
       ) : (
-        <div className="max-h-screen flex flex-col items-center justify-center">
+        <div className="max-h-screen flex flex-col items-center justify-center ">
           <div className="   bg-gray-50 px-20 py-10 rounded-lg">
             <h1 className="text-3xl font-bold text-center">
               You are not loggedin

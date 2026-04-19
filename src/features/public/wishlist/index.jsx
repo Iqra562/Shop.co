@@ -15,7 +15,7 @@ function Wishlist({ isSidebar, onClose }) {
   console.log(getUserWishlistData,'data')
   return (
     <div
-      className={`w-full  p-0 ${isSidebar ? "px-0 space-y-3 h-full " : "px-3 space-y-10 "} `}
+      className={`w-full  p-0 ${isSidebar ? "px-0 space-y-3 h-full " : "md:px-3 space-y-10 "} `}
     >
        
       {isAuthenticated ? (

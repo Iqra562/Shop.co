@@ -3,11 +3,11 @@ import { userServices } from "../services/user.service";
 import {  useQueryClient } from "@tanstack/react-query";
 
 export const useFetchUserData = () => {
-  const { data: getUserData } = useQuery({
+  const { data: getUserData, isLoading: getUserDataLoading } = useQuery({
     queryKey: ["userProfile"],
     queryFn: userServices.currentUser,
   });
-  return { getUserData: getUserData?.data?.data }
+  return { getUserData: getUserData?.data?.data, getUserDataLoading }
 }
 
 

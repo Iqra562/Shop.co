@@ -65,7 +65,7 @@ function WishlistDrawer({ open, onClose }) {
             btnIcon={TiArrowRight}
           />
         )} */}
-        <div className="h-full">
+        <div className="h-full ">
         <Wishlist isSidebar={true} onClose={onClose}/>
 
         </div>

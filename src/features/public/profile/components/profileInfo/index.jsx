@@ -4,13 +4,19 @@ import { AuthenticatedUserRoutes } from "@utils/util.constant.js";
 import { useFetchUserData } from "@hooks/useUser.js";
 import { AuthContext } from "@context/AuthContext";
 import { useContext } from "react";
+import LoadingComponent from "./LoadingComponent";
 
 function ProfileInfo() {
-  const { getUserData } = useFetchUserData();
-
+  const { getUserData,getUserDataLoading } = useFetchUserData();
+ 
   // console.log(getUserData);
   return (
-    <div className="rounded-2xl shadow overflow-hidden">
+
+    
+      getUserDataLoading? (
+  <LoadingComponent />
+      ):(
+         <div className="rounded-2xl shadow overflow-hidden">
       <div className=" p-6 text-black ">
         <div className="flex items-center gap-4">
           <div  
@@ -35,6 +41,9 @@ function ProfileInfo() {
         </div>
       </div>
     </div>
+      )
+    
+   
   );
 }
 export default ProfileInfo;

@@ -6,11 +6,12 @@ import { BiSolidMap } from "react-icons/bi";
 import { useState } from "react";
 import Modal from "@components/common/Modal";
 import { useQueryClient } from "@tanstack/react-query";
+import LoadingComponent from "./LoadingComponent";
 
 function AddressBook() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const queryClient = useQueryClient();
-  const { getUserData } = useFetchUserData();
+  const { getUserData, getUserDataLoading } = useFetchUserData();
   const address = getUserData?.address ?? [];
   const [addressId, setAddressId] = useState(null);
   const { deleteAddress, deleteAddressLoading } = useDeleteAddressMutation({
@@ -54,12 +55,13 @@ function AddressBook() {
             </button>
           </Link>
         </div>
-
-        {address?.length === 0 ? (
+        { getUserDataLoading ? (
+          <LoadingComponent />
+        ) : address?.length === 0 ? (
           <div className="flex justify-center items-center  h-40 ">
             <p className="text-gray-400 text-xl">No Address provided</p>
           </div>
-        ) : (
+        )  :  (
           <div className="grid-cols-1 md:grid-cols-2 space-y-8">
             <div className="grid grid-cols-2 gap-6">
               {address?.map((data, index) => (

@@ -23,7 +23,7 @@ function WishlistCard({ isSidebar, onClose,data:getUserWishlistData }) {
       >
         {getUserWishlistData?.map((product, index) => {
           return (
-            <>
+            <> 
             <div
               key={index}
               className={`md:h-36 px-4 py-4  flex items-start space-x-2 md:space-x-3 border-slate-100 border shadow-sm shadow-slate-200 rounded-lg  w-full cursor-pointer bg-white`}
@@ -36,7 +36,7 @@ function WishlistCard({ isSidebar, onClose,data:getUserWishlistData }) {
                     <img
                       src={product.thumbnail.url}
                       alt=""
-                      className={` w-full h-20 md:h-full object-cover object-top `}
+                      className={` ${isSidebar ? "w-full h-full" : "w-full  h-28 md:h-full"} object-cover object-top `}
                     />
                   </Link>
                 </div>
@@ -44,9 +44,9 @@ function WishlistCard({ isSidebar, onClose,data:getUserWishlistData }) {
                 <div
                   className={`${isSidebar ? "pl-3" : "pl-2 md:pl-8 "} w-full flex flex-col justify-between `}
                 >
-                  <div className="flex justify-between  w-full items-center">
+                  <div className="flex justify-between  w-full items-start">
                     <h2
-                      className={`${isSidebar ? "text-xl" : "text-2xl"}  font-bold`}
+                      className={`${isSidebar ? "text-sm md:text-lg" : "text-base md:text-2xl"}  font-bold`}
                     >
                       {product.name}{" "}
                     </h2>
@@ -54,7 +54,7 @@ function WishlistCard({ isSidebar, onClose,data:getUserWishlistData }) {
                       disabled={deleteWishlistProductPending}
                       onClick={() => removeFromWishlistHandler(product._id)}
                     >
-                      <RxCross2 className="text-red-800 text-xl" />
+                      <RxCross2 className="text-red-800 md:text-xl ml-4" />
                     </button>
                   </div>
                   <div className="flex justify-between">
@@ -82,7 +82,7 @@ function WishlistCard({ isSidebar, onClose,data:getUserWishlistData }) {
         })}
       </div>
       {isSidebar && (
-        <div className="pt-2">
+        <div className="pt-2  pb-5">
           <Link to={AuthenticatedUserRoutes.WISHLIST} className=" ">
             <button
               onClick={onClose}

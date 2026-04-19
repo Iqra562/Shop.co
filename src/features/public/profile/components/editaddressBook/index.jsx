@@ -1,14 +1,15 @@
 import { useForm } from "react-hook-form";
 import {
   useFetchUserData,
-  useAddUserAddress,
+  useAddUserAddress, 
   useUpdateAddressMutation,
 } from "@hooks/useUser.js";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin, notification } from "antd";
-function EditAddressBook() {
+import { useQueryClient } from "@tanstack/react-query";
+function EditAddressBook({ noRedirection }) {
   const { getUserData } = useFetchUserData();
   const { id: addressId } = useParams();
   const { addUserAddress, addAddressLoading } = useAddUserAddress();
@@ -17,7 +18,7 @@ function EditAddressBook() {
   const [editMode, setEditMode] = useState(false);
   const [api, contextHolder] = notification.useNotification();
   const navigate = useNavigate();
-
+  const queryClient = useQueryClient();
   const openNotificationWithIcon = (type, message) => {
     api[type]({
       description: message,
@@ -68,7 +69,7 @@ function EditAddressBook() {
           navigate("/profile");
         },
         onError: () => {
-          openNotificationWithIcon(
+          openNotificationWithIcon( 
             "error",
             "Something went wrong!, Please try again",
           );
@@ -81,7 +82,12 @@ function EditAddressBook() {
             "success",
             "Address added to adress book successfuly !",
           );
-          navigate("/profile ");
+ 
+         setTimeout(() => { 
+           queryClient.invalidateQueries({ queryKey: ["userProfile"] });
+         }, 1000);
+
+    if (!noRedirection) navigate("/profile");
         },
         onError: (err) => {
           openNotificationWithIcon(
@@ -117,10 +123,27 @@ function EditAddressBook() {
                 type="text"
                 className="block border w-full rounded-md py-[7px] px-[11px] outline-none bg-gray-50 "
                 placeholder="Enter Full Name"
-                {...register("fullName", { required: true })}
+                {...register("fullName", {
+                  required: true,
+                  pattern: {
+                    value: /^[A-Za-z\s]+$/,
+                    message: "Only letters are allowed",
+                  },
+                  minLength: {
+                    value: 3,
+                    message: "Minimum 3 characters required",
+                  },
+                  maxLength: {
+                    value: 30,
+                    message: "Maximum 30 characters allowed",
+                  },
+                })}
               />
               {errors.fullName && (
-                <p className="text-red-600 text-sm">Name is required</p>
+                <p className="text-red-600 text-sm">
+                  {" "}
+                  {errors.fullName.message || "Name is required"}
+                </p>
               )}
             </div>
 
@@ -163,6 +186,18 @@ function EditAddressBook() {
                 placeholder="Enter City"
                 {...register("city", {
                   required: "Please provide city",
+                  pattern: {
+                    value: /^[A-Za-z\s]+$/,
+                    message: "Only letters are allowed",
+                  },
+                  minLength: {
+                    value: 2,
+                    message: "City must be at least 2 characters",
+                  },
+                  maxLength: {
+                    value: 20,
+                    message: "City must be at most 20 characters",
+                  },
                 })}
               />
               {errors.city && (
@@ -179,6 +214,18 @@ function EditAddressBook() {
                 placeholder="Enter State"
                 {...register("state", {
                   required: "Please provide state",
+                  pattern: {
+                    value: /^[A-Za-z\s]+$/,
+                    message: "Only letters are allowed",
+                  },
+                  minLength: {
+                    value: 2,
+                    message: "State must be at least 2 characters",
+                  },
+                  maxLength: {
+                    value: 25,
+                    message: "State must be at most 25 characters",
+                  },
                 })}
               />
               {errors.state && (
@@ -195,6 +242,18 @@ function EditAddressBook() {
                 placeholder="Enter Street"
                 {...register("street", {
                   required: "Please provide street",
+                  pattern: {
+                    value: /^[A-Za-z0-9\s,.-]+$/,
+                    message: "Invalid street format",
+                  },
+                  minLength: {
+                    value: 5,
+                    message: "Street must be at least 5 characters",
+                  },
+                  maxLength: {
+                    value: 50,
+                    message: "Street must be at most 50 characters",
+                  },
                 })}
               />
               {errors.street && (
@@ -210,7 +269,19 @@ function EditAddressBook() {
                 className="block border w-full rounded-md py-[7px] px-[11px] outline-none bg-gray-50"
                 placeholder="Enter Postal Code"
                 {...register("postalCode", {
-                  required: "Please provide street",
+                  required: "Please provide postal code",
+                  pattern: {
+                    value: /^[0-9]+$/,
+                    message: "Only numbers are allowed",
+                  },
+                  minLength: {
+                    value: 5,
+                    message: "Postal code must be 5 digits",
+                  },
+                  maxLength: {
+                    value: 5,
+                    message: "Postal code must be 5 digits",
+                  },
                 })}
               />
               {errors.postalCode && (

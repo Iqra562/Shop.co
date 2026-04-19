@@ -30,7 +30,7 @@ function DesktopHeader({
   const [atTop, setAtTop] = useState(true);
   const [cartOpen, setCartOpen] = useState(false);
   const [wishlistOpen, setWishlistOpen] = useState(false);
-
+  const [open, setOpen] = useState(false);
   const openCart = () => setCartOpen(true);
   const openWishlist = () => setWishlistOpen(true);
 
@@ -154,8 +154,11 @@ function DesktopHeader({
               <div className="flex">
                 <Dropdown
                   trigger={["click"]}
+                    open={open}
+  onOpenChange={(flag) => setOpen(flag)}
                   popupRender={() => (
-                    <div className="p-4 w-64 bg-white shadow-lg rounded-lg border">
+                    <div className="p-4 w-64 bg-white shadow-lg rounded-lg border"   onClick={() => setOpen(false)} 
+>
                       <div className="flex items-center space-x-2 border-b pb-3">
                         <div className="border-2 border-gray-200 rounded-full h-8 w-8 flex justify-center items-center">
                           <FaUser className="cursor-pointer text-lg" />
