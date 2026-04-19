@@ -60,7 +60,7 @@ function ProductDetails() {
   }, [productId]);
 
   return (
-    <section className="container h-screen">
+    <section className="container min-h-screen">
       {contextHolder}
   {
     getProductDataByIdPending ? (
@@ -87,8 +87,8 @@ function ProductDetails() {
         </div>
         <div className="md:pl-8 pt-2 md:pt-0 space-y-4 md:space-y-14 w-full md:w-6/12">
           <div className="space-y-4">
-            <div className="flex justify-between items-center ">
-              <h2 className="text-3xl font-bold capitalize text-paragraphDark">
+            <div className="flex justify-between items-baseline ">
+              <h2 className="text-2xl md:text-3xl font-bold capitalize text-paragraphDark">
                 {product?.name}
               </h2>
               <WishlistToggle productId={productId} />

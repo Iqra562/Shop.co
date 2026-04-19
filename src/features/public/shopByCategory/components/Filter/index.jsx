@@ -166,7 +166,7 @@ useEffect(() => {
 
  
 
-      <div className="flex space-x-2 md:justify-center  md:items-center ml-2 md:ml-0">
+      <div className="flex space-x-2 md:justify-center  items-center ml-2 md:ml-0">
         <input
           type="checkbox"
           checked={isOnSale}
