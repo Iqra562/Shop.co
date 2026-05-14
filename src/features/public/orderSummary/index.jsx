@@ -50,7 +50,7 @@ function OrderSummary() {
       navigate("/orders", { replace: true });
           setProducts([]);
 
-        }, 1000);
+        }, 2000);
       },
 
       onError: (err) => {
@@ -187,7 +187,7 @@ if(!products.length){
                           spinning={createOrderLoader}
                         />
                       ) : (
-                        "Proceed To Pay"
+                        "Place Order"
                       )}
                     </button>
                   </div>

@@ -10,6 +10,7 @@ export const  PublicRoutes = {
 export const AuthenticatedUserRoutes = {
   CART:'/cart',
   ORDERS:'/orders',
+  ORDERDETAIL:'/order-detail',
   ORDERSUMMARY:'/order-summary',
   WISHLIST:'/wishlist',
   ADDRESSBOOK:'/addressbook',

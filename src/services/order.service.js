@@ -12,6 +12,10 @@ const getOrdersById = ()=>{
     const response = ApiService.get(`${orderServiceUrl.order}/get-order-by-id`);
     return response;
 }
+const getOrderById = (id)=>{
+    const response = ApiService.get(`${orderServiceUrl.order}/get-single-order/${id}`);
+    return response;
+}
 
 const createOrder = (payload)=>{
     const response = ApiService.post(`${orderServiceUrl.order}/create-order`,payload);
@@ -20,5 +24,6 @@ const createOrder = (payload)=>{
 export const  orderServices = {
     getOrders,
     getOrdersById,
-    createOrder
+    createOrder,
+    getOrderById
 }

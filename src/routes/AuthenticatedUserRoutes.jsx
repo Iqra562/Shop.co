@@ -13,6 +13,7 @@ import Wishlist from "../features/public/wishlist";
 import EditAddressBook from "../features/public/profile/components/editaddressBook";
 import EditProfileInfo from "../features/public/profile/components/editProfileInfo";
 import AddEditProduct from "../features/admin/products/AddEditProduct";
+import OrderDetail from "../features/public/orderDetail";
 const  AuthenticatedRoutesWrapper =()=>{
 const {isAuthenticated} = useContext(AuthContext);
       if (!isAuthenticated) {
@@ -39,6 +40,7 @@ function AuthenticatedUserRoutesApp(){
                       <Route path={AuthenticatedUserRoutes.EDITPROFILE} element={<EditProfileInfo/>} />
                       <Route path={AuthenticatedUserRoutes.PRODUCT_ADD} element={<AddEditProduct/>} />
                       <Route path={AuthenticatedUserRoutes.PRODUCT_EDIT} element={<AddEditProduct/>} />
+                      <Route path={`${AuthenticatedUserRoutes.ORDERDETAIL}/:id`} element={<OrderDetail/>} />
                       </Route>
                     </Route>
         </Route>

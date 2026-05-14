@@ -2,8 +2,13 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import img1 from "../../../assets/images/img.jpg";
 import { orderServices } from "../../../services/order.service.js";
 import { Button, notification, Space } from "antd";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { AuthenticatedUserRoutes } from "../../../utils/util.constant.js";
 
 function Orders() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [orderDetail, setOrderDetail] = useState(null);
   const [api, contextHolder] = notification.useNotification();
   const {
     data: userOrder,
@@ -13,13 +18,16 @@ function Orders() {
     queryKey: ["userOrders"],
     queryFn: orderServices.getOrdersById,
   });
-  //   console.log(userOrder?.data?.data)
   const userOrderData = userOrder?.data?.data || [];
-
+   const handleOpenModal = () => {
+    setIsOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  };
   return (
     <section className="md:container space-y-10 min-h-screen">
       {contextHolder}
- 
       <div className="border-b py-4 ">
         <h1 className="text-2xl text-primary font-bold uppercase">My Orders</h1>
       </div>
@@ -32,7 +40,8 @@ function Orders() {
                 <div className="font-bold">#{orderItem._id}</div>
                 <div className=" w-full flex md:justify-end">
                   <div className="border border-green-400 text-green-900 font-bold bg-green-100 rounded-xl px-6 inline ">
-                     {orderItem.paymentStatus}
+                    {/* {orderItem.paymentStatus} */}
+                    <button> <Link to={`${AuthenticatedUserRoutes.ORDERDETAIL}/${orderItem._id}`}> Get details </Link></button>{" "}
                   </div>
                 </div>
               </div>
@@ -47,9 +56,15 @@ function Orders() {
                       />
                     </div>
                     <div className=" grid grid-cols-2 md:grid-cols-3 w-full">
-                      <h6 className="col-span-2 mb-4 font-semibold text-sm  md:text-base">{eachOrderData.productName}</h6>
-                      <span className="text-secondary font-bold text-sm md:text-base    ">${eachOrderData.price}</span>
-                      <span className="font-bold text-primary text-sm md:text-base">Qty:{eachOrderData.quantity}</span>
+                      <h6 className="col-span-2 mb-4 font-semibold text-sm  md:text-base">
+                        {eachOrderData.productName}
+                      </h6>
+                      <span className="text-secondary font-bold text-sm md:text-base    ">
+                        ${eachOrderData.price}
+                      </span>
+                      <span className="font-bold text-primary text-sm md:text-base">
+                        Qty:{eachOrderData.quantity}
+                      </span>
                     </div>
                   </div>
                 </div>
